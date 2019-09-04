@@ -31,24 +31,24 @@
 ## Routes accessibles uniquement administrateur
 | URL | Méthode HTTP | Controller | Méthode | Titre | Contenu | Commentaire |
 |--|--|--|--|--|--|--|
-|`/backend/tag/`|GET|Backend\TagController|tagShow|Liste des tags|Liste de tous les tags|--|
+|`/backend/tag/`|GET|Backend\TagController|tagList|Liste des tags|Liste de tous les tags|--|
 |`/backend/tag/edit/{id}/`|POST|Backend\TagController|tagEdit|Edition du tag|Formulaire d'édition d'un tag|Formulaire pour modifier un tag (son titre par exemple)|
 |`/backend/tag/new/`|POST|Backend\TagController|tagNew|Création d'un tag|Formulaire création d'un tag|Formulaire |
 |`/backend/tag/delete/{id}`|POST|Backend\TagController|tagDelete|Suppression d'un tag|Formulaire suppression d'un tag|Formulaire |
-|`/backend/user/`|GET|Backend\UserController|userShow|Liste de tous les utilisateurs|leur nom, leur rôle, la date de création du profil ? |--|
+|`/backend/user/`|GET|Backend\UserController|userList|Liste de tous les utilisateurs|leur nom, leur rôle, la date de création du profil ? |--|
 |`/backend/user/{id}/`|GET|Backend\UserController|userDetail|Consultation du profil d'un utilisateur|Avec notamment son role, son email|--|
 |`/backend/user/block/{id}/`|GET|Backend\UserController|userBlock|Bloquer un user |--|
 |`/backend/user/edit/{id}/`|POST|Backend\UserController|userEdit|Editer profil d'un utilisateur|Page pour éditer un profil|changer son role par exemple, formulaire|
 |`/backend/user/delete/{id}/`|POST|Backend\UserController|userDelete|Supprimer profil d'un utilisateur|Page pour supprimer un profil|changer son role par exemple, formulaire|
-|`/backend/annonce/`|GET|Backend\AdController|adShow|Liste de toutes les annonces| le titre, le créateur de l'annonce, la date de création et le nombre de réponse|--|
-|`/backend/annonce/{id}/`|GET|Backend\AdController|adDetail|Consultation d'une annonce d'un utilisateur|le titre, le contenu, le créateur de l'annonce, la date de création et toutes les réponses|--|
-|`/backend/annonce/edit/{id}/`|POST|Backend\AdController|adEdit|Edition d'une annonce|Page pour éditer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
-|`/backend/annonce/delete/{id}/`|POST|Backend\AdController|adDelete|Suppression d'une annonce|Page pour supprimer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
+|`/backend/`|GET|Backend\PostController|adList|Liste de toutes les annonces| le titre, le créateur de l'annonce, la date de création et le nombre de réponse|--|
+|`/backend/annonce/{id}/`|GET|Backend\PostController|adDetail|Consultation d'une annonce d'un utilisateur|le titre, le contenu, le créateur de l'annonce, la date de création et toutes les réponses|--|
+|`/backend/annonce/edit/{id}/`|POST|Backend\PostController|adEdit|Edition d'une annonce|Page pour éditer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
+|`/backend/annonce/delete/{id}/`|POST|Backend\PostController|adDelete|Suppression d'une annonce|Page pour supprimer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
 |`/backend/comment/block/{id}/`|GET|Backend\CommentController|commentBlock|Bloquer un commentaire |--|
 |`/backend/comment/block/{id}/`|GET|Backend\PostController|annonceBlock|Bloquer une annonce |--|
 |`/backend/comment/delete/{id}/`|GET|Backend\CommentController|commentDelete|Suppression commentaire utilisateur|Suppression d'un commentaire utilisateur |--|
 |`/backend/advice-post/`|GET|Backend\PostController|advicepostList|Liste de tous les articles| le titre, le détail, la date de création et de modification|--|
 |`/backend/advice-post/new/`|POST|Backend\PostController|advicepostNew|Creation articles|Page creation d'article|formulaire de création d'article|
-|`backend/advice-post/{id}/`|GET|Backend\AdvicePostController|advicePostShow|Détail d'un article| Un article en entier|--|
-|`backend/advice-post/edit/{id}/`|POST|Backend\AdvicePostController|advicePostEdit|Edition d'un article|Edition d'un article|Formulaire|
-|`backend/advice-post/delete/{id}/`|POST|Backend\AdvicePostController|advicePostDelete|Suppression d'un article|Suppression d'un article|Formulaire|
+|`backend/advice-post/{id}/`|GET|Backend\PostController|advicePostShow|Détail d'un article| Un article en entier|--|
+|`backend/advice-post/edit/{id}/`|POST|Backend\PostController|advicePostEdit|Edition d'un article|Edition d'un article|Formulaire|
+|`backend/advice-post/delete/{id}/`|POST|Backend\PostController|advicePostDelete|Suppression d'un article|Suppression d'un article|Formulaire|

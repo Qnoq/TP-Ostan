@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Welcome!
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}"> {% block stylesheets %}{% endblock %}
+        </head>
+        <body>
+            {% block header %}
+                <div class="header">
+                    <h1 class='title'>
+                        O'Stan
+                    </h1>
+
+
+                    <div class='justify-content-end d-flex'>
+                        <a class="nav-link" href="{{path('backend_adList')}}">admin</a>
+
+
+                        <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+
+
+                        <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+
+                    </div>
+
+
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('advice_post')}}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Le concept</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                        <ul class="navbar-nav mx-auto">
+
+                            <li class="nav-item mr-5">
+                                <a class="nav-link" href="{{path('backend_adList')}}">Annonces</a>
+                            </li>
+                            <li class="nav-item mr-5">
+                                <a class="nav-link mr-5" href="{{path('backend_userList')}}">Utilisateurs</a>
+                            </li>
+                            <li class="nav-item mr-5">
+                                <a class="nav-link" href="{{path('backend_tagList')}}">Tags</a>
+                            </li>
+                            <li class="nav-item mr-5">
+                                <a class="nav-link" href="{{path('backend_advicePostList')}}">Articles</a>
+                            </li>
+                            <li class="nav-item mr-5">
+                                <a class="nav-link" href="#">Validation éditeur</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            {% endblock %}
+            {% block content %}{% endblock %}
+
+
+            {% block footer %}
+                <footer>
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="navbar-collapse justify-content-center" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item mr-5">
+                                    <a class="nav-link" href="#">Plan du site</a>
+                                </li>
+                                <li class="nav-item mr-5">
+                                    <a class="nav-link" href="{{path('mentions_legales')}}">Mentions légales</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </nav>
+                </footer>
+
+            {% endblock %}
+
+
+            {% block javascripts %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>{% endblock %}
+        </body>
+    </html>
