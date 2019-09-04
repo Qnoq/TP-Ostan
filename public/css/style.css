@@ -39,7 +39,60 @@ body{
     margin:auto;
 }
 
+
+
+
+
+/* PLAN DU SITE*/
+
+#sitemap2 ul.tree li {
+    margin: 0 0 0 2px;
+    padding: 5px 0 0 22px;
+    border-left: 1px solid black;
+}
+
+#sitemap2 ul.tree li a {
+    color: black;
+    text-decoration: none;
+}
+
+#sitemap ul.tree li {
+    margin: 0 0 0 2px;
+    padding: 5px 0 0 22px;
+    border-left: 1px solid black;
+}
+
+#sitemap ul.tree li a{
+    color: black;
+    text-decoration: none;
+}
+
+
+#sitemap1 ul.tree li {
+    margin: 0 0 0 2px;
+    padding: 5px 0 0 22px;
+    border-left: 1px solid black;
+    display: list-item;
+   
+}
+  
+
+#sitemap1 ul.tree li a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.title-card {
+    position:relative;
+    bottom: 50px;
+    background-color:white;
+}
+
+
+
 footer {
     margin-top: auto;
 }
+
 
