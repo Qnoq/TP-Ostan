@@ -1,4 +1,47 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} {{ advicePost.title }}{% endblock %}
+
 {% block content %}
-<h1>rien mais ça marche</h1>{% endblock %}
+
+
+
+    <article class="mx-5 my-5 pt-3 px-3 border border-dark">
+
+        <div class="title-card border border-dark text-center py-2 mx-5">
+            <h2 class="font-weight-bold">{{ advicePost.title }}</h2>
+        </div>
+
+        <div class="metadata mb-3 font-italic text-center">
+            <span>Ecrit le {{ advicePost.createdAt | date('d/m/Y à H:i') }}</span>
+        </div>
+
+        <div class="">
+            <div>
+                <p class="mt-5 px-3">
+                        {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                        {{ advicePost.description }}
+                </p>
+            </div>
+        </div>
+
+        <div class ="my-5 d-flex justify-content-around">
+            {# Exemple emplacement des images #}
+
+            {# Picture 1 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/140x140" alt="">
+
+            {# Picture 2 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/140x140" alt="">
+
+            {# Picture 3 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/140x140" alt="">
+            
+        </div>
+
+    </article>
+
+    <a href="{{ path('advice_post')}}">Revenir à la liste des articles conseils</a>
+
+
+{% endblock %}
