@@ -30,6 +30,7 @@
 
 
 
+
 /* PLAN DU SITE*/
 
 #sitemap2 ul.tree li {
@@ -68,3 +69,12 @@
     color: black;
     text-decoration: none;
 }
+
+
+.title-card {
+    position:relative;
+    bottom: 50px;
+    background-color:white;
+}
+
+

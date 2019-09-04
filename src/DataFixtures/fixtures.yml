@@ -39,8 +39,6 @@ App\Entity\Comment:
     post: "@post*"
     user: "@user*"
 
-
-
 App\Entity\Status:
   status{1..3}:
     label: "<word()>"
