@@ -1,0 +1,51 @@
+App\Entity\Tag:
+  tag{1..10}:
+    name: "<word()>"
+
+App\Entity\User:
+  user{1..40}:
+    username: "<userName()>"
+    firstname: "<firstName()>"
+    lastname: "<lastName()>"
+    email: "<safeEmail()>"
+    password: "<password()>"
+    birthdate: "<date_create()>"
+    companyname: "<company()>"
+    role: "@role*"
+    address: "<address()>"
+    description: <realText(200)>
+    phonenumber: <randomNumber()>
+    status: "@status*"
+    tags: "2x @tag*"
+    jobs: "2x @job*"
+
+App\Entity\Role:
+  role{1..2}:
+    name: "<word()>"
+    code: "<word()>"
+
+App\Entity\Post:
+  annonce{1..35}:
+    title: "<sentence()>"
+    description: <realText(500)>
+    user: "@user*"
+    tags: "3x @tag*"
+
+App\Entity\Comment:
+  comment{1..45}:
+    description: "<realText()>"
+    status: "@status*"
+    ad: "@annonce*"
+    user: "@user*"
+
+
+
+App\Entity\Status:
+  status{1..3}:
+    label: "<word()>"
+    code: "<word()>"
+
+App\Entity\Job:
+  job{1..3}:
+    name: "<word()>"
+

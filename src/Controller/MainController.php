@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Message;
+use App\Form\ContactType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+
+
+
+class MainController extends AbstractController
+{
+   
+
+     /**
+     * @Route("/mentions-legales", name="mentions_legales")
+     */
+    public function legalMentions()
+    {
+        return $this->render('main/cgu.html.twig', [
+        ]);
+    }
+
+      /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request)
+    {
+        $message = new Message();
+
+            $form = $this->createForm(ContactType::class, $message);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($message);
+                $entityManager->flush();
+                return $this->redirectToRoute('advice_post');
+            }
+
+
+        return $this->render('main/contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+}

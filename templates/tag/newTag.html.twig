@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TagController!{% endblock %}
+
+{% block content %}
+
+{{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">Envoyer</button>
+{{ form_end(form) }}
+{% endblock %}

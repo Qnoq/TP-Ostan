@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Welcome!
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}"> {% block stylesheets %}{% endblock %}
+        </head>
+        <body>
+            {% block header %}
+                <div class="header">
+                    <h1 class='title'>
+                        O'Stan
+                    </h1>
+
+                   
+                        <div class='justify-content-end d-flex'>
+
+                            <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+
+
+                            <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+
+                        </div>
+                    
+
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('advice_post')}}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Le concept</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+
+                </nav>
+            {% endblock %}
+            {% block body %}
+                <div class="body">
+
+                    {% block sidebar %}
+                        <div class="col-2 border border-dark d-none d-lg-block">
+                            <div>
+
+                                <h4 class="text-center border border-dark font-weight-bold my-3">Les actualités</h4>
+
+                                <div class="my-3 mx-3 text-center">
+                                    <div class="card">
+                                        <div class="card-body px-2 py-2">
+                                            <h5 class="card-title font-weight-bold">Actualité 1</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, dolores?</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-3 mx-3 text-center">
+                                    <div class="card">
+                                        <div class="card-body px-2 py-2">
+                                            <h5 class="card-title font-weight-bold">Actualité 2</h5>
+                                            <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus, suscipit.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-3 mx-3 text-center">
+                                    <div class="card">
+                                        <div class="card-body px-2 py-2">
+                                            <h5 class="card-title font-weight-bold">Actualité 3</h5>
+                                            <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus, suscipit.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <h4 class="text-center border border-dark font-weight-bold my-3">Des talents à découvrir !</h4>
+
+                                <ul class="list-unstyled text-center">
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026714d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Illustrateur et/ou Auteur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026724d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Illustrateur et/ou Auteur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026734d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Illustrateur et/ou Auteur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026744d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Illustrateur et/ou Auteur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026754d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Illustrateur et/ou Auteur</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div>
+                                <h4 class="text-center border border-dark font-weight-bold my-3">Des éditeurs investis !
+                                </h4>
+
+                                <ul class="list-unstyled text-center class=text-center">
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026764d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Editeur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026774d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Editeur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026784d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Editeur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026794d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Editeur</span>
+                                    </li>
+                                    <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026804d" alt="..." class="rounded-circle">
+                                        |
+                                        <span>User - Editeur</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class='content'>
+                        {% endblock %}
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block footer %}
+                <footer>
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="navbar-collapse justify-content-center" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item mr-5">
+                                    <a class="nav-link" href="#">Plan du site</a>
+                                </li>
+                                <li class="nav-item mr-5">
+                                    <a class="nav-link" href="{{path('mentions_legales')}}">Mentions légales</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </nav>
+                </footer>
+
+            {% endblock %}
+
+
+            {% block javascripts %}{% endblock %}
+        </body>
+    </html>
