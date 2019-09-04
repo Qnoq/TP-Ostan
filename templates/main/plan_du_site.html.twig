@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plan du site{% endblock %}
+
+{% block content %}
+
+<div id="plan_du_site" class="center-column col-xs-12 col-sm-12"</div>
+
+    <div id="center_column" class="row">
+        
+        <h1 class="page-heading center"> Plan du site</h1>
+    </div>
+
+    <div id="sitemap2" class="row center-column">
+
+        <h3 class="page-subheading "> Votre compte</h3>
+            <ul class="tree">
+                <li> <a href="{{path ('app_login') }}" title="Identifiez-vous"> Identifiez-vous </a></li>
+                <li> <a href="{{path ('app_register') }}" title="Créer un nouveau compte"> Créer un nouveau compte </a></li>
+            </ul>
+    </div>
+    
+
+    <div id="sitemap" class="row center-column">
+        <h3 class="page-subheading">  Page d'accueil </h3>
+            <ul class="tree">
+                <li>Nos articles conseils</li>
+                <li><a href="{{path ('advice_post') }}">Les actualités</li>
+                <li><a href="#"></a>Des talents à découvrir</li>
+                <li><a href="#"></a>Des éditeurs investis</li>
+                <li><a href="{{path ('contact') }}">Nous contacter</a></li>
+                <li><a href="{{path ('mentions_legales') }}">Mentions légales</a></li>
+                
+            </ul>
+
+    </div>
+
+
+    <div id="sitemap1" class="row center-column">
+        <h3 class="page-subheading">Accès utilisateur </h3>
+             <ul class="tree">
+                
+                    <li><a href="{{path ('app_login') }}">Mon profil</a></li>
+                    <li><a href="{{path ('app_login') }}">Liste des annonces</a></li>
+                    <li><a href="{{path ('app_login') }}">Liste des utilisateurs</a></li>
+                            <ul>
+                                <li><a href="{{path ('app_login') }}">Scénaristes</a></li>
+                                <li><a href="{{path ('app_login') }}">Illustrateurs</a></li>
+                                <li><a href="{{path ('app_login') }}">Editeurs</a></li>
+                            </ul>
+                    <li><a href="{{path ('app_login') }}">Envoyer un message privé</a></li>
+                
+            </ul>
+
+   </div>
+
+</div>
+
+
+  
+
+{% endblock %}
