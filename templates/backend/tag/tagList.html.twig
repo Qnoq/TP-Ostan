@@ -1,0 +1,36 @@
+{% extends 'base_backend.html.twig' %}
+
+{% block title %}Administration
+{% endblock %}
+
+{% block content %}
+    <h1>Les tags</h1>
+
+    <table class="table table-striped w-60 mx-auto">
+        <thead>
+            <tr>
+                <th scope="col">#Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+                <tr>
+                    <th scope="row">{{tag.id}}</th>
+                    <td>{{tag.name}}</td>
+                    <td>
+                        <a href="">Voir</a>
+                        <a href="">Editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            
+
+
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary">Ajouter un tag</button>
+{% endblock %}
