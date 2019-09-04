@@ -1,9 +1,20 @@
+
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+     height: 100%;
+}
+
 .body {
     display: flex;
     margin-top: 20px;
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
+    
 
 
 }
@@ -27,6 +38,7 @@
     align-self: center;
     margin:auto;
 }
+
 
 
 
@@ -75,6 +87,12 @@
     position:relative;
     bottom: 50px;
     background-color:white;
+}
+
+
+
+footer {
+    margin-top: auto;
 }
 
 
