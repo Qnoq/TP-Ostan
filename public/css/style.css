@@ -28,3 +28,9 @@
     margin:auto;
 }
 
+.title-card {
+    position:relative;
+    bottom: 50px;
+    background-color:white;
+}
+

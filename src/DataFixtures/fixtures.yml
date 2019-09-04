@@ -25,20 +25,19 @@ App\Entity\Role:
     code: "<word()>"
 
 App\Entity\Post:
-  annonce{1..35}:
+  post{1..35}:
     title: "<sentence()>"
     description: <realText(500)>
     user: "@user*"
     tags: "3x @tag*"
+    type: "<word()>"
 
 App\Entity\Comment:
   comment{1..45}:
     description: "<realText()>"
     status: "@status*"
-    ad: "@annonce*"
+    post: "@post*"
     user: "@user*"
-
-
 
 App\Entity\Status:
   status{1..3}:

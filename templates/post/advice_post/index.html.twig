@@ -4,27 +4,46 @@
 
 {% block content %}
 
-    <section>
-    <h1 class="text-center text-uppercase">Bienvenue sur O'Stan</h1>
+    <section class="border border-dark mx-5 mb-5">
+
+        <div class="text-center">
+            <h1 class="text-uppercase font-weight-bold border-bottom border-dark py-3 mx-5">Bienvenue sur O'Stan</h1>
+            <p class="py-3 px-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur tempore atque quaerat ab? Ad aliquid minima laudantium sed! Velit eos suscipit earum iure provident, illum necessitatibus sequi quam vel modi eveniet libero ab sapiente eum at magni ratione ipsa perspiciatis.</p>
+        </div>
+
     </section>
-
-
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicePosts %}
 
-        <article class="jumbotron mb-4 py-3 px-3 text-center">
+        <article class="mx-5 mb-5 pt-3 px-3 border border-dark">
 
-            <h2>{{ advice_post.title }}</h2>
-
-            <div class="metadata mb-3 font-italic">
-                Ecrit le {{ advice_post.createdAt | date('d/m/Y à H:i') }} par {{ advice_post.user.username }}
+            <div class="title-card border border-dark text-center py-2 mx-5">
+                <h2 class="font-weight-bold">{{ advice_post.title }}</h2>
             </div>
 
-            <div class="content">
-                <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-primary">
-                    Lire la suite ...
-                </a>
+            <div class="d-flex">
+                <img class="mr-3 mb-3" src="https://via.placeholder.com/140x140" alt="">
+
+                <div class="">
+                    <div>
+                        <p class="mt-3">
+                            {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                            {{ advice_post.description|truncate(200, true) }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark">
+                            Lire la suite
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="metadata mb-3 font-italic d-flex justify-content-end">
+                <span>Ecrit le {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
             </div>
 
         </article>
