@@ -99,7 +99,7 @@ class Comment
         return $this->post;
     }
 
-    public function setAd(?Post $post): self
+    public function setPost(?Post $post): self
     {
         $this->post = $post;
 
