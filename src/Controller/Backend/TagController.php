@@ -37,9 +37,9 @@ class TagController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($tag);
             $entityManager -> flush();
-            return $this->redirectToRoute('tag_new');
+            return $this->redirectToRoute('backend_tag_new');
         }
-       return $this->render('tag/newTag.html.twig', [
+       return $this->render('backend/tag/newTag.html.twig', [
            'form' => $form->createView(),
        ]);
     }
