@@ -28,9 +28,11 @@ class PostController extends AbstractController
      *
      * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function show()
+    public function show(Post $advicePost)
     {
-        return $this->render('post/advice_post/show.html.twig');
+        return $this->render('post/advice_post/show.html.twig', [
+            'advicePost' => $advicePost
+        ]);
     }
 
 

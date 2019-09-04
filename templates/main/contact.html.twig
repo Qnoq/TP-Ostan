@@ -4,13 +4,14 @@
 
 {% block content %}
 
-<h1>Formulaire de contact</h1>
+<div class="contact-form">
+    <h1 class="contact-form-title">Formulaire de contact</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-    {{ form_end(form) }}
-        <a href="{{path ('advice_post')}}">Retour à l'accueil</a>
-
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        {{ form_end(form) }}
+            <a href="{{path ('advice_post')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}
 

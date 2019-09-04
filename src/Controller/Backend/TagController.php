@@ -4,6 +4,7 @@ namespace App\Controller\Backend;
 
 use App\Entity\Tag;
 use App\Form\TagType;
+use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,15 +16,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TagController extends AbstractController
 {
     /**
-     * @Route("tag", name="tag")
+     * @Route("tag", name="tagList")
      */
-    public function index()
+    public function tagList(TagRepository $tagRepository)
     {
-        return $this->render('backend/tag/index.html.twig', [
-            'controller_name' => 'TagController',
+        return $this->render('backend/tag/tagList.html.twig', [
+            'tags' => $tagRepository->findAll()
+
         ]);
     }
-
     /**
      * @Route("tag/new", name="tag_new")
      */

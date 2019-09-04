@@ -12,12 +12,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("post", name="post")
+     * @Route("", name="adList")
      */
-    public function index()
+    public function adList()
     {
-        return $this->render('backend/post/index.html.twig', [
-            'controller_name' => 'PostController',
+        return $this->render('backend/post/adList.html.twig', [
+           
         ]);
     }
+
+    /**
+     * @Route("articles", name="advicePostList")
+     */
+    public function advicePostList()
+    {
+        return $this->render('backend/post/advicePostList.html.twig', [
+           
+        ]);
+    }
+
+    
+
+    
 }

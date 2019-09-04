@@ -49,5 +49,14 @@ class MainController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/plan-du-site/", name="plan_du_site")
+     */
+    public function sitemap()
+    {
+        return $this->render('main/plan_du_site.html.twig', [
+        ]);
+    }
+
 
 }
