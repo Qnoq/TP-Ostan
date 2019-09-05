@@ -64,7 +64,7 @@ class Post
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post", cascade={"persist","remove"})
      */
     private $comments;
 

@@ -108,7 +108,8 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user", cascade={"persist","remove"})
+     * 
      */
     private $posts;
 
@@ -118,7 +119,7 @@ class User implements UserInterface
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"persist","remove"})
      */
     private $comments;
 
