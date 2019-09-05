@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -18,6 +21,65 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+        /**
+     * Modification d'un user :
+     *
+     * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encode)
+    {
+        // Je récupère l'ancien mot de passe :
+        $oldPassword = $user->getPassword();
+
+        $form = $this->createForm(UserType::class, $user);
+
+        // Met à jour l'objet User avec les nouvelles valeurs
+        // Si l'objet User n'a pas eu de nouveau mot de passe alors le champ "mot de passe" est vide et conserve donc l'ancien mot de passe
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /*
+                Si je ne souhaite pas modifier le mot de passe en édition, alors je peux avoir le comportement suivant : mot de passe laissé vide si inchangé.
+                Ainsi je dois tester di le nouveau mot de passe est vide, et si c'est le cas je récupère l'ancien mot de passe
+            */
+
+            // Si le mot de passe est nul
+            if(is_null($user->getPassword())){
+
+                // Le mot de passe encodé est l'ancien mot de passe
+                $encodedPassword = $oldPassword;
+
+            // Sinon
+            } else {
+
+                // Comme dans la fonction new
+                $encodedPassword = $encode->encodePassword($user, $user->getPassword());
+                $user->getPassword();
+
+            }
+
+            // Comme dans la fonction new
+            $user->setPassword($encodedPassword);
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'info',
+                'Modification effectuée !'
+            );
+
+            return $this->redirectToRoute('user_show', [
+                'id' => $user->getId()
+            ]);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }
