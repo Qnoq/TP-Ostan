@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,12 +30,28 @@ class PostController extends AbstractController
     /**
      * Page de détail d'un article de conseils :
      *
-     * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
-    public function show(Post $advicePost)
+    public function show(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository)
     {
+
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formComment->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+
+            $comment->setPost($advicePost);
+            $user = $userRepository->findOneByUsername('emoen');
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager -> persist($comment);
+            $entityManager -> flush();
+            return $this->redirectToRoute('advice_post_show', ['id' => $advicePost->getId()]);
+        }
         return $this->render('post/advice_post/show.html.twig', [
-            'advicePost' => $advicePost
+            'advicePost' => $advicePost,
+            'formComment' => $formComment->createView(),
         ]);
     }
 

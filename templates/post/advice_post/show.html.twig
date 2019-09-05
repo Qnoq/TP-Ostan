@@ -36,8 +36,23 @@
             <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
             
         </div>
+        
 
     </article>
+
+    <h5 class="card-title">Commentaires</h5>
+    <div class="card mx-5 my-5 pt-3 px-3 border border-dark">
+    {% for comment in advicePost.comments %}
+        <div class="card-body">
+        <p class="card-text">{{comment.description}}</p><hr>
+        </div>
+    {% endfor %}
+    </div>
+
+        {{ form_start(formComment) }}
+        {{ form_widget(formComment) }}
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+        {{ form_end(formComment) }}
 
     <a class="text-dark" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 

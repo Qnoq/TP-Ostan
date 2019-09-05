@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -25,7 +26,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname')
             ->add('username')
             ->add('companyname')
-            ->add('birthdate', DateType::class, [
+            ->add('birthdate', BirthdayType::class, [
                 'widget' => 'choice',
             ])
             ->add('phonenumber')
