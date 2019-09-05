@@ -30,7 +30,7 @@ App\Entity\Post:
     description: <realText(500)>
     user: "@user*"
     tags: "3x @tag*"
-    type: "<word()>"
+    type: "<typePost()>"
 
 App\Entity\Comment:
   comment{1..45}:
