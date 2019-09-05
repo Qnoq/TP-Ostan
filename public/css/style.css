@@ -7,6 +7,13 @@ body{
      height: 100%;
 }
 
+/*
+.header {
+    background-image: url('../images/marvel.jpg');
+    opacity: 0.30;
+}
+*/
+
 .body {
     display: flex;
     margin-top: 20px;
@@ -29,7 +36,7 @@ body{
     flex-direction: column;
  
 }
-.title {
+.header-title {
     align-self: center;
     margin:auto;
 }
@@ -91,10 +98,21 @@ footer {
     border-radius: 10px;
     background-color: #EAECEE;
     border: #ABB2B9 1px solid;
+    margin-top: 100px;
 }
 
 ul {
     list-style: none;
+}
+
+.contact-form-title {
+    position: relative;
+    top: -50px;
+    border: 1px grey solid;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: white;
+
 }
 
 
