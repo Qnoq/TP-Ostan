@@ -165,8 +165,10 @@ class User implements UserInterface
     {
         $role = $this->role;
         // guarantee every user at least has ROLE_USER
+       
 
-        return [$this->getRole()->getCode()]; // ex Admin_USER
+        return [$this->getRole()->getCode()]; // ex USER_ADMIN
+
     }
 
     public function setRoles(array $role): self
