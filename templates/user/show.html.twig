@@ -6,26 +6,36 @@
 
     <img class="profil-avatar rounded-circle border border-dark" src="https://i.pravatar.cc/200?img=3" alt="">
 
-    <div class="profil-card text-center border border-dark mx-5 pt-5 d-none d-lg-block">
+    <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
 
         <div class="pt-5">
             <h1 class="font-weight-bold">{{ user.username }}</h1>
         </div>
 
-        <p><span class="font-weight-bold">Adresse email :</span> {{ user.email }}</p>
+        <div class="border border-dark mx-5 my-5 py-3">
+            <p><span class="font-weight-bold">Adresse email :</span> {{ user.email }}</p>
 
-        <p><span class="font-weight-bold">Je suis :</span></p>
+            {% for job in user.jobs %}
+                <p><span class="font-weight-bold">Je suis : {{ job.name }}</span></p>
+            {% endfor %}
 
-        <p><span class="font-weight-bold">Présentation :</span></p>
+            <p><span class="font-weight-bold">Présentation :</span></p>
 
-        <p class="mx-5">{{ user.description }}</p>
+            <p class="mx-5">{{ user.description }}</p>
 
-        <div class="d-flex justify-content-start ml-5 py-3 font-italic">
-            <p>Membre depuis le {{ user.createdAt | date('d/m/Y à H:i') }}</p>
+            <div class="d-flex justify-content-start ml-5 pt-3 font-italic">
+                <p>Membre depuis le {{ user.createdAt | date('d/m/Y à H:i') }}</p>
+            </div>
+        </div>
+
+        <div class="mb-4 d-flex justify-content-start">
+            <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-light border border-dark rounded-0">
+                Modifier mon profil
+            </a>
         </div>
 
     </div>
 
-
+    <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
 {% endblock %}

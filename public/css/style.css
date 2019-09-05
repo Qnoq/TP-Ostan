@@ -16,7 +16,7 @@ body{
 }
 
 .content {
-    width: 65%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,6 +43,10 @@ body{
 .profil-avatar {
     position:relative;
     top: 90px;
+}
+
+.profil-card {
+    width:95%;
 }
 
 footer {
