@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TagController!{% endblock %}
+{% block title %}Ajout de tag{% endblock %}
 
 {% block content %}
 
-{{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn">Envoyer</button>
-{{ form_end(form) }}
+{{ include('backend/tag/_form.html.twig', {'button_label': 'Créer ce tag'}) }}
+
+
 {% endblock %}
