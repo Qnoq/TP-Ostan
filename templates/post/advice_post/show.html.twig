@@ -44,7 +44,10 @@
     <div class="card mx-5 my-5 pt-3 px-3 border border-dark">
     {% for comment in advicePost.comments %}
         <div class="card-body">
-        <p class="card-text">{{comment.description}}</p><hr>
+        <p class="card-text">{{comment.description}}</p>
+        <p class="card-text">par {{comment.user.username}}</p>
+
+        <hr>
         </div>
     {% endfor %}
     </div>

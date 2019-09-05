@@ -35,12 +35,10 @@
                     <td>{{user.phonenumber}}</td>
                     <td>
                         <a href="">Bloquer</a>
-                        <a href="">Supprimer</a>
+    {{ include('backend/user/_delete.html.twig') }}
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
-
 {% endblock %}
