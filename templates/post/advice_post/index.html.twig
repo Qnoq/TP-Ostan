@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <section class="border border-dark mx-5 mb-5">
+    <section class="border border-dark ml-5 mb-5">
 
         <div class="text-center">
             <h1 class="text-uppercase font-weight-bold border-bottom border-dark py-3 mx-5">Bienvenue sur O'Stan !</h1>
@@ -16,7 +16,7 @@
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicePosts %}
 
-        <article class="mx-5 mb-5 pt-3 px-3 border border-dark">
+        <article class="ml-5 mb-5 pt-3 px-3 border border-dark">
 
             <div class="title-card border border-dark text-center py-2 mx-5">
                 <h2 class="font-weight-bold">{{ advice_post.title }}</h2>
@@ -41,6 +41,7 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
             <div class="metadata mb-3 font-italic d-flex justify-content-end">
                 <span>Publié le {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>

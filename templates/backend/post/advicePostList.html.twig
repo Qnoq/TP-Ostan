@@ -6,9 +6,25 @@
  %}
  <h1>Les articles</h1>
 
+<a href="{{path ('backend_advicePostNew')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un article</a>
+
+<tbody>
  {% for advicePost in advicePosts %}
- <h3>{{advicePost.title}}</h3>
- <p>{{advicePost.description}}</p>
+    <tr>
+            <td><h3>{{advicePost.title}}</h3></td>
+            <td><p>{{advicePost.description}}</p></td>
+            <td>
+                {#<a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Voir</a>#}
+                <a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Editer</a>
+                <a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Supprimer</a>
+                {# modifier le path pr mettre le delete : actuellement, plantage #}
+            </td>
+    </tr>
      
  {% endfor %}
+
+ </tbody>
+
+  
+
 {% endblock %}
