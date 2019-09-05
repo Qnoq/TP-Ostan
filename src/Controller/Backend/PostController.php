@@ -7,12 +7,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * 
- * @Route("/backend/", name="backend_")
+ * @Route("/backend", name="backend_")
  */
 class PostController extends AbstractController
 {
     /**
-     * @Route("", name="adList")
+     * @Route("/", name="adList")
      */
     public function adList()
     {
@@ -22,7 +22,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("articles", name="advicePostList")
+     * @Route("/articles", name="advicePostList")
      */
     public function advicePostList()
     {
