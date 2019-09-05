@@ -24,9 +24,9 @@ body{
 
 .header{
     background-color: rgb(214, 247, 152);
-  height: 150px;
-  display: flex;
-  flex-direction: column;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
  
 }
 .title {
@@ -44,40 +44,27 @@ footer {
     margin-top: auto;
 }
 
+
 /* PLAN DU SITE*/
 
-#sitemap2 ul.tree li {
-    margin: 0 0 0 2px;
-    padding: 5px 0 0 22px;
-    border-left: 1px solid black;
+.page-subheading {
+    margin-left: 50px;
 }
 
-#sitemap2 ul.tree li a {
-    color: black;
-    text-decoration: none;
+#sitemap {
+    border: 1px solid grey;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #EAECEE;
 }
 
 #sitemap ul.tree li {
-    margin: 0 0 0 2px;
-    padding: 5px 0 0 22px;
+    margin: 0 0 0 10px;
+    padding: 5px 0 0 0px;
     border-left: 1px solid black;
 }
 
 #sitemap ul.tree li a{
-    color: black;
-    text-decoration: none;
-}
-
-
-#sitemap1 ul.tree li {
-    margin: 0 0 0 2px;
-    padding: 5px 0 0 22px;
-    border-left: 1px solid black;
-    display: list-item;
-}
-
-
-#sitemap1 ul.tree li a {
     color: black;
     text-decoration: none;
 }
@@ -87,3 +74,23 @@ footer {
     bottom: 50px;
     background-color:white;
 }
+
+.tree {
+    margin: 10px 0 10px 0;
+}
+
+/* FORMULAIRE DE CONTACT */
+
+.contact-form {
+    padding: 50px;
+    border-radius: 10px;
+    background-color: #EAECEE;
+    border: #ABB2B9 1px solid;
+}
+
+ul {
+    list-style: none;
+}
+
+
+
