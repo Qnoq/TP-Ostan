@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class PostType extends AbstractType
 {
@@ -20,16 +22,19 @@ class PostType extends AbstractType
                     'placeholder' => 'Titre de l\'annonce'
                 ],])
             ->add('picture1', FileType::class, [
+                'data_class' => null,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture2', FileType::class, [
+                'data_class' => null,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture3', FileType::class, [
+                'data_class' => null,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Image'
@@ -41,6 +46,11 @@ class PostType extends AbstractType
                 ],])
             // ->add('createdAt')
             // ->add('updatedAt')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Article' => true,
+                    'Annonce' => false,
+                ],])
             // ->add('user')
             // ->add('tags')
             // ->add('status')
