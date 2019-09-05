@@ -40,6 +40,11 @@ body{
     background-color:white;
 }
 
+.profil-avatar {
+    position:relative;
+    top: 90px;
+}
+
 footer {
     margin-top: auto;
 }
