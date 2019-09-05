@@ -4,14 +4,17 @@
 
 {% block content %}
 
-<div class="contact-form">
-    <h1 class="contact-form-title">Formulaire de contact</h1>
+<div class="contact-form border border-dark text-center py-2 mx-5 mb-5 pt-3">
+    <h1 class="contact-form-title py-2 mx-5 text-center">Formulaire de contact</h1>
+    {# je n'arrive pas à renvoyer ce titre dans un encadré en superposition de l'encadré du formulaire #}
 
+        <div class="contact">
         {{ form_start(form) }}
             {{ form_widget(form) }}
             <button type="submit" class="btn btn-primary">Envoyer</button>
         {{ form_end(form) }}
             <a href="{{path ('advice_post')}}">Retour à l'accueil</a>
+        </div>
 </div>
 {% endblock %}
 
