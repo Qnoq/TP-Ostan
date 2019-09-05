@@ -47,4 +47,36 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+    // public function findAllAdvicePost(){
+    //     return $this->getEntityManager()
+    //     ->createQuery('
+    //     SELECT p
+    //     FROM App\Entity\Post p
+    //     WHERE p.type = "article"
+    //     ')
+    //     ->getResult();
+    // }
+    public function findAllAdvicePost()
+    {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT p
+            FROM App\Entity\Post p            
+            WHERE p.type = 'Article'
+        ");
+        
+
+        return $query->getResult(); 
+    }
+
+
+    public function findAllAdPost()
+    {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT p
+            FROM App\Entity\Post p            
+            WHERE p.type = 'Annonce'
+        ");
+        
+        return $query->getResult(); 
+    }
 }

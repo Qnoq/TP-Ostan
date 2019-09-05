@@ -1,9 +1,46 @@
 {% extends 'base_backend.html.twig' %}
 
-{% block title %}Administration{% endblock %}
+{% block title %}Administration
+{% endblock %}
 
 {% block content %}
- <h1>Les utilisateurs</h1>
- 
- 
- {% endblock %}
+    <h1>Les utilisateurs</h1>
+    <table class="table table-striped w-60 mx-auto">
+        <thead>
+            <tr>
+                <th scope="col">#Id</th>
+                <th scope="col">Avatar</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Username</th>
+                <th scope="col">CompanyName</th>
+                <th scope="col">Naissance</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{user.id}}</th>
+                    <td>{{user.avatar}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.companyname}}</td>
+                    <td>Erreur à corriger avec createdAt</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.phonenumber}}</td>
+                    <td>
+                        <a href="">Bloquer</a>
+                        <a href="">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

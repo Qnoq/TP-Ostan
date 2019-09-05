@@ -4,5 +4,13 @@
 
 {% block content
  %}
- <h1>Les annonces</h1>{% endblock %}
+ <h1>Les annonces</h1>
+  {% for adPost in adPosts %}
+ <h3>{{adPost.title}}</h3>
+ <p>{{adPost.description}}</p>
+     
+ {% endfor %}
+ 
+ 
+ {% endblock %}
  
