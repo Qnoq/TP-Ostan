@@ -140,7 +140,7 @@ class PostController extends AbstractController
 
             return $this->redirectToRoute('ad_post');
         }
-       return $this->render('post/ad_post/adAdd.html.twig', [
+       return $this->render('post/ad_post/new.html.twig', [
            'form' => $form->createView(),
        ]);
     }
