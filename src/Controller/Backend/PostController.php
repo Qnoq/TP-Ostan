@@ -26,7 +26,7 @@ class PostController extends AbstractController
     {
         $adPosts= $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
-            'adPosts' => $adPosts           
+            'adPosts' => $adPosts
         ]);
     }
 

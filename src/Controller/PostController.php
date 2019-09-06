@@ -16,23 +16,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PostController extends AbstractController
 {
     /**
-     * Page d'accueil visiteur avec la liste des articles conseils :
+     * Page d'accueil visiteur avec la liste des ARTICLES DE CONSEILS :
      * 
      * @Route("/", name="advice_post", methods={"GET"})
      */
-    public function index(PostRepository $PostRepository)
+    public function advicePostList(PostRepository $postRepository)
     {
-        $advicePosts = $PostRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $advicePosts= $postRepository->findAllAdvicePost();
         return $this->render('post/advice_post/index.html.twig', [
             'advicePosts' => $advicePosts
         ]);
     }
+
     /**
-     * Page de détail d'un article de conseils :
+     * Page d'accueil utilisateur (après inscription/connexion) avec la liste des ANNONCES :
+     * 
+     * @Route("/annonces", name="ad_post", methods={"GET"})
+     */
+    public function adList(PostRepository $postRepository)
+    {
+        $adPosts= $postRepository->findAllAdPost();
+        return $this->render('post/ad_post/index.html.twig', [
+            'adPosts' => $adPosts
+        ]);
+    }
+
+    /**
+     * Page de détail d'un ARTICLE DE CONSEILS (pas de possibilité de commenter) :
      *
      * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
-    public function show(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository)
+    public function advicePostShow(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository)
     {
 
         $comment = new Comment();
@@ -55,15 +69,49 @@ class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * Page de de détail d'une ANNONCE avec formulaire pour poster un commentaire (pour les utilisateurs exclusivement) :
+     * 
+     * @Route("/annonce/{id}", name="ad_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
+     */
+    public function adPostShow(Post $adPost, Request $request)
+    {
 
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formComment->handleRequest($request);
 
+        $user = $this->getUser();
 
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+
+            $comment->setPost($adPost);
+            $comment->setUser($user);
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre commentaire a bien été enregistré !'
+            );
+
+            return $this->redirectToRoute('ad_post_show', ['id' => $adPost->getId()]);
+        }
+        return $this->render('post/ad_post/show.html.twig', [
+            'adPost' => $adPost,
+            'formComment' => $formComment->createView(),
+        ]);
+    }
 
 // ANNONCES *****************************************************************************************
 
-     /**
+    /**
+     * Page formulaire d'ajout d'une ANNONCE (pour les utilisateurs exclusivement)
+     *
      * @Route("/annonce/new", name="adNew")
-     */
+    */
     public function adNew(Request $request)
     {
         
@@ -74,8 +122,8 @@ class PostController extends AbstractController
 
             $post->setType('Annonce');
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager -> persist($post);
-            $entityManager -> flush();
+            $entityManager->persist($post);
+            $entityManager->flush();
             return $this->redirectToRoute('advice_post');
         }
        return $this->render('post/ad_post/adAdd.html.twig', [

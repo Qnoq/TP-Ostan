@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces{% endblock %}
+
+{% block content %}
+
+<section class="mt-5">
+    {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
+    {% for ad_post in adPosts %}
+
+        <article class="ml-5 mb-5 pt-3 px-3 border border-dark">
+
+            <div class="title-card border border-dark text-center py-2 mx-5">
+                <h2 class="font-weight-bold">{{ ad_post.title }}</h2>
+            </div>
+
+            <div class="d-flex">
+
+                {# Picture 1 de préférence #}
+                <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
+
+                <div class="">
+                    <div>
+                        <p>
+                            {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                            {{ ad_post.description|truncate(200, true) }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <a href="{{ path('ad_post_show', {'id': ad_post.id }) }}" class="btn btn-light border border-dark rounded-0">
+                            Lire la suite
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metadata mb-3 font-italic d-flex justify-content-end">
+                <span>Publié le {{ ad_post.createdAt | date('d/m/Y à H:i') }}</span> 
+            </div>
+
+        </article>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
