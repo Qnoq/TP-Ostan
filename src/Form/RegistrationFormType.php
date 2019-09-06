@@ -11,7 +11,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -20,20 +22,53 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avatar', FileType::class)
-            ->add('firstname')
-            ->add('lastname')
-            ->add('username')
-            ->add('companyname')
-            ->add('birthdate', DateType::class, [
+            ->add('avatar', FileType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Avatar'
+                ],])
+            ->add('firstname', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prénom'
+                ],])
+            ->add('lastname', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ],])
+            ->add('username', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Pseudo'
+                ],])
+            ->add('companyname', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nom de l\'entreprise'
+                ],])
+            ->add('birthdate', BirthdayType::class, [
                 'widget' => 'choice',
+                'label' => 'Date anniversaire',
             ])
-            ->add('phonenumber')
-            ->add('email')
+            ->add('phonenumber', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Numéro de téléphone'
+                ],])
+            ->add('email', TextType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Email'
+                ],])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Mot de passe'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -48,6 +83,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'Accepter les conditions générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',

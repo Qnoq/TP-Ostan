@@ -3,8 +3,9 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
+    <h1>Inscription</h1>
+<div class="card ml-5 my-5 pt-3 px-3 border border-dark">
+<div class="card-body">
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.avatar) }}
         {{ form_row(registrationForm.firstname) }}
@@ -17,7 +18,9 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn">Register</button>
+        <button class="btn">Envoyer</button>
+</div>
+</div>
+        
     {{ form_end(registrationForm) }}
 {% endblock %}
