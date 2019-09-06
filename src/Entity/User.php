@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -63,6 +65,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\LessThanOrEqual("-16 years")
      */
     private $birthdate;
 

@@ -24,9 +24,13 @@ class PostController extends AbstractController
      */
     public function adList(PostRepository $postRepository)
     {
-        $adPosts= $postRepository->findAllAdPost();
+        $posts = $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
+<<<<<<< HEAD
             'adPosts' => $adPosts
+=======
+            'posts' => $posts         
+>>>>>>> 1e0d7652d4e66a234a1fb13574fb2fd3a680b272
         ]);
     }
 
@@ -35,9 +39,9 @@ class PostController extends AbstractController
      */
     public function advicePostList(PostRepository $postRepository)
     {
-        $advicePosts= $postRepository->findAllAdvicePost();
+        $posts= $postRepository->findAllAdvicePost();
         return $this->render('backend/post/advicePostList.html.twig', [
-            'advicePosts' => $advicePosts
+            'posts' => $posts
            
         ]);
     }
@@ -83,7 +87,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/delete/{id}", name="advicePostDelete", methods="DELETE", requirements={"id"="\d+"})
+     * @Route("/post/advicepost/delete/{id}", name="advicePostDelete", methods="DELETE", requirements={"id"="\d+"})
      */
     public function advicePostDelete(Request $request, Post $post): Response
     {
@@ -94,6 +98,20 @@ class PostController extends AbstractController
             $this->addFlash('success', 'Article supprimé.');
         }
         return $this->redirectToRoute('backend_advicePostList');
+    }
+
+    /**
+     * @Route("/post/ad/delete/{id}", name="adDelete", methods="DELETE", requirements={"id"="\d+"})
+     */
+    public function adDelete(Request $request, Post $post): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($post);
+            $em->flush();
+            $this->addFlash('success', 'Annonce supprimée.');
+        }
+        return $this->redirectToRoute('backend_adList');
     }
 
     

@@ -46,6 +46,24 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('backend_tagList');
+        return $this->redirectToRoute('backend_userList');
     }
+
+    /**
+     * @Route("user/edit/{id}", name="user_edit", requirements={"id"="\d+"})
+     */
+    public function edit(Request $request, User $user): Response
+    {
+        $form = $this->createForm(TagType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Tag modifié.');
+            return $this->redirectToRoute('backend_tag_edit', ['id' => $user->getId()]);
+        }
+        return $this->render('backend/userList.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+}
 }
