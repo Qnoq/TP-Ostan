@@ -6,8 +6,7 @@
     <h1>Modifier un article</h1>
 
     {{ include('backend/post/_form.html.twig', {'button_label': 'Update'}) }}
-    {#{{ include('backend/post/_delete.html.twig') }}#}
-    {# remettre le includ du delete : actuellement, plantage #}
+    {{include('backend/post/_delete.html.twig')}}
 
 
     
