@@ -108,7 +108,8 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user", cascade={"persist","remove"})
+     * 
      */
     private $posts;
 
@@ -118,7 +119,7 @@ class User implements UserInterface
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"persist","remove"})
      */
     private $comments;
 
@@ -165,9 +166,10 @@ class User implements UserInterface
     {
         $role = $this->role;
         // guarantee every user at least has ROLE_USER
-        $role[] = 'ROLE_USER_SIRIUS';
+       
 
-        return array_unique($role);
+        return [$this->getRole()->getCode()]; // ex USER_ADMIN
+
     }
 
     public function setRoles(array $role): self
