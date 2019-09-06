@@ -55,5 +55,6 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
 
+        return $this->redirectToRoute('advice_post');
     }
 }

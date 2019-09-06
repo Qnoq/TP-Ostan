@@ -7,10 +7,7 @@
             {% endblock %}
         </title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{asset('css/style.css')}}">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"> 
-        
-        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{asset('css/style.css')}}"> {% block stylesheets %}{% endblock %}
         </head>
         <body>
             {% block header %}
@@ -57,20 +54,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{path('advice_post')}}">Accueil</a>
                             </li>
-
-                            {# Si je suis authentifié #}
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{path('ad_post')}}">Annonces</a>
-                                </li>
-
-                            {% endif %}
-
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Le concept</a>
                             </li>
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
                             </li>
@@ -176,22 +162,8 @@
                         </div>
                         <div class='content'>
                         {% endblock %}
-
-                        {# Je veux afficher le message paramétrés dans les méthodes add, edit et delete #}
-                        {% for label, messages in app.flashes %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ label }}">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-
                         {% block content %}{% endblock %}
-
                     </div>
-
-                    {% block search %}{% endblock %}
-
                 </div>
             {% endblock %}
 
