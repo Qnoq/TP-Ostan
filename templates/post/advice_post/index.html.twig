@@ -36,14 +36,14 @@
                     </div>
 
                     <div>
-                        <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark rounded-0">
+                        <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
                             Lire la suite
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="metadata mb-3 font-italic d-flex justify-content-end">
+            <div class="metadata mb-3 font-italic text-muted d-flex justify-content-end">
                 <span>Publié le {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
             </div>
 
