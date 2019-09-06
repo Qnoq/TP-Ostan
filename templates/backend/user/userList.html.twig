@@ -5,40 +5,59 @@
 
 {% block content %}
     <h1>Les utilisateurs</h1>
-    <table class="table table-striped w-60 mx-auto">
-        <thead>
-            <tr>
-                <th scope="col">#Id</th>
-                <th scope="col">Avatar</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Username</th>
-                <th scope="col">CompanyName</th>
-                <th scope="col">Naissance</th>
-                <th scope="col">Email</th>
-                <th scope="col">Address</th>
-                <th scope="col">Téléphone</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <th scope="row">{{user.id}}</th>
-                    <td>{{user.avatar}}</td>
-                    <td>{{user.firstname}}</td>
-                    <td>{{user.lastname}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.companyname}}</td>
-                    <td>Erreur à corriger avec createdAt</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.address}}</td>
-                    <td>{{user.phonenumber}}</td>
-                    <td>
-                        <a href="">Bloquer</a>
-    {{ include('backend/user/_delete.html.twig') }}
-                    </td>
+                    <th scope="col">#Id</th>
+
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">CompanyName</th>
+                    <th scope="col">Naissance</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Inscrit depuis</th>
+                    <th scope="col">Jobs</th>
+                    <th scope="col">Role</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{user.id}}</th>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.companyname}}</td>
+                        <td>{{user.birthdate | date('d/m/Y à H:i') }}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.address}}</td>
+                        <td>{{user.phonenumber}}</td>
+                        <td>{{user.createdAt| date('d/m/Y à H:i')}}</td>
+                        <td>
+                            {% for job in user.jobs %}
+                                {{job.name}}
+                            {% endfor %}
+                        </td>
+
+                        <td>
+                            <label>
+                                <div class="radio"><input type="radio" id="{{user.role.name}}{{user.id}}" name="{{user.role.name}}{{user.id}}" value="ADMIN" {% if user.role.name == "ADMIN" %} checked {% endif %}>ADMIN</label>
+                                <label>
+                                    <div class="radio"><input type="radio" id="{{user.role.name}}{{user.id}}" name="{{user.role.name}}{{user.id}}" value="USER" {% if user.role.name == "USER" %} checked {% endif %}>USER</label>
+                                </div>
+                            </td>
+                        </td>
+                        <td>
+                            <a href="">Bloquer</a>
+                            {{ include('backend/user/_delete.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

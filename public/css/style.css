@@ -13,6 +13,9 @@ body{
     opacity: 0.30;
 }
 */
+.table-responsive{
+    overflow-y: auto;
+}
 
 .body {
     display: flex;
