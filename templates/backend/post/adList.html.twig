@@ -1,17 +1,13 @@
 {% extends 'base_backend.html.twig' %}
-
 {% block title %}Administration{% endblock %}
-
-{% block content
- %}
+{% block content %}
  <h1>Les annonces</h1>
-  {% for adPost in adPosts %}
- <h3>{{adPost.title}}</h3>
- <p>{{adPost.description}}</p>
- <p>par {{adPost.user.firstname}}</p>
-     
+  {% for post in posts %}
+  <article class="mb-5 pt-3 px-3 border border-dark">
+ <h3>{{post.title}}</h3>
+ <p>{{post.description}}</p>
+ <p>par {{post.user.username}} le {{ post.createdAt | date('d/m/Y à H:i') }} <a class="btn btn-primary" href="">Voir l'annonce</a> <a class="btn btn-warning" href="">Bloquer l'annonce</a> </p> 
+ </article>
  {% endfor %}
- 
- 
  {% endblock %}
  

@@ -9,14 +9,15 @@
 <a href="{{path ('backend_advicePostNew')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un article</a>
 
 <tbody>
- {% for advicePost in advicePosts %}
+ {% for post in posts %}
     <tr>
-            <td><h3>{{advicePost.title}}</h3></td>
-            <td><p>{{advicePost.description}}</p></td>
+            <td><h3>{{post.title}}</h3></td>
+            <td><p>{{post.description}}</p></td>
             <td>
                 {#<a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Voir</a>#}
-                <a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Editer</a>
-                <a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Supprimer</a>
+                <a href="{{path ('backend_advicePostEdit', {'id': post.id})}}">Editer</a>
+                        {{ include('backend/post/_delete.html.twig') }}
+                
                 {# modifier le path pr mettre le delete : actuellement, plantage #}
             </td>
     </tr>

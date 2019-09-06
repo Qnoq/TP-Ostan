@@ -24,9 +24,9 @@ class PostController extends AbstractController
      */
     public function adList(PostRepository $postRepository)
     {
-        $adPosts= $postRepository->findAllAdPost();
+        $posts= $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
-            'adPosts' => $adPosts           
+            'posts' => $posts           
         ]);
     }
 
@@ -35,9 +35,9 @@ class PostController extends AbstractController
      */
     public function advicePostList(PostRepository $postRepository)
     {
-        $advicePosts= $postRepository->findAllAdvicePost();
+        $posts= $postRepository->findAllAdvicePost();
         return $this->render('backend/post/advicePostList.html.twig', [
-            'advicePosts' => $advicePosts
+            'posts' => $posts
            
         ]);
     }
