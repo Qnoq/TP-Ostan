@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un article{% endblock %}
+
+{% block body %}
+    <h1>Modifier un article</h1>
+
+    {{ include('backend/post/_form.html.twig', {'button_label': 'Update'}) }}
+    {{include('backend/post/_delete.html.twig')}}
+
+
+    
+
+    <a href="{{ path('backend_advicePostList') }}" class="btn btn-primary">Retour à la liste</a>
+
+    
+{% endblock %}

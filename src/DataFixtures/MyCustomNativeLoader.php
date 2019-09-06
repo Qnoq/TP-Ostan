@@ -11,6 +11,8 @@ use Faker\Generator as FakerGenerator;
 
 //ajout du provider custom
 use App\DataFixtures\Faker\TypePostProvider;
+use App\DataFixtures\Faker\RoleCodeProvider;
+
 
 class MyCustomNativeLoader extends NativeLoader
 {
@@ -21,6 +23,8 @@ class MyCustomNativeLoader extends NativeLoader
 
         //ajout du nouveau provider en passant le generator dans le constructeur de notre classe (heritée du parent base)
         $generator->addProvider(new TypePostProvider($generator));
+      
+
         $generator->seed($this->getSeed());
 
         return $generator;

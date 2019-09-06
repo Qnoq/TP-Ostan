@@ -17,7 +17,7 @@
 | URL | Méthode HTTP | Controller | Méthode | Titre | Contenu | Commentaire |
 |--|--|--|--|--|--|--|
 |`/deconnexion/`|POST|Backend\SecurityController|logout|Déconnexion|Se déconnecter|redirection vers `/`|
-|`/profil/`|GET|UserController|profile|Profil|Mon profil|page dédié à l'utilisateur (page de son profil) / son "métier", sa gallery, ... |
+|`/profil/{id}/`|GET|UserController|profile|Profil|Mon profil|page dédié à l'utilisateur (page de son profil) / son "métier", sa gallery, ... |
 |`/profil/edit/{id}`|GET|UserController|profile|Profil|Mon profil - édition|page pour mise à jour de son profil / formulaire|
 |`/`|POST|PostController|home||Liste des annonces|Page d'accueil de l'utilisateur une fois connecté|
 |`/annonce/edit/{id}/`|POST|PostController|adEdit|Editer une annonce|Editer son annonce|Formulaire pour éditer une annonce |

@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <article class="mx-5 my-5 pt-3 px-3 border border-dark">
+    <article class="ml-5 my-5 pt-3 px-3 border border-dark">
 
         <div class="title-card border border-dark text-center py-2 mx-5">
             <h2 class="font-weight-bold">{{ advicePost.title }}</h2>
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class ="my-5 d-flex justify-content-around">
+        <div class ="my-5 d-flex flex-wrap justify-content-around">
             {# Exemple emplacement des images #}
 
             {# Picture 1 #}
@@ -41,10 +41,13 @@
     </article>
 
     <h5 class="card-title">Commentaires</h5>
-    <div class="card mx-5 my-5 pt-3 px-3 border border-dark">
+    <div class="card ml-5 my-5 pt-3 px-3 border border-dark">
     {% for comment in advicePost.comments %}
         <div class="card-body">
-        <p class="card-text">{{comment.description}}</p><hr>
+        <p class="card-text">{{comment.description}}</p>
+        <p class="card-text">par {{comment.user.username}}</p>
+
+        <hr>
         </div>
     {% endfor %}
     </div>
