@@ -22,6 +22,7 @@ class PostController extends AbstractController
      */
     public function advicePostList(PostRepository $postRepository)
     {
+        $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         $advicePosts= $postRepository->findAllAdvicePost();
         return $this->render('post/advice_post/index.html.twig', [
             'advicePosts' => $advicePosts
@@ -35,7 +36,9 @@ class PostController extends AbstractController
      */
     public function adList(PostRepository $postRepository)
     {
+        
         $adPosts= $postRepository->findAllAdPost();
+        $adPosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         return $this->render('post/ad_post/index.html.twig', [
             'adPosts' => $adPosts
         ]);
@@ -110,7 +113,7 @@ class PostController extends AbstractController
     /**
      * Page formulaire d'ajout d'une ANNONCE (pour les utilisateurs exclusivement)
      *
-     * @Route("/annonce/new", name="adNew")
+     * @Route("/annonce/new", name="ad_post_new", methods={"GET","POST"})
     */
     public function adNew(Request $request)
     {
@@ -118,13 +121,24 @@ class PostController extends AbstractController
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+
+        $user = $this->getUser();
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $post->setType('Annonce');
+            $post->setUser($user);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
-            return $this->redirectToRoute('advice_post');
+
+            $this->addFlash(
+                'success',
+                'Votre annonce a bien été enregistrée !'
+            );
+
+            return $this->redirectToRoute('ad_post');
         }
        return $this->render('post/ad_post/adAdd.html.twig', [
            'form' => $form->createView(),
