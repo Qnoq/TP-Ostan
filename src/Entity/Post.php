@@ -23,6 +23,7 @@ class Post
      */
     private $title;
 
+    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -108,6 +109,8 @@ class Post
         return $this;
     }
 
+    
+    
     public function getPicture1(): ?string
     {
         return $this->picture1;
