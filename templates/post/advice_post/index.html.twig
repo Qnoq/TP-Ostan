@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue sur O'Stan !{% endblock %}
+{% block title %}Bienvenue sur O'Stan !
+{% endblock %}
 
 {% block content %}
 
@@ -15,39 +16,45 @@
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicePosts %}
+    {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
+        {% if advice_post.type == "Article" %}
 
-        <article class="ml-5 mb-5 pt-3 px-3 border border-dark">
 
-            <div class="title-card border border-dark text-center py-2 mx-5">
-                <h2 class="font-weight-bold">{{ advice_post.title }}</h2>
-            </div>
+            <article>
 
-            <div class="d-flex">
+                <div class="title-card p-1">
+                    <h2 class="font-weight-bold">{{ advice_post.title }}</h2>
+                </div>
 
-                {# Picture 1 de préférence #}
-                <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
+                <div
+                    class="d-flex">
 
-                <div class="">
-                    <div>
-                        <p>
-                            {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                            {{ advice_post.description|truncate(200, true) }}
-                        </p>
-                    </div>
+                    {# Picture 1 de préférence #}
+                    <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
 
-                    <div>
-                        <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
-                            Lire la suite
-                        </a>
+                    <div class="">
+                        <div>
+                            <p>
+                                {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                                {{ advice_post.description|truncate(200, true) }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
+                                Lire la suite
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="metadata mb-3 font-italic text-muted d-flex justify-content-end">
-                <span>Publié le {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
-            </div>
+                <div class="metadata mb-3 font-italic text-muted d-flex justify-content-end">
+                    <span>Publié le
+                        {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
+                </div>
 
-        </article>
+            </article>
+        {% endif %}
 
     {% endfor %}
 
