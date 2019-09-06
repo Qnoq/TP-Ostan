@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ adPost.title }}{% endblock %}
+
+{% block content %}
+
+    <article class="ml-5 my-5 pt-3 px-3 border border-dark">
+
+        <div class="title-card border border-dark text-center py-2 mx-5">
+            <h2 class="font-weight-bold">{{ adPost.title }}</h2>
+        </div>
+
+        <div class="">
+            <div>
+                <p class="mt-5 px-3">
+                        {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                        {{ adPost.description }}
+                </p>
+            </div>
+        </div>
+
+        <div class ="my-5 d-flex flex-wrap justify-content-around">
+            {# Exemple emplacement des images #}
+
+            {# Picture 1 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
+
+            {# Picture 2 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
+
+            {# Picture 3 #}
+            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
+            
+        </div>
+
+        <div class="metadata mx-3 mb-3 d-flex justify-content-between">
+
+            <div class="d-flex justify-content-start">
+            {% for tag in adPost.tags %}
+                <p>
+                    <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">
+                        {{ tag.name }}
+                    </span>
+                </p>
+            {% endfor %}
+            </div>
+
+            <span class="font-italic text-muted">
+                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}
+            </span>
+
+        </div>
+
+    </article>
+
+    <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
+    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+    {% for comment in adPost.comments %}
+        <div class="card-body">
+        <p class="card-text">{{comment.description}}</p>
+        <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+        <hr>
+        </div>
+    {% endfor %}
+    </div>
+
+        {{ form_start(formComment) }}
+        {{ form_widget(formComment) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        </div>
+        {{ form_end(formComment) }}
+
+    <a class="text-dark" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
+
+{% endblock %}

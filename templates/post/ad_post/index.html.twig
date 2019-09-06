@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces{% endblock %}
+
+{% block content %}
+
+    <section class="mt-5">
+
+        {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
+        {% for ad_post in adPosts %}
+
+            <article class="ml-5 mb-5 pt-3 px-3 border border-dark">
+
+                <div class="title-card border border-dark text-center py-2 mx-5">
+                    <h2 class="font-weight-bold">{{ ad_post.title }}</h2>
+                </div>
+
+                <div class="d-flex">
+
+                    {# Picture 1 de préférence #}
+                    <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
+
+                    <div class="">
+                        <div>
+                            <p>
+                                {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                                {{ ad_post.description|truncate(200, true) }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <a href="{{ path('ad_post_show', {'id': ad_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
+                                Lire la suite
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="metadata mb-3 d-flex justify-content-between">
+
+                    <div class="d-flex justify-content-start">
+
+                        {# Boucle pour afficher les TAGS correspondants à l'ANNONCE #}
+                        {% for tag in ad_post.tags %}
+                            <p>
+                                <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</span>
+                            </p>
+                        {% endfor %}
+                        
+                    </div>
+
+                    <span class="font-italic text-muted">
+                        Publié le {{ ad_post.createdAt | date('d/m/Y à H:i') }} par : {{ ad_post.user }}
+                    </span>
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+{% endblock %}
+
+{% block search %}
+
+    <section class="ml-5 mr-4 mt-3">
+        <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
+            <i class="fas fa-plus"></i> Ajouter une annonce 
+        </a>
+    </section>
+
+{% endblock %}

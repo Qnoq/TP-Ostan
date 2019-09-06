@@ -10,10 +10,6 @@
             <h2 class="font-weight-bold">{{ advicePost.title }}</h2>
         </div>
 
-        <div class="metadata mb-3 font-italic text-center">
-            <span>Publié le {{ advicePost.createdAt | date('d/m/Y à H:i') }}</span>
-        </div>
-
         <div class="">
             <div>
                 <p class="mt-5 px-3">
@@ -37,25 +33,11 @@
             
         </div>
         
+        <div class="metadata mr-3 mb-3 font-italic text-muted d-flex justify-content-end">
+            <span>Publié le {{ advicePost.createdAt | date('d/m/Y à H:i') }}</span>
+        </div>
 
     </article>
-
-    <h5 class="card-title">Commentaires</h5>
-    <div class="card ml-5 my-5 pt-3 px-3 border border-dark">
-    {% for comment in advicePost.comments %}
-        <div class="card-body">
-        <p class="card-text">{{comment.description}}</p>
-        <p class="card-text">par {{comment.user.username}}</p>
-
-        <hr>
-        </div>
-    {% endfor %}
-    </div>
-
-        {{ form_start(formComment) }}
-        {{ form_widget(formComment) }}
-        <button type="submit" class="btn btn-primary">Soumettre</button>
-        {{ form_end(formComment) }}
 
     <a class="text-dark" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 

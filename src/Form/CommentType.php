@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -14,16 +16,19 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('description', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Commentaire'
-                ],]);
-            // ->add('createdAt')
-            // ->add('updatedAt')
-            // ->add('post')
-            // ->add('user')
-            // ->add('status')
-                
+                'label' => 'Poster un commentaire :',
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min'        => 10,
+                        'max'        => 1000,
+                        'minMessage' => 'Pas assez de caractères (min attendu : {{ limit }})',
+                        'maxMessage' => 'Trop caractères (max attendu : {{ limit }})',
+                    ])
+                ]
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
