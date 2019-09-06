@@ -5,7 +5,8 @@
 {% block content %}
 
 <section class="mt-5">
-    {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
+
+    {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
     {% for ad_post in adPosts %}
 
         <article class="ml-5 mb-5 pt-3 px-3 border border-dark">
@@ -28,15 +29,32 @@
                     </div>
 
                     <div>
-                        <a href="{{ path('ad_post_show', {'id': ad_post.id }) }}" class="btn btn-light border border-dark rounded-0">
+                        <a href="{{ path('ad_post_show', {'id': ad_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
                             Lire la suite
                         </a>
                     </div>
+
                 </div>
+
             </div>
 
-            <div class="metadata mb-3 font-italic d-flex justify-content-end">
-                <span>Publié le {{ ad_post.createdAt | date('d/m/Y à H:i') }}</span> 
+            <div class="metadata mb-3 d-flex justify-content-between">
+
+                <div class="d-flex justify-content-start">
+
+                    {# Boucle pour afficher les TAGS correspondants à l'ANNONCE #}
+                    {% for tag in ad_post.tags %}
+                        <p>
+                            <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</span>
+                        </p>
+                    {% endfor %}
+                    
+                </div>
+
+                <span class="font-italic text-muted">
+                    Publié le {{ ad_post.createdAt | date('d/m/Y à H:i') }} par {{ ad_post.user.username }}
+                </span>
+
             </div>
 
         </article>

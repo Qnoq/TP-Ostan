@@ -10,10 +10,6 @@
             <h2 class="font-weight-bold">{{ adPost.title }}</h2>
         </div>
 
-        <div class="metadata mb-3 font-italic text-center">
-            <span>Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}</span>
-        </div>
-
         <div class="">
             <div>
                 <p class="mt-5 px-3">
@@ -36,17 +32,33 @@
             <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
             
         </div>
-        
+
+        <div class="metadata mx-3 mb-3 d-flex justify-content-between">
+
+            <div class="d-flex justify-content-start">
+            {% for tag in adPost.tags %}
+                <p>
+                    <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">
+                        {{ tag.name }}
+                    </span>
+                </p>
+            {% endfor %}
+            </div>
+
+            <span class="font-italic text-muted">
+                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}
+            </span>
+
+        </div>
 
     </article>
 
-    <h5 class="card-title">Commentaires</h5>
-    <div class="card ml-5 my-5 pt-3 px-3 border border-dark">
+    <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
+    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
     {% for comment in adPost.comments %}
         <div class="card-body">
         <p class="card-text">{{comment.description}}</p>
         <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
-
         <hr>
         </div>
     {% endfor %}
@@ -55,7 +67,7 @@
         {{ form_start(formComment) }}
         {{ form_widget(formComment) }}
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3">Soumettre</button>
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
         </div>
         {{ form_end(formComment) }}
 
