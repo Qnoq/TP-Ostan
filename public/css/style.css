@@ -17,6 +17,9 @@ body {
 .table-responsive {
   overflow-y: auto;
 }
+.userTable thead th{
+  min-width: 150px;
+}
 
 .body {
   display: flex;
