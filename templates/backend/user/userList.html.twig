@@ -84,6 +84,10 @@
                 // En cas de succès on affiche un toast confirmant le changement de rôle du user.
                 success: function (result) {
                     toastr.success('Le rôle de ' + result.firstname + ' a été mis à jour')
+                },
+                error: function(){
+                    toastr.error('Impossible de mettre à jour le rôle, veuillez réessayer.')
+                    
                 }
             });
         }
