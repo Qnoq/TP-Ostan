@@ -53,10 +53,26 @@ class PostController extends AbstractController
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+
+        
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $post->setType('Article');
+
             $entityManager = $this->getDoctrine()->getManager();
+<<<<<<< HEAD
             $entityManager->persist($post);
             $entityManager->flush();
+=======
+            $entityManager -> persist($post);
+            $entityManager -> flush();
+
+            $this->addFlash(
+                'success',
+                'Votre article a bien été enregistré !'
+            );
+
+>>>>>>> 5b892cb20c90bdf49d7b144f379debd4ff319dbc
             return $this->redirectToRoute('backend_advicePostList');
         }
         return $this->render('backend/post/advicePostNew.html.twig', [

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block content %}
+
+    <div class="page404">
+        <h1>Oups ...</h1>
+
+        <p>Il semblerait que la page demandée ne soit pas disponible.</p>
+
+        <p>Vous êtes perdu ? Venez, nous allons vous raccompagner à la <a href=" {{ path('advice_post')}}"> page d'accueil</a>
+    </div>
+
+{% endblock %}
