@@ -127,7 +127,7 @@ class User implements UserInterface, \Serializable
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GalleryPost", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\GalleryPost", mappedBy="user", cascade={"persist","remove"})
      */
     private $galleryPosts;
 
