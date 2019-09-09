@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -56,7 +57,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Numéro de téléphone'
                 ],])
-            ->add('email', TextType::class,[
+            ->add('email', EmailType::class,[
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email'
