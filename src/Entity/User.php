@@ -18,7 +18,7 @@ class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -127,7 +127,7 @@ class User implements UserInterface, \Serializable
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GalleryPost", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\GalleryPost", mappedBy="user", cascade={"persist","remove"})
      */
     private $galleryPosts;
 
@@ -186,6 +186,7 @@ class User implements UserInterface, \Serializable
     public function getSalt()
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**

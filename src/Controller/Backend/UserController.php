@@ -9,13 +9,15 @@ use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 
 /**
- * 
+ *
  * @Route("/backend/", name="backend_")
  */
 class UserController extends AbstractController
@@ -40,6 +42,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
+
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);

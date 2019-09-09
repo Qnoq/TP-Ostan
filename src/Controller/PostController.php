@@ -24,6 +24,7 @@ class PostController extends AbstractController
     {
         $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         $advicePosts= $postRepository->findAllAdvicePost();
+
         return $this->render('post/advice_post/index.html.twig', [
             'advicePosts' => $advicePosts
         ]);
