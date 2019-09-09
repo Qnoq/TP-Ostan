@@ -49,7 +49,8 @@
             </div>
 
             <span class="font-italic text-muted">
-                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}
+                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par 
+                <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': adPost.user.id }) }}">{{ adPost.user.username }}</a>
             </span>
                         {% if is_granted('ROLE_USER_ADMIN') %}
                             {% if adPost.status == null or adPost.status.code == "UNBLOCKED" %}
@@ -69,6 +70,7 @@
     
 
     <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
+<<<<<<< HEAD
 
         <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
             {% for comment in adPost.comments %}
@@ -104,7 +106,7 @@
 
             {% endfor %}
 
-        </div>
+    </div>
 
         {{ form_start(formComment) }}
         {{ form_widget(formComment) }}
