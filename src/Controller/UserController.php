@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -22,13 +23,9 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
-        return $this->render('base.html.twig', [
-            'user' => $user,
-        ])
-        ;
     }
 
-    /**
+        /**
      * Modification d'un user :
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
@@ -90,21 +87,26 @@ class UserController extends AbstractController
     /**
      * Suppression d'un user :
      *
-     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE","POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, User $user)
     {
+
+        // Je dois d'abord effacer la session pour supprimer le user avec lequel je suis connecté :
+        $session = $this->get('session');
+        $session = new Session();
+        $session->invalidate();
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
-
             $this->addFlash(
                 'danger',
                 'Suppression effectuée !'
             );
-        }
 
+        }
         return $this->redirectToRoute('advice_post');
     }
 }
