@@ -76,12 +76,9 @@ class UserController extends AbstractController
             'galleryPost' => $galleryPost,
             'formGallery' => $formGallery->createView(),
         ]);
-        return $this->render('base.html.twig', [
-            'user' => $user,
-        ]);
     }
 
-    /**
+        /**
      * Modification d'un user :
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
@@ -152,18 +149,20 @@ class UserController extends AbstractController
      /**   
      * Suppression d'un user :
      *
-     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE","POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, User $user):Response
     {
+
+        // Je dois d'abord effacer la session pour supprimer le user avec lequel je suis connecté :
         $session = $this->get('session');
         $session = new Session();
         $session->invalidate();
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
-
             $this->addFlash(
                 'danger',
                 'Suppression effectuée !'
