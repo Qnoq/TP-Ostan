@@ -46,13 +46,19 @@
                                 {# le deuxième paramètre est généré par twig c'est l'id du user #}
                                     <select class="form-control" id="select_role_{{user.id}}" onchange="handleRoleSelect(this, {{user.id}})"> {% for role in roles %}
                                         {# " ? et : " = Ternaire. Si le code du role du user est == au code du role dans notre boucle, alors affiche selected #}
-                                        {# selected affichera directement le role par défaut du user #}<option value="{{role.id}}" {{user.role.code == role.code ? "selected" : ""}}> {{role.name}}</option>
+                                        {# selected affichera directement le role par défaut du user #}
+                                            <option value="{{role.id}}" {{user.role.code == role.code ? "selected" : ""}}> {{role.name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </td>
                         <td>
-                            <a href="">Bloquer</a>
+                            {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
+                            <button
+                                type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{user.id}},{{user.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                                {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                                {{user.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                            </button>
                             {{ include('backend/user/_delete.html.twig') }}
                         </td>
                     </tr>
@@ -60,14 +66,10 @@
             </tbody>
         </table>
     </div>
-   
 {% endblock %}
-
 {% block javascripts %}
     <script>
-    urlLogout =  "{{ path('app_logout') |e('js') }}";
-   
-    
+        urlLogout = "{{ path('app_logout') |e('js') }}";
     </script>
     <script>
 
@@ -81,7 +83,7 @@
             // console.log(userId);
             // console.log(window.location)
             // console.log(baseUrl);
-            
+
 
             // On utilise ajax pour faire une requête http en mode "rest" donc sans render
             $.ajax({
@@ -93,14 +95,36 @@
                     if (redirectToLoggout == true) {
                         window.location.replace(urlLogout)
                     }
-                    
                 },
                 error: function () {
                     toastr.error('Impossible de mettre à jour le rôle, veuillez réessayer.')
+                }
+            });
+        }
+        function handleStatusButton(elementButton, userId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            // console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/user/" + userId + "/status/" + statusCode,
+
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, userId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
 
                 }
             });
         }
     </script>
-    
+
 {% endblock %}
