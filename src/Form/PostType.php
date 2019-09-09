@@ -4,12 +4,13 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PostType extends AbstractType
 {
@@ -42,7 +43,7 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Message'
@@ -55,7 +56,7 @@ class PostType extends AbstractType
             //          'Annonce' => false,
             //      ],])
             // ->add('user')
-            // ->add('tags')
+            ->add('tags')
             // ->add('status')
         ;
     }
