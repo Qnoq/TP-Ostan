@@ -14,17 +14,29 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('title', null, [
+                'label' => false,
                 'constraints' => new NotBlank,
                 // pour surcharger la mise en forme du formulaire
-                'attr' => ['class' => 'form-control-title']
+                'attr' => [
+                    'class' => 'form-control-title',
+                    'placeholder' => 'Titre du message'
+                ],
             ])
             ->add('email', null, [
+                'label' => false,
                 'constraints' => new NotBlank,
-                'attr' => ['class' => 'form-control-email']
+                'attr' => [
+                    'class' => 'form-control-email',
+                    'placeholder' => 'Votre email'
+                ],
             ])
             ->add('content', null, [
+                'label' => false,
                 'constraints' => new NotBlank,
-                'attr' => ['class' => 'form-control-content']
+                'attr' => [
+                    'class' => 'form-control-content',
+                    'placeholder' => 'Votre message'
+                ],
             ])
             
             
