@@ -1,15 +1,37 @@
 {% extends 'base_backend.html.twig' %}
 {% block title %}Administration{% endblock %}
 {% block content %}
+
  <h1>Les annonces</h1>
-  {% for post in posts %}
-  <article class="mb-5 pt-3 px-3 border border-dark">
- <h3>{{post.title}}</h3>
- <p>{{post.description}}</p>
- <p>par {{post.user.username}} le {{ post.createdAt | date('d/m/Y à H:i') }} <a class="btn btn-primary" href="">Voir l'annonce</a> <a class="btn btn-warning" href="">Bloquer l'annonce</a> 
-                {{include('backend/post/_delete_ad.html.twig')}}
-  </p> 
- </article>
- {% endfor %}
+
+    {% for post in posts %}
+
+
+            <article class="mb-5 pt-3 px-3 border border-dark">
+
+                <h3>{{post.title}}</h3>
+
+                    <p>{{post.description}}</p>
+                    <p>par {{post.user.username}} le {{ post.createdAt | date('d/m/Y à H:i') }} 
+                    <a class="btn btn-primary" href="{{ path ('ad_post_show', {'id': post.id})}}">Voir l'annonce</a> 
+
+                    {% if is_granted('ROLE_USER_ADMIN') %}
+
+                        {% if post.status == null or post.status.code == "UNBLOCKED" %}
+                        <a class="btn btn-warning" href="{{ path ('backend_post_block', {'id': post.id})}}">Bloquer l'annonce</a>
+                        {% else %}
+                        <a class="btn btn-warning" href="{{ path ('backend_post_unblock', {'id': post.id})}}">Débloquer l'annonce</a>
+                        {% endif %}
+
+                        {{include('backend/post/_delete_ad.html.twig')}}
+                        </p> 
+                    {% endif %}
+                    
+            </article>
+
+
+
+
+    {% endfor %}
  {% endblock %}
  

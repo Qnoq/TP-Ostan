@@ -47,4 +47,15 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneByCode()
+    {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT c
+            FROM App\Entity\Comment c
+            JOIN App\Entity\Status s ON c = s.code
+        ");
+        
+        return $query->getResult(); 
+    }
 }
