@@ -9,7 +9,9 @@ use App\Entity\GalleryPost;
 use App\Form\GalleryPostType;
 use App\Repository\GalleryPostRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -76,8 +78,7 @@ class UserController extends AbstractController
         ]);
         return $this->render('base.html.twig', [
             'user' => $user,
-        ])
-        ;
+        ]);
     }
 
     /**
@@ -104,18 +105,17 @@ class UserController extends AbstractController
             */
 
             // Si le mot de passe est nul
-            if(is_null($user->getPassword())){
+            if (is_null($user->getPassword())) {
 
                 // Le mot de passe encodé est l'ancien mot de passe
                 $encodedPassword = $oldPassword;
 
-            // Sinon
+                // Sinon
             } else {
 
                 // Comme dans la fonction new
                 $encodedPassword = $encode->encodePassword($user, $user->getPassword());
                 $user->getPassword();
-
             }
 
             // Comme dans la fonction new
@@ -154,9 +154,12 @@ class UserController extends AbstractController
      *
      * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(Request $request, User $user)
+    public function delete(Request $request, User $user):Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        $session = $this->get('session');
+        $session = new Session();
+        $session->invalidate();
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
@@ -166,7 +169,6 @@ class UserController extends AbstractController
                 'Suppression effectuée !'
             );
         }
-
         return $this->redirectToRoute('advice_post');
     }
 }

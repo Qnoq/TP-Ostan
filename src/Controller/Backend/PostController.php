@@ -9,9 +9,10 @@ use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -36,10 +37,10 @@ class PostController extends AbstractController
      */
     public function advicePostList(PostRepository $postRepository)
     {
-        $posts= $postRepository->findAllAdvicePost();
+        $posts = $postRepository->findAllAdvicePost();
         return $this->render('backend/post/advicePostList.html.twig', [
             'posts' => $posts
-           
+
         ]);
     }
 
@@ -59,6 +60,10 @@ class PostController extends AbstractController
             $post->setType('Article');
 
             $entityManager = $this->getDoctrine()->getManager();
+<<<<<<< HEAD
+            $entityManager->persist($post);
+            $entityManager->flush();
+=======
             $entityManager -> persist($post);
             $entityManager -> flush();
 
@@ -67,19 +72,19 @@ class PostController extends AbstractController
                 'Votre article a bien été enregistré !'
             );
 
+>>>>>>> 5b892cb20c90bdf49d7b144f379debd4ff319dbc
             return $this->redirectToRoute('backend_advicePostList');
         }
-       return $this->render('backend/post/advicePostNew.html.twig', [
-           'form' => $form->createView(),
-       ]);
-
+        return $this->render('backend/post/advicePostNew.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-    
+
     /**
      * @Route("/post/edit/{id}", name="advicePostEdit", methods="GET|POST")
      */
-    public function advicePostEdit(Request $request, Post $post) 
+    public function advicePostEdit(Request $request, Post $post)
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -99,7 +104,7 @@ class PostController extends AbstractController
      */
     public function advicePostDelete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($post);
             $em->flush();
@@ -113,7 +118,7 @@ class PostController extends AbstractController
      */
     public function adDelete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($post);
             $em->flush();
@@ -123,37 +128,30 @@ class PostController extends AbstractController
     }
 
 
-    // Bloquer un post 
     /**
-     * @Route("/post/block/{id}", name="post_block", requirements={"id"="\d+"})
+     * @Route("/{id}/status/{statusCode}", name="post_update_status", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function blockPost(Post $post, StatusRepository $statusRepository)
+    public function updateStatus(Request $request, Post $post, StatusRepository $statusRepository): JsonResponse
     {
-        $code = "BLOCKED";
-        $blockedStatus = $statusRepository->findOneByCode($code);
-        $post->setStatus($blockedStatus);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($post);
-        $entityManager->flush();
-        return $this->redirectToRoute('backend_adList');
+        $statusCode = $request->get("statusCode");
+        $newStatus = $statusRepository->findOneBy(['code' => $statusCode]);
+
+        // 1 - On récupère le statusId fourni via l'url de la requête (Request)
+        $post = $post->setStatus($newStatus);
+        //On met à jour en base
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+        //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
+        $toReturn = [
+            'id' => $post->getId(),
+            'type' => $post->getType(),
+            'user' => $post->getUser(),
+        ];
+        //On construit une réponse json grâce à notre tableau fait-main toReturn
+        $response = new JsonResponse($toReturn);
+        //On l'envoie au navigateur, on peut les voir dans Network du devtool
+        return $response;
     }
-
-
-    // Débloquer un post 
-    /**
-     * @Route("/post/unblock/{id}", name="post_unblock", requirements={"id"="\d+"})
-     */
-    public function unblockPost(Post $post, StatusRepository $statusRepository)
-    {
-        $code = "UNBLOCKED";
-        $unblockedStatus = $statusRepository->findOneByCode($code);
-        $post->setStatus($unblockedStatus);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($post);
-        $entityManager->flush();
-        return $this->redirectToRoute('backend_adList');
-    }
-    
 }

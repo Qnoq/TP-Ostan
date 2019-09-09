@@ -5,12 +5,13 @@ namespace App\Controller\Backend;
 use App\Entity\User;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
+use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -83,6 +84,43 @@ class UserController extends AbstractController
         $newRole = $roleRepository->findOneBy(['id' => $newRoleId]);
         // On met à jour le rôle de l'user avec le role précédemment récupéré
         $user = $user->setRole($newRole);
+        //On met à jour en base
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        if ($this->getUser() == $user) {
+            $redirectToLoggout = true;
+            
+        } else {
+            $redirectToLoggout = false;
+            
+        }
+
+        //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
+        $toReturn = [
+            'id' => $user->getId(),
+            'firstname' => $user->getFirstname(),
+            'lastname' => $user->getLastname(),
+            'redirectToLoggout' => $redirectToLoggout
+        ];
+        //On construit une réponse json grâce à notre tableau fait-main toReturn
+        $response = new JsonResponse($toReturn);
+        //On l'envoie au navigateur, on peut les voir dans Network du devtool
+        return $response;
+    }
+
+    /**
+     * @Route("user/{id}/status/{statusCode}", name="user_update_status", methods={"PATCH"}, requirements={"id"="\d+"})
+     */
+    public function updateStatus(Request $request, User $user, StatusRepository $statusRepository): JsonResponse
+    {
+
+        $statusCode = $request->get("statusCode");
+        $newStatus = $statusRepository->findOneBy(['code' => $statusCode]);
+
+        // 1 - On récupère le statusId fourni via l'url de la requête (Request)
+        $user = $user->setStatus($newStatus);
         //On met à jour en base
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
