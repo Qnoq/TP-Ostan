@@ -29,12 +29,18 @@
         </div>
 
         {% if user.id == app.user.id %}
-        
-            <div class="mb-4 d-flex justify-content-start">
-                <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-light border border-dark rounded-0">
+
+            <div class="my-2 d-flex justify-content-center">
+                <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-success">
                     Modifier mon profil
                 </a>
             </div>
+
+            <form method="post" action="{{ path('user_delete', {'id': app.user.id }) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet user ?');">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                <button class="btn btn-danger mb-2">Supprimer mon profil</button>
+            </form>
 
         {% endif %}
 
