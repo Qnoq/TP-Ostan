@@ -28,11 +28,15 @@
             </div>
         </div>
 
-        <div class="mb-4 d-flex justify-content-start">
-            <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-light border border-dark rounded-0">
-                Modifier mon profil
-            </a>
-        </div>
+        {% if user.id == app.user.id %}
+        
+            <div class="mb-4 d-flex justify-content-start">
+                <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-light border border-dark rounded-0">
+                    Modifier mon profil
+                </a>
+            </div>
+
+        {% endif %}
 
     </div>
 
