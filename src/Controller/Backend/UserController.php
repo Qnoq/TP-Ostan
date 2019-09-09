@@ -9,19 +9,15 @@ use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-<<<<<<< HEAD
-=======
-
->>>>>>> d2fb0b048894a16a7c8ec9be2f1e1c8b3f186dbc
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 
 /**
- * 
+ *
  * @Route("/backend/", name="backend_")
  */
 class UserController extends AbstractController
