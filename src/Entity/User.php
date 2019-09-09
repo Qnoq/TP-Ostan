@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -150,11 +150,9 @@ class User implements UserInterface
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->galleryPosts = new ArrayCollection();
-        $this->messagesReceived = new ArrayCollection();
-     
+        $this->messagesReceived = new ArrayCollection();     
         $this->createdAt = new \Datetime();
         $this->updatedAt = new \Datetime();
-    
     }
 
     public function __toString()
@@ -602,5 +600,34 @@ class User implements UserInterface
         $this->status = $status;
 
         return $this;
+    }
+    
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,            
+            $this->username,
+            $this->firstname,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->firstname,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 }
