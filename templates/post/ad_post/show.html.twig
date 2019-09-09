@@ -7,7 +7,7 @@
     <article class="ml-5 my-5 pt-3 px-3 border border-dark">
 
         {# pour bloquer l'affichage de la question si celle-ci est bloquée #}
-        {% if post.status == null or post.status.code == "UNBLOCKED" %}
+        {% if adPost.status == null or adPost.status.code == "UNBLOCKED" %}
 
         <div class="title-card border border-dark text-center py-2 mx-5">
             <h2 class="font-weight-bold">{{ adPost.title }}</h2>
@@ -52,6 +52,12 @@
                 Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}
             </span>
 
+            {% if is_granted('ROLE_USER_ADMIN') %}
+                        <p>
+                        <a class="btn btn-warning" href="">Bloquer l'annonce</a> 
+                        </p> 
+            {% endif %}
+
         </div>
 
     </article>
@@ -68,12 +74,17 @@
                     <p class="card-text">{{comment.description}}</p>
                     <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
                     <hr>
+                        {% if is_granted('ROLE_USER_ADMIN') %}
+                            <p>
+                            <a class="btn btn-warning" href="">Bloquer le commentaire</a> 
+                            </p> 
+                        {% endif %}
                     </div>
 
                     {% else %}
 
                     <div class="card-body">
-                    <p class="card-text">Commentaire bloqué - Ne respecte pas la charte du site. Pour toute question, contacter l'adminstrateur du site</p>
+                    <p class="card-text">Commentaire bloqué - Ne respecte pas la charte du site. Pour toute question, contacter l'administrateur du site</p>
                     <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
                     <hr>
                     </div>

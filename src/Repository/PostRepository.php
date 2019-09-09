@@ -79,4 +79,15 @@ class PostRepository extends ServiceEntityRepository
         
         return $query->getResult(); 
     }
+
+    public function findOneByCode()
+    {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT p
+            FROM App\Entity\Post p
+            JOIN App\Entity\Status s ON p = s.code
+        ");
+        
+        return $query->getResult(); 
+    }
 }

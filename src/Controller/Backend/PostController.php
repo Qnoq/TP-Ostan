@@ -6,6 +6,7 @@ namespace App\Controller\Backend;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -110,5 +111,38 @@ class PostController extends AbstractController
         return $this->redirectToRoute('backend_adList');
     }
 
+
+    // Bloquer un post 
+    /**
+     * @Route("/post/block/{id}", name="post_block", requirements={"id"="\d+"})
+     */
+    public function blockPost(Post $post, StatusRepository $statusRepository)
+    {
+        $code = "BLOCKED";
+        $blockedStatus = $statusRepository->findOneByCode($code);
+        $post->setStatus($blockedStatus);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($post);
+        $entityManager->flush();
+        return $this->redirectToRoute('backend_adList');
+    }
+
+
+    // Débloquer un post 
+    /**
+     * @Route("/post/unblock/{id}", name="post_unblock", requirements={"id"="\d+"})
+     */
+    public function unblockPost(Post $post, StatusRepository $statusRepository)
+    {
+        $code = "UNBLOCKED";
+        $unblockedStatus = $statusRepository->findOneByCode($code);
+        $post->setStatus($unblockedStatus);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($post);
+        $entityManager->flush();
+        return $this->redirectToRoute('backend_adList');
+    }
     
 }
