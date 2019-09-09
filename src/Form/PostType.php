@@ -49,11 +49,11 @@ class PostType extends AbstractType
                 ],])
             // ->add('createdAt')
             // ->add('updatedAt')
-             ->add('type', ChoiceType::class, [
-                 'choices' => [
-                     'Article' => true,
-                     'Annonce' => false,
-                 ],])
+            //  ->add('type', ChoiceType::class, [
+            //      'choices' => [
+            //          'Article' => true,
+            //          'Annonce' => false,
+            //      ],])
             // ->add('user')
             // ->add('tags')
             // ->add('status')

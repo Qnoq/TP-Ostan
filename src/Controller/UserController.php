@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\GalleryPost;
+use App\Form\GalleryPostType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,10 +19,33 @@ class UserController extends AbstractController
      *
      * @Route("/profil/{id}", name="user_show", methods ={"GET"}, requirements={"id"="\d+"})
      */
-    public function show(User $user)
+    public function show(User $user, Request $request)
     {
+
+        $gallery = new GalleryPost();
+        $form = $this->createForm(GalleryPostType::class, $gallery);
+        $form->handleRequest($request);
+
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $gallery->setUser($user);
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($gallery);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre documents a bien été enregistré !'
+            );
+
+            return $this->redirectToRoute('user_show', ['id' => $gallery->getId()]);
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 

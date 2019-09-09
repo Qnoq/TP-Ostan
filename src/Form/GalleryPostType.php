@@ -6,20 +6,48 @@ use App\Entity\GalleryPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class GalleryPostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('picture1')
-            ->add('picture2')
-            ->add('picture3')
-            ->add('description')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('user')
+        ->add('title', TextType::class, [
+            'label' => false,
+            'attr' => [
+                'placeholder' => 'Titre de la galerie'
+            ],])
+        ->add('picture1', FileType::class, [
+            'data_class' => null,
+            'label' => false,
+            'required' => false,
+            'attr' => [
+                'placeholder' => 'Image'
+            ],])
+        ->add('picture2', FileType::class, [
+            'data_class' => null,
+            'label' => false,
+            'required' => false,
+            'attr' => [
+                'placeholder' => 'Image'
+            ],])
+        ->add('picture3', FileType::class, [
+            'data_class' => null,
+            'label' => false,
+            'required' => false,
+            'attr' => [
+                'placeholder' => 'Image'
+            ],])
+        ->add('description', TextType::class, [
+            'label' => false,
+            'attr' => [
+                'placeholder' => 'Message'
+            ],])
+            // ->add('createdAt')
+            // ->add('updatedAt')
+            // ->add('user')
         ;
     }
 

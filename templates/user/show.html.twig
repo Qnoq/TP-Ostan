@@ -35,6 +35,12 @@
         </div>
 
     </div>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        </div>
+        {{ form_end(form) }}
 
     <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
