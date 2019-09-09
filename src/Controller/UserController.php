@@ -74,10 +74,6 @@ class UserController extends AbstractController
             'galleryPost' => $galleryPost,
             'formGallery' => $formGallery->createView(),
         ]);
-        return $this->render('base.html.twig', [
-            'user' => $user,
-        ])
-        ;
     }
 
     /**
