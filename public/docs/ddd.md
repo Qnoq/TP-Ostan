@@ -28,31 +28,19 @@
 |name|VARCHAR(20)|NOT NULL|Le nom du rôle|
 |code|VARCHAR(60)|NOT NULL|Le code du rôle|
 
-## ADVICEPOST
+## POST
 
 |Champ|Type|Spécificités|Description|
 |-|-|-|-|
-|id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED| L'identifiant de l'article conseil|
-|title|VARCHAR(100)|NOT NULL|Titre du l'article conseil|
-|picture_1|VARCHAR(255)|NULL|Dessin d'accompagnement de l'article conseil|
-|picture_2|VARCHAR(255)|NULL|Dessin d'accompagnement de l'article conseil|
-|picture_3|VARCHAR(255)|NULL|Dessin d'accompagnement de l'article conseil|
-|description|TEXT|NOT NULL|Paragraphe de l'article conseil|
-|created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de l'article conseil|
-|updated_at|DATETIME|NULL|La date de la dernière mise à jour de l'article conseil|
+|id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED| L'identifiant du post (article/annonce)|
+|title|VARCHAR(100)|NOT NULL|Titre du post|
+|picture1|VARCHAR(255)|NULL|Image d'accompagnement du post (photo, dessin)|
+|picture2|VARCHAR(255)|NULL|Image d'accompagnementdu post|
+|picture3|VARCHAR(255)|NULL|Image d'accompagnement du post|
+|description|LONGTEXT|NOT NULL|Paragraphe du post|
+|created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création du post|
+|updated_at|DATETIME|NULL|La date de la dernière mise à jour du coup|
 
-## AD
-
-|Champ|Type|Spécificités|Description|
-|-|-|-|-|
-|id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED|L'identifiant de l'annonce|
-|title|VARCHAR(100)|NOT NULL|Titre de l'annonce|
-|picture_1|VARCHAR(255)|NULL|Dessin d'accompagnement de l'annonce|
-|picture_2|VARCHAR(255)|NULL|Dessin d'accompagnement de l'annonce|
-|picture_3|VARCHAR(255)|NULL|Dessin d'accompagnement de l'annonce|
-|description|TEXT|NOT NULL|Paragraphe de l'annonce|
-|created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de l'annonce|
-|updated_at|DATETIME|NULL|La date de la dernière mise à jour de l'annonce|
 
 ## GALLERYPOST
 
@@ -105,3 +93,5 @@
 |id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED|L'identifiant du message |
 |content|TEXT|NOT NULL|Contenu du message|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création du message|
+|email|VARCHAR(255)|NOT NULL|Texte du message inscrit dans le formulaire de contact|
+|title|CARCHAR(100)|NOT NULL|Titre du message inscrit dans le formulaire de contact|
