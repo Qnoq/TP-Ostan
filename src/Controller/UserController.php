@@ -22,9 +22,13 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
+        return $this->render('base.html.twig', [
+            'user' => $user,
+        ])
+        ;
     }
 
-        /**
+    /**
      * Modification d'un user :
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
@@ -81,5 +85,26 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Suppression d'un user :
+     *
+     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     */
+    public function delete(Request $request, User $user)
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'danger',
+                'Suppression effectuée !'
+            );
+        }
+
+        return $this->redirectToRoute('advice_post');
     }
 }
