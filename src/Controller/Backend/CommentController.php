@@ -43,7 +43,7 @@ class CommentController extends AbstractController
 
      // Débloquer un commentaire
     /**
-     * @Route("/post/comment/{id}", name="comment_block", requirements={"id"="\d+"})
+     * @Route("/post/comment/{id}", name="comment_unblock", requirements={"id"="\d+"})
      */
     public function unblockComment(Comment $comment, StatusRepository $statusRepository)
     {

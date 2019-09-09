@@ -17,7 +17,7 @@
                     <a class="btn btn-primary" href="{{ path('ad_post_show', {'id': post.id})}}">Voir l'annonce</a> 
 
                     {% if is_granted('ROLE_USER_ADMIN') %}
-                        <a class="btn btn-warning" href="">Bloquer l'annonce</a> 
+                        <a class="btn btn-warning" href="backend_post_block">Bloquer l'annonce</a> 
                         {{include('backend/post/_delete_ad.html.twig')}}
                         </p> 
                     {% endif %}
