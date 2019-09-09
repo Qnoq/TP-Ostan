@@ -6,31 +6,47 @@
             {% block title %}Welcome!
             {% endblock %}
         </title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{asset('css/style.css')}}"> {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+        
         </head>
         <body>
             {% block header %}
                 <div class="header">
-                    <h1 class='title'>
+                    <h1 class='header-title'>
                         O'Stan
                     </h1>
 
 
                     <div class='justify-content-end d-flex'>
-                        <a class="nav-link" href="{{path('backend_adList')}}">admin</a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if is_granted('ROLE_USER_ADMIN') %}
 
 
-                        <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                                <a class="nav-link" href="{{path('backend_adList')}}">Admin</a>
+                            {% endif %}
+
+                            <a class="nav-link" href="{{path('user_show', {'id': app.user.id }) }}">Mon profil</a>
+
+                            <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+
+                            {# Sinon #}
+                        {% else %}
+
+                            <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
 
 
-                        <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+                            <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
 
+                        {% endif %}
                     </div>
 
 
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <nav class="navbar navbar-expand-lg navbar-dark text-white bg-info">
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -40,19 +56,18 @@
                         <ul class="navbar-nav mr-auto">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('advice_post')}}">Accueil</a>
+                                <a class="nav-link_home" href="{{path('advice_post')}}">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Le concept</a>
+                                <a class="nav-link_home" href="#">Le concept</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                                <a class="nav-link_home" href="{{path('contact')}}">Nous contacter</a>
                             </li>
                         </ul>
                     </div>
                 </nav>
-                <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar_backend">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -60,24 +75,24 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                         <ul class="navbar-nav mx-auto">
 
-                            <li class="nav-item mr-5">
-                                <a class="nav-link" href="{{path('backend_adList')}}">Annonces</a>
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="{{path('backend_adList')}}">Annonces</a>
                             </li>
-                            <li class="nav-item mr-5">
-                                <a class="nav-link" href="{{path('backend_advicePostList')}}">Articles</a>
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="{{path('backend_advicePostList')}}">Articles</a>
                             </li>
-                            <li class="nav-item mr-5">
-                                <a class="nav-link mr-5" href="{{path('backend_userList')}}">Utilisateurs</a>
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="{{path('backend_userList')}}">Utilisateurs</a>
                             </li>
-                            <li class="nav-item mr-5">
-                                <a class="nav-link" href="{{path('backend_tagList')}}">Tags</a>
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="{{path('backend_tagList')}}">Tags</a>
                             </li>
-                            
-                            <li class="nav-item mr-5">
-                                <a class="nav-link" href="#">Validation éditeur</a>
+
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="#">Validation éditeur</a>
                             </li>
-                            <li class="nav-item mr-5">
-                                <a class="nav-link" href="#">Gestion blocage</a>
+                            <li class="nav-item">
+                                <a class="nav-link_backend" href="#">Gestion blocage</a>
                             </li>
                         </ul>
                     </div>
@@ -93,14 +108,14 @@
                         <div class="navbar-collapse justify-content-center" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item mr-5">
-                                    <a class="nav-link" href="#">Plan du site</a>
+                                    <a class="nav-link_backend" href="#">Plan du site</a>
                                 </li>
                                 <li class="nav-item mr-5">
-                                    <a class="nav-link" href="{{path('mentions_legales')}}">Mentions légales</a>
+                                    <a class="nav-link_backend" href="{{path('mentions_legales')}}">Mentions légales</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
+                                    <a class="nav-link_backend" href="{{path('contact')}}">Nous contacter</a>
                                 </li>
                             </ul>
 
@@ -108,11 +123,13 @@
                     </nav>
                 </footer>
 
+                <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             {% endblock %}
 
 
-            {% block javascripts %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>{% endblock %}
+            {% block javascripts %}{% endblock %}
         </body>
     </html>

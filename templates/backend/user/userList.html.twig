@@ -2,15 +2,13 @@
 
 {% block title %}Administration
 {% endblock %}
-
 {% block content %}
     <h1>Les utilisateurs</h1>
     <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+        <table class="table table-striped userTable">
+            <thead class="position-sticky">
                 <tr>
                     <th scope="col">#Id</th>
-
                     <th scope="col">Prénom</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Username</th>
@@ -42,14 +40,18 @@
                                 {{job.name}}
                             {% endfor %}
                         </td>
-
                         <td>
-                            <label>
-                                <div class="radio"><input type="radio" id="{{user.role.name}}{{user.id}}" name="{{user.role.name}}{{user.id}}" value="ADMIN" {% if user.role.name == "ADMIN" %} checked {% endif %}>ADMIN</label>
-                                <label>
-                                    <div class="radio"><input type="radio" id="{{user.role.name}}{{user.id}}" name="{{user.role.name}}{{user.id}}" value="USER" {% if user.role.name == "USER" %} checked {% endif %}>USER</label>
-                                </div>
-                            </td>
+                            <div class="form-group">
+                                {# onchange : premier paramètre 'this' renvoie l'élément html où il se trouve, donc Select dans notre cas #}
+                                {# le deuxième paramètre est généré par twig c'est l'id du user #}
+                                <select class="form-control" id="select_role_{{user.id}}" onchange="handleRoleSelect(this, {{user.id}})">
+                                    {% for role in roles %}
+                                        {# " ? et : " = Ternaire. Si le code du role du user est == au code du role dans notre boucle, alors affiche selected #}
+                                        {# selected affichera directement le role par défaut du user #}
+                                        <option value="{{role.id}}" {{user.role.code == role.code ? "selected" : ""}}>{{role.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </td>
                         <td>
                             <a href="">Bloquer</a>
@@ -60,4 +62,34 @@
             </tbody>
         </table>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // UserId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleRoleSelect(element, userId) {
+            // console.log(element.value); A décommenter si besoin
+            // console.log(userId);
+            // console.log(window.location)
+            // console.log(baseUrl);
+
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/user/" + userId + "/role/" + element.value,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    toastr.success('Le rôle de ' + result.firstname + ' a été mis à jour')
+                },
+                error: function(){
+                    toastr.error('Impossible de mettre à jour le rôle, veuillez réessayer.')
+                    
+                }
+            });
+        }
+    </script>
 {% endblock %}

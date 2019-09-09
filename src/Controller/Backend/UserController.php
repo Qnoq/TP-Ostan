@@ -3,11 +3,14 @@
 namespace App\Controller\Backend;
 
 use App\Entity\User;
+use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 /**
@@ -16,17 +19,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class UserController extends AbstractController
 {
-   
+
 
     /**
      * @Route("user", name="userList")
      */
-    public function userList(UserRepository $userRepository)
+    public function userList(UserRepository $userRepository, RoleRepository $roleRepository)
     {
+        $roles = $roleRepository->findAll();
         $users = $userRepository->findAll();
         return $this->render('backend/user/userList.html.twig', [
-            'users' => $users
-           
+            'users' => $users,
+            'roles' => $roles
         ]);
     }
 
@@ -35,7 +39,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
@@ -65,5 +69,33 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
-}
+    }
+
+    /**
+     * @Route("user/{id}/role/{roleId}", name="user_edit_role", methods={"PATCH"}, requirements={"id"="\d+"})
+     */
+    public function updateRole(Request $request, User $user, RoleRepository $roleRepository): JsonResponse
+    {
+
+        // 1 - On récupère le roleId fourni via l'url de la requête (Request)
+        $newRoleId = $request->get("roleId");
+        //On récupère l'objet en base qui correspond à cet id (à l'id qu'on aura eu avec la requete dans l'url) pour le stocker
+        $newRole = $roleRepository->findOneBy(['id' => $newRoleId]);
+        // On met à jour le rôle de l'user avec le role précédemment récupéré
+        $user = $user->setRole($newRole);
+        //On met à jour en base
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
+        $toReturn = [
+            'id' => $user->getId(),
+            'firstname' => $user->getFirstname(),
+            'lastname' => $user->getLastname(),
+        ];
+        //On construit une réponse json grâce à notre tableau fait-main toReturn
+        $response = new JsonResponse($toReturn);
+        //On l'envoie au navigateur, on peut les voir dans Network du devtool
+        return $response;
+    }
 }

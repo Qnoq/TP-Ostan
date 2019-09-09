@@ -19,23 +19,26 @@ class PostType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre de l\'annonce'
+                    'placeholder' => 'Titre de l\'annonce - article'
                 ],])
             ->add('picture1', FileType::class, [
                 'data_class' => null,
                 'label' => false,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture2', FileType::class, [
                 'data_class' => null,
                 'label' => false,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture3', FileType::class, [
                 'data_class' => null,
                 'label' => false,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
@@ -46,11 +49,11 @@ class PostType extends AbstractType
                 ],])
             // ->add('createdAt')
             // ->add('updatedAt')
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Article' => true,
-                    'Annonce' => false,
-                ],])
+             ->add('type', ChoiceType::class, [
+                 'choices' => [
+                     'Article' => true,
+                     'Annonce' => false,
+                 ],])
             // ->add('user')
             // ->add('tags')
             // ->add('status')

@@ -26,7 +26,7 @@ class PostController extends AbstractController
     {
         $posts = $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
-            'posts' => $posts         
+            'posts' => $posts
         ]);
     }
 
@@ -83,7 +83,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/delete/{id}", name="advicePostDelete", methods="DELETE", requirements={"id"="\d+"})
+     * @Route("/post/advicepost/delete/{id}", name="advicePostDelete", methods="DELETE", requirements={"id"="\d+"})
      */
     public function advicePostDelete(Request $request, Post $post): Response
     {
@@ -94,6 +94,20 @@ class PostController extends AbstractController
             $this->addFlash('success', 'Article supprimé.');
         }
         return $this->redirectToRoute('backend_advicePostList');
+    }
+
+    /**
+     * @Route("/post/ad/delete/{id}", name="adDelete", methods="DELETE", requirements={"id"="\d+"})
+     */
+    public function adDelete(Request $request, Post $post): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($post);
+            $em->flush();
+            $this->addFlash('success', 'Annonce supprimée.');
+        }
+        return $this->redirectToRoute('backend_adList');
     }
 
     

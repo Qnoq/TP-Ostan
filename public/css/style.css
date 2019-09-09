@@ -1,10 +1,11 @@
-html{
-    height: 100%;
+html {
+  height: 100%;
 }
-body{
-    display: flex;
-    flex-direction: column;
-     height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
 }
 
 /*
@@ -13,114 +14,193 @@ body{
     opacity: 0.30;
 }
 */
-.table-responsive{
-    overflow-y: auto;
+.table-responsive {
+  overflow-y: auto;
+}
+.userTable thead th{
+  min-width: 150px;
 }
 
 .body {
-    display: flex;
-    margin-top: 20px;
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header{
-    background-color: rgb(214, 247, 152);
-    height: 150px;
-    display: flex;
-    flex-direction: column;
- 
+.header {
+  background: url("/images/bg.jpg");
+  background-size: cover;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
 }
+
 .header-title {
-    align-self: center;
-    margin:auto;
+  align-self: center;
+  margin: auto;
 }
 
-.title-card {
-    position:relative;
-    bottom: 50px;
-    background-color:white;
-}
 
 .profil-avatar {
-    position:relative;
-    top: 90px;
+  position: relative;
+  top: 90px;
 }
 
 .profil-card {
-    width:95%;
+  width: 95%;
 }
 
 footer {
-    margin-top: auto;
+  margin-top: auto;
+}
+/* ****SIDEBAR**** */
+.title-sidebar{
+    font-weight: bold;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 2px;
+    text-shadow: 2px 2px 0px #d2d2d2;
+    background: #dce4ea;
+    padding: 5px;
+    border-radius: 2px;
+}
+.sidebar{
+    align-self: flex-start;
+    box-shadow: 1px 1px 15px #4242425e;
+}
+
+/***** POSTS *****/
+.title-card{
+    position: relative;
+    bottom: 40px;
+    text-align: center;
+    background: #fbf7bc;
+    box-shadow: 0px 7px 6px #a5a5a566;
+
+}
+article{
+    margin-left: 30px;
+    border: lightgray;
+    margin-top: 40px;
+    border: 1px solid #b3b3b338;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 17px #c5b6b661;
 }
 
 
+/******* NAVBARS**** */
+.nav-link {
+ 
+  background-color: rgba(255, 255, 255, 0.719);
+    margin: 5px;
+    border: 2px solid aliceblue;
+    border-radius: 4px;
+    transition: 0.3s;
+    color: black;
+}
+
+.nav-link:focus, .nav-link:hover {
+    text-decoration: none;
+    background: #6e80b5;
+    /* border: none; */
+    border: 2px solid #6689a7;
+    box-shadow: 0 0 4px 0px #00000078;
+    
+    color: white;    
+}
+
+.nav-link_home{
+    color: black;
+    text-decoration: none;
+    margin-right: 15px;
+    background: #cae8de36;
+    padding: 6px;
+    border-radius: 5px;
+    transition: 0.2s
+}
+
+.nav-link_home:hover{
+    text-decoration: none;
+    color: #ffecec;
+}
+
+.nav-link_backend{
+    text-decoration: none;
+    color:rgb(206, 206, 206);
+    margin-right:30px;
+}
+.nav-link_backend:hover{
+    text-decoration: none;
+    color:white;
+}
+.navbar_backend{
+    margin-bottom: 10px;
+    box-shadow: 0px 5px 7px 0px #b5b5b5;
+}
+.navbar_home{
+    box-shadow: 0px 5px 7px 0px #b5b5b5cc;
+    padding:10px;
+
+}
 /* PLAN DU SITE*/
 
 .page-subheading {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 #sitemap {
-    border: 1px solid grey;
-    margin: 20px;
-    border-radius: 10px;
-    background-color: #EAECEE;
+  border: 1px solid grey;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #eaecee;
 }
 
 #sitemap ul.tree li {
-    margin: 0 0 0 10px;
-    padding: 5px 0 0 0px;
-    border-left: 1px solid black;
+  margin: 0 0 0 10px;
+  padding: 5px 0 0 0px;
+  border-left: 1px solid black;
 }
 
-#sitemap ul.tree li a{
-    color: black;
-    text-decoration: none;
+#sitemap ul.tree li a {
+  color: black;
+  text-decoration: none;
 }
 
-.title-card {
-    position:relative;
-    bottom: 50px;
-    background-color:white;
-}
+
 
 .tree {
-    margin: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
 /* FORMULAIRE DE CONTACT */
 
 .contact-form {
-    padding: 50px;
-    border-radius: 10px;
-    background-color: #EAECEE;
-    border: #ABB2B9 1px solid;
-    margin-top: 100px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: #eaecee;
+  border: #abb2b9 1px solid;
+  margin-top: 100px;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 .contact-form-title {
-    position: relative;
-    top: -50px;
-    border: 1px grey solid;
-    border-radius: 10px;
-    padding: 5px;
-    background-color: white;
-
+  position: relative;
+  top: -50px;
+  border: 1px grey solid;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: white;
 }
-
-
-
