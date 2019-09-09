@@ -46,8 +46,7 @@
             </div>
 
             <span class="font-italic text-muted">
-                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par 
-                <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': adPost.user.id }) }}">{{ adPost.user.username }}</a>
+                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par {{ adPost.user.username }}
             </span>
 
         </div>
@@ -59,10 +58,7 @@
     {% for comment in adPost.comments %}
         <div class="card-body">
         <p class="card-text">{{comment.description}}</p>
-        <p class="card-text font-italic text-muted">
-            Posté par  
-            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': comment.user.id }) }}">{{comment.user}}</a>
-            le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+        <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
         <hr>
         </div>
     {% endfor %}

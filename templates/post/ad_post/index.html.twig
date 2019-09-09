@@ -53,8 +53,8 @@
                         <span class="font-italic text-muted">
                             Publié le
                             {{ ad_post.createdAt | date('d/m/Y à H:i') }}
-                            par 
-                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': ad_post.user.id }) }}">{{ ad_post.user }}</a>
+                            par :
+                            {{ ad_post.user }}
                         </span>
                     </div>
                 </article>

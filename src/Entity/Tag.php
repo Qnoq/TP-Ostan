@@ -34,11 +34,6 @@ class Tag
      */
     private $users;
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -117,6 +112,4 @@ class Tag
 
         return $this;
     }
-
-
 }
