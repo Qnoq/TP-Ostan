@@ -6,6 +6,9 @@
 
     <article class="ml-5 my-5 pt-3 px-3 border border-dark">
 
+        {# pour bloquer l'affichage de la question si celle-ci est bloquée #}
+        {% if post.status == null or post.status.code == "UNBLOCKED" %}
+
         <div class="title-card border border-dark text-center py-2 mx-5">
             <h2 class="font-weight-bold">{{ adPost.title }}</h2>
         </div>
@@ -52,24 +55,44 @@
         </div>
 
     </article>
+    
 
     <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
-    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
-    {% for comment in adPost.comments %}
-        <div class="card-body">
-        <p class="card-text">{{comment.description}}</p>
-        <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
-        <hr>
+
+        <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+            {% for comment in adPost.comments %}
+
+                 {% if comment.status == null or comment.status.code == "UNBLOCKED" %}
+
+                    <div class="card-body">
+                    <p class="card-text">{{comment.description}}</p>
+                    <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+                    <hr>
+                    </div>
+
+                    {% else %}
+
+                    <div class="card-body">
+                    <p class="card-text">Commentaire bloqué - Ne respecte pas la charte du site. Pour toute question, contacter l'adminstrateur du site</p>
+                    <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+                    <hr>
+                    </div>
+
+                {% endif %} 
+
+            {% endfor %}
+
         </div>
-    {% endfor %}
-    </div>
 
         {{ form_start(formComment) }}
         {{ form_widget(formComment) }}
+
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
         </div>
         {{ form_end(formComment) }}
+
+        {% endif %}
 
     <a class="text-dark" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
