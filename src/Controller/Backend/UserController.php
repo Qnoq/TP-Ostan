@@ -120,17 +120,11 @@ class UserController extends AbstractController
         $newStatus = $statusRepository->findOneBy(['code' => $statusCode]);
 
         // 1 - On récupère le statusId fourni via l'url de la requête (Request)
-
-
-
         $user = $user->setStatus($newStatus);
-
-
         //On met à jour en base
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-
         //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
         $toReturn = [
             'id' => $user->getId(),
