@@ -64,9 +64,11 @@ class TagController extends AbstractController
             $this->addFlash('success', 'Tag modifié.');
             return $this->redirectToRoute('backend_tag_edit', ['id' => $tag->getId()]);
         }
+        
         return $this->render('backend/tag/edit.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
+            
         ]);
     }
 
@@ -80,7 +82,9 @@ class TagController extends AbstractController
             $em->remove($tag);
             $em->flush();
             $this->addFlash('success', 'Tag supprimé.');
+
         }
+        
         return $this->redirectToRoute('backend_tagList');
     }
 
