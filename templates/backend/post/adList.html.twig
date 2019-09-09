@@ -1,15 +1,56 @@
 {% extends 'base_backend.html.twig' %}
-{% block title %}Administration{% endblock %}
+{% block title %}Administration
+{% endblock %}
 {% block content %}
- <h1>Les annonces</h1>
-  {% for post in posts %}
-  <article class="mb-5 pt-3 px-3 border border-dark">
- <h3>{{post.title}}</h3>
- <p>{{post.description}}</p>
- <p>par {{post.user.username}} le {{ post.createdAt | date('d/m/Y à H:i') }} <a class="btn btn-primary" href="">Voir l'annonce</a> <a class="btn btn-warning" href="">Bloquer l'annonce</a> 
+    <h1>Les annonces</h1>
+    {% for post in posts %}
+        <article class="mb-5 pt-3 px-3 border border-dark">
+            <h3>{{post.title}}</h3>
+            <p>{{post.description}}</p>
+            <p>par
+                {{post.user.username}}
+                le
+                {{ post.createdAt | date('d/m/Y à H:i') }}
+                <a class="btn btn-primary" href="">Voir l'annonce</a>
+                {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
+                <button type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                    {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                    {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                </button>
                 {{include('backend/post/_delete_ad.html.twig')}}
-  </p> 
- </article>
- {% endfor %}
- {% endblock %}
- 
+            </p>
+        </article>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleStatusButton(elementButton, postId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            // console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/" + postId + "/status/" + statusCode,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
+
+                }
+            });
+        }
+    </script>
+{% endblock %}

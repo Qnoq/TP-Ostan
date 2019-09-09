@@ -87,11 +87,21 @@ class UserController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
+
+        if ($this->getUser() == $user) {
+            $redirectToLoggout = true;
+            
+        } else {
+            $redirectToLoggout = false;
+            
+        }
+
         //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
         $toReturn = [
             'id' => $user->getId(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'redirectToLoggout' => $redirectToLoggout
         ];
         //On construit une réponse json grâce à notre tableau fait-main toReturn
         $response = new JsonResponse($toReturn);
