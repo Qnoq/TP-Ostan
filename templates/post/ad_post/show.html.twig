@@ -54,11 +54,11 @@
                         {% if is_granted('ROLE_USER_ADMIN') %}
                             {% if adPost.status == null or adPost.status.code == "UNBLOCKED" %}
                             <p>
-                            <a class="btn btn-warning" href="{{path ('backend_post_block')}}">Bloquer l'annonce</a> 
+                            <a class="btn btn-warning" href="{{path ('backend_post_block', {'id': adPost.id})}}">Bloquer l'annonce</a> 
                             </p> 
                             {% else %}
                             <p>
-                            <a class="btn btn-warning" href="{{path ('backend_post_unblock')}}">Débloquer l'annonce'</a> 
+                            <a class="btn btn-warning" href="{{path ('backend_post_unblock', {'id': adPost.id})}}">Débloquer l'annonce'</a> 
                             </p> 
                             {% endif %}
                     {% endif %}
@@ -82,11 +82,11 @@
                         {% if is_granted('ROLE_USER_ADMIN') %}
                             {% if comment.status == null or comment.status.code == "UNBLOCKED" %}
                             <p>
-                            <a class="btn btn-warning" href="{{path ('backend_comment_block')}}" >Bloquer le commentaire</a> 
+                            <a class="btn btn-warning" href="{{path ('backend_comment_block', {'id': comment.id})}}" >Bloquer le commentaire</a> 
                             </p> 
                             {% else %}
                             <p>
-                            <a class="btn btn-warning" href="{{path ('backend_comment_unblock')}}">Débloquer le commentaire</a> 
+                            <a class="btn btn-warning" href="{{path ('backend_comment_unblock', {'id': comment.id})}}">Débloquer le commentaire</a> 
                             </p> 
                             {% endif %}
                         {% endif %}

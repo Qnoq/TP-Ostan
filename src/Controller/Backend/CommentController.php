@@ -26,7 +26,7 @@ class CommentController extends AbstractController
 
     // Bloquer un commentaire
     /**
-     * @Route("/post/comment/{id}", name="comment_block", requirements={"id"="\d+"})
+     * @Route("post/comment/{id}", name="comment_block", requirements={"id"="\d+"})
      */
     public function blockComment(Comment $comment, StatusRepository $statusRepository)
     {
@@ -37,13 +37,13 @@ class CommentController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
-        return $this->redirectToRoute('ad_post_show');
+        return $this->redirectToRoute('ad_post');
     }
 
 
      // Débloquer un commentaire
     /**
-     * @Route("/post/comment/{id}", name="comment_unblock", requirements={"id"="\d+"})
+     * @Route("post/comment/{id}", name="comment_unblock", requirements={"id"="\d+"})
      */
     public function unblockComment(Comment $comment, StatusRepository $statusRepository)
     {
@@ -54,6 +54,6 @@ class CommentController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
-        return $this->redirectToRoute('ad_post_show');
+        return $this->redirectToRoute('ad_post');
     }
 }
