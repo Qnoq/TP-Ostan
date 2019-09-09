@@ -39,9 +39,9 @@ class UserController extends AbstractController
             $file = $gallery->getPicture2();
             $file = $gallery->getPicture3();
 
-            if(!is_null($gallery->getPicture1() && $gallery->getPicture2() && $gallery->getPicture3())){
+            if (!is_null($gallery->getPicture1() && $gallery->getPicture2() && $gallery->getPicture3())) {
                 //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
                 try {
                     //je deplace mon fichier dans le dossier souhaité
@@ -60,7 +60,7 @@ class UserController extends AbstractController
 
             $gallery->setUser($user);
 
-            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($gallery);
             $entityManager->flush();
 
@@ -75,9 +75,6 @@ class UserController extends AbstractController
             'user' => $user,
             'galleryPost' => $galleryPost,
             'formGallery' => $formGallery->createView(),
-        ]);
-        return $this->render('base.html.twig', [
-            'user' => $user,
         ]);
     }
 
@@ -149,12 +146,12 @@ class UserController extends AbstractController
         return md5(uniqid());
     }
 
-     /**   
+    /**   
      * Suppression d'un user :
      *
      * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(Request $request, User $user):Response
+    public function delete(Request $request, User $user): Response
     {
         $session = $this->get('session');
         $session = new Session();
