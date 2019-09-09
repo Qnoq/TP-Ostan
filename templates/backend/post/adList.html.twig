@@ -1,37 +1,64 @@
 {% extends 'base_backend.html.twig' %}
-{% block title %}Administration{% endblock %}
+{% block title %}Administration
+{% endblock %}
 {% block content %}
+<<<<<<< HEAD
+    <h1>Les annonces</h1>
+=======
 
  <h1>Les annonces</h1>
 
+
+
+>>>>>>> 5b892cb20c90bdf49d7b144f379debd4ff319dbc
     {% for post in posts %}
-
-
-            <article class="mb-5 pt-3 px-3 border border-dark">
-
-                <h3>{{post.title}}</h3>
-
-                    <p>{{post.description}}</p>
-                    <p>par {{post.user.username}} le {{ post.createdAt | date('d/m/Y à H:i') }} 
-                    <a class="btn btn-primary" href="{{ path ('ad_post_show', {'id': post.id})}}">Voir l'annonce</a> 
-
-                    {% if is_granted('ROLE_USER_ADMIN') %}
-
-                        {% if post.status == null or post.status.code == "UNBLOCKED" %}
-                        <a class="btn btn-warning" href="{{ path ('backend_post_block', {'id': post.id})}}">Bloquer l'annonce</a>
-                        {% else %}
-                        <a class="btn btn-warning" href="{{ path ('backend_post_unblock', {'id': post.id})}}">Débloquer l'annonce</a>
-                        {% endif %}
-
-                        {{include('backend/post/_delete_ad.html.twig')}}
-                        </p> 
-                    {% endif %}
-                    
-            </article>
-
-
-
-
+        <article class="mb-5 pt-3 px-3 border border-dark">
+            <h3>{{post.title}}</h3>
+            <p>{{post.description}}</p>
+            <p>par
+                {{post.user.username}}
+                le
+                {{ post.createdAt | date('d/m/Y à H:i') }}
+                <a class="btn btn-primary" href="">Voir l'annonce</a>
+                {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
+                <button type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                    {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                    {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                </button>
+                {{include('backend/post/_delete_ad.html.twig')}}
+            </p>
+        </article>
     {% endfor %}
- {% endblock %}
- 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleStatusButton(elementButton, postId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            // console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/" + postId + "/status/" + statusCode,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
+
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -46,6 +46,34 @@
 
     </div>
 
+    <h5 class="card-title font-weight-bold mb-0">Galerie</h5>
+    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+    {% for gallery in user.galleryPosts %}
+        <div class="card-body">
+        <p class="card-text">{{gallery.title}}</p>
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+        <img src="{{ asset(picture_upload_path ~ (gallery.picture1 ?: 'marvel.jpg')) }}" class="img-fluid">
+        </a>
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+        <img src="{{ asset(picture_upload_path ~ (gallery.picture2 ?: 'marvel.jpg')) }}" class="img-fluid">
+        </a>
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+        <img src="{{ asset(picture_upload_path ~ (gallery.picture3 ?: 'marvel.jpg')) }}" class="img-fluid">
+        </a>
+        <p class="card-text">{{gallery.description}}</p>
+        <p class="card-text font-italic text-muted">Posté par {{gallery.user}} le {{ gallery.createdAt | date('d/m/Y à H:i') }}</p>
+        <hr>
+        </div>
+    {% endfor %}
+    </div>
+
+    {{ form_start(formGallery) }}
+        {{ form_widget(formGallery) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        </div>
+        {{ form_end(formGallery) }}
+
     <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
 {% endblock %}
