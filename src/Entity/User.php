@@ -80,7 +80,7 @@ class User implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phonenumber;
 

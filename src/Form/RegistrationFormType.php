@@ -9,9 +9,11 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -51,12 +53,12 @@ class RegistrationFormType extends AbstractType
                 'widget' => 'choice',
                 'label' => 'Date anniversaire',
             ])
-            ->add('phonenumber', TextType::class,[
+            ->add('phonenumber', TelType::class,[
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Numéro de téléphone'
                 ],])
-            ->add('email', TextType::class,[
+            ->add('email', EmailType::class,[
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email'
