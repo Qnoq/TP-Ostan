@@ -21,23 +21,13 @@
                     <div class='justify-content-end d-flex'>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_USER_ADMIN') %}
-
-
                                 <a class="nav-link" href="{{path('backend_adList')}}">Admin</a>
                             {% endif %}
-
                             <a class="nav-link" href="{{path('user_show', {'id': app.user.id }) }}">Mon profil</a>
-
                             <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-
-                            {# Sinon #}
                         {% else %}
-
                             <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-
-
                             <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-
                         {% endif %}
                     </div>
 
@@ -55,6 +45,13 @@
                             <li class="nav-item">
                                 <a class="nav-link_home" href="{{path('advice_post')}}">Accueil</a>
                             </li>
+                            {# Si je suis authentifié #}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                                <li class="nav-item">
+                                    <a class="nav-link_home" href="{{path('ad_post')}}">Annonces</a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link_home" href="#">Le concept</a>
                             </li>
@@ -78,6 +75,7 @@
                             <li class="nav-item">
                                 <a class="nav-link_backend" href="{{path('backend_advicePostList')}}">Articles</a>
                             </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link_backend" href="{{path('backend_userList')}}">Utilisateurs</a>
                             </li>
@@ -89,7 +87,7 @@
                                 <a class="nav-link_backend" href="#">Validation éditeur</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link_backend" href="#">Gestion blocage</a>
+                                <a class="nav-link_backend" href="{{path('backend_blocked_index')}}">Gestion blocage</a>
                             </li>
                         </ul>
                     </div>
@@ -133,8 +131,6 @@
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             {% endblock %}
-
-
             {% block javascripts %}{% endblock %}
         </body>
     </html>

@@ -2,10 +2,10 @@
 {% block title %}Administration
 {% endblock %}
 {% block content %}
-    <h1>Les annonces</h1>
+    <h1>Gestion des blocages</h1>
     {% for post in posts %}
-        {% if post.status.code == "UNBLOCKED" %}
 
+        {% if post.status.code == "BLOCKED" %}
             <article class="mb-5 pt-3 px-3 border border-dark">
                 <h3>{{post.title}}</h3>
                 <p>{{post.description}}</p>
@@ -26,6 +26,7 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
+
 
 {% block javascripts %}
     <script>
