@@ -125,9 +125,11 @@ a:hover,a:focus{
 .profil-avatar {
   position: relative;
   top: 0px;
-  display: inline;
   margin: 0 auto;
-  margin-left: -25%;
+  
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .mask {
