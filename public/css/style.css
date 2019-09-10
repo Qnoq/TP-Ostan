@@ -48,11 +48,23 @@ body {
   align-self: center;
   margin: auto;
 }
-
+.mask {
+  
+    /* height: 100px; */
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    /* position: relative; */
+    top: 90px;
+}
 
 .profil-avatar {
   position: relative;
-  top: 90px;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+ 
+  
 }
 
 .profil-card {
