@@ -4,7 +4,9 @@
 
 {% block content %}
 
-    <img class="profil-avatar rounded-circle border border-dark" src="https://i.pravatar.cc/200?img=3" alt="">
+    <a href="{{ path('user_show', { 'id': user.id }) }}">
+        <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar rounded-circle border border-dark">
+    </a>
 
     <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
 
