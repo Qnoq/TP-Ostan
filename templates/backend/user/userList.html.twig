@@ -69,13 +69,8 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        urlLogout = "{{ path('app_logout') |e('js') }}";
-    </script>
-    <script>
-
         // On récupère l'url de base du server grâce à window.location
         var baseUrl = window.location.origin;
-        console.log(urlLogout);
         // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
         // UserId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
         function handleRoleSelect(element, userId) {
@@ -83,8 +78,6 @@
             // console.log(userId);
             // console.log(window.location)
             // console.log(baseUrl);
-
-
             // On utilise ajax pour faire une requête http en mode "rest" donc sans render
             $.ajax({
                 method: "PATCH",
@@ -92,9 +85,6 @@
                 // En cas de succès on affiche un toast confirmant le changement de rôle du user.
                 success: function (result) {
                     toastr.success('Le rôle de ' + result.firstname + ' a été mis à jour');
-                    if (redirectToLoggout == true) {
-                        window.location.replace(urlLogout)
-                    }
                 },
                 error: function () {
                     toastr.error('Impossible de mettre à jour le rôle, veuillez réessayer.')

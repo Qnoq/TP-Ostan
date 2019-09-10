@@ -1,124 +1,165 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ adPost.title }}{% endblock %}
+{% block title %}
+    {{ post.title }}
+{% endblock %}
 
 {% block content %}
 
     <article class="ml-5 my-5 pt-3 px-3 border border-dark">
-
-        {# pour bloquer l'affichage de la question si celle-ci est bloquée #}
-        {% if adPost.status == null or adPost.status.code == "UNBLOCKED" %}
-
         <div class="title-card border border-dark text-center py-2 mx-5">
-            <h2 class="font-weight-bold">{{ adPost.title }}</h2>
+            <h2 class="font-weight-bold">{{ post.title }}</h2>
         </div>
-
-        <div class="">
+        <div>
             <div>
-                <p class="mt-5 px-3">
-                        {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                        {{ adPost.description }}
+                <p
+                    class="mt-5 px-3">
+                    {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
+                    {{ post.description }}
                 </p>
             </div>
         </div>
 
-        <div class ="my-5 d-flex flex-wrap justify-content-around">
+        <div class="my-5 d-flex flex-wrap justify-content-around">
             {# Exemple emplacement des images #}
-
             {# Picture 1 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-
-            {# Picture 2 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-
+            <img
+            class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt=""> {# Picture 2 #}
+            <img
+            class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
             {# Picture 3 #}
             <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-            
         </div>
+        {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
+        {% if is_granted('ROLE_USER_ADMIN') %}
+            <button
+                type="button" class="btn btn-warning mx-3 mb-3" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+            </button>
+        {% endif %}
 
         <div class="metadata mx-3 mb-3 d-flex justify-content-between">
-
             <div class="d-flex justify-content-start">
-            {% for tag in adPost.tags %}
-                <p>
-                    <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">
-                        {{ tag.name }}
-                    </span>
-                </p>
-            {% endfor %}
+                {% for tag in post.tags %}
+                    <p>
+                        <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">
+                            {{ tag.name }}
+                        </span>
+                    </p>
+                {% endfor %}
             </div>
 
             <span class="font-italic text-muted">
-                Publié le {{ adPost.createdAt | date('d/m/Y à H:i') }} par 
-                <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': adPost.user.id }) }}">{{ adPost.user.username }}</a>
+                Publié le
+                {{ post.createdAt | date('d/m/Y à H:i') }}
+                par
+                <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user.username }}</a>
             </span>
-                        {% if is_granted('ROLE_USER_ADMIN') %}
-                            {% if adPost.status == null or adPost.status.code == "UNBLOCKED" %}
-                            <p>
-                            <a class="btn btn-warning" href="{{path ('backend_post_block', {'id': adPost.id})}}">Bloquer l'annonce</a> 
-                            </p> 
-                            {% else %}
-                            <p>
-                            <a class="btn btn-warning" href="{{path ('backend_post_unblock', {'id': adPost.id})}}">Débloquer l'annonce'</a> 
-                            </p> 
-                            {% endif %}
-                    {% endif %}
-
         </div>
-
     </article>
-    
+
 
     <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
 
 
-        <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
-            {% for comment in adPost.comments %}
-
-                 {% if comment.status == null or comment.status.code == "UNBLOCKED" %}
-
-                    <div class="card-body">
-                    <p class="card-text">{{comment.description}}</p>
-                    <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
-                    <hr>
-                        {% if is_granted('ROLE_USER_ADMIN') %}
-                            {% if comment.status == null or comment.status.code == "UNBLOCKED" %}
-                            <p>
-                            <a class="btn btn-warning" href="{{path ('backend_comment_block', {'id': comment.id})}}" >Bloquer le commentaire</a> 
-                            </p> 
-                            {% else %}
-                            <p>
-                            <a class="btn btn-warning" href="{{path ('backend_comment_unblock', {'id': comment.id})}}">Débloquer le commentaire</a> 
-                            </p> 
-                            {% endif %}
-                        {% endif %}
-                    </div>
-
-                    {% else %}
-
-                    <div class="card-body">
-                    <p class="card-text">Commentaire bloqué - Ne respecte pas la charte du site. Pour toute question, contacter l'administrateur du site</p>
-                    <p class="card-text font-italic text-muted">Posté par {{comment.user}} le {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
-                    <hr>
-                    </div>
-
-                {% endif %} 
-
-            {% endfor %}
-
+    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+        {% for comment in post.comments if comment.status.code == "UNBLOCKED" %}        
+            <div class="card-body">
+            <button
+                type="button" class="btn btn-warning mb-3" onclick="handleStatusButtonComment(this,{{comment.id}},{{comment.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                {{comment.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+            </button>
+                <p class="card-text">{{comment.description}}</p>
+                <p class="card-text font-italic text-muted">Posté par
+                    {{comment.user}}
+                    le
+                    {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+                <hr>
+            </div>
+            {% else %}
+                <p>Il n'y a pas de commentaires pour le moment...</p>
+        {% endfor %}
     </div>
 
-        {{ form_start(formComment) }}
-        {{ form_widget(formComment) }}
+    {{ form_start(formComment) }}
+    {{ form_widget(formComment) }}
 
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
-        </div>
-        {{ form_end(formComment) }}
-
-        {% endif %}
-
-
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+    </div>
+    {{ form_end(formComment) }}
     <a class="text-dark" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
+{% endblock %}
+
+
+
+
+
+
+{% block javascripts %}
+    <script>
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleStatusButton(elementButton, postId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/" + postId + "/status/" + statusCode,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    console.log(toastr);
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
+
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleStatusButtonComment(elementButton, commentId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/comment/" + commentId + "/status/" + statusCode,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    console.log(toastr);
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, commentId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
+
+                }
+            });
+        }
+    </script>
 {% endblock %}
