@@ -4,9 +4,11 @@
 
 {% block content %}
 
+    <div class="mask">
     <a href="{{ path('user_show', { 'id': user.id }) }}">
-        <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar rounded-circle border border-dark">
+        <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
     </a>
+    </div>
 
     <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
 
@@ -17,9 +19,11 @@
         <div class="border border-dark mx-5 my-5 py-3">
             <p><span class="font-weight-bold">Adresse email :</span> {{ user.email }}</p>
 
+            <p><span class="font-weight-bold">Je suis : 
             {% for job in user.jobs %}
-                <p><span class="font-weight-bold">Je suis : {{ job.name }}</span></p>
+                {{ job.name }}
             {% endfor %}
+            </span></p>
 
             <p><span class="font-weight-bold">Présentation :</span></p>
 
