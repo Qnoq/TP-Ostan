@@ -6,6 +6,8 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\UserSearchType;
+use App\Form\AdPostSearchType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
@@ -35,13 +37,22 @@ class PostController extends AbstractController
      * 
      * @Route("/annonces", name="ad_post", methods={"GET"})
      */
-    public function adList(PostRepository $postRepository)
+    public function adList(PostRepository $postRepository, Request $request)
     {
         
         $adPosts= $postRepository->findAllAdPost();
         $adPosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+
+        // rechercher une annonce par tag :
+        $searchAdPostForm = $this->createForm(AdPostSearchType::class);
+
+        // rechercher un user par job et tag :
+        $searchUserForm = $this->createForm(UserSearchType::class);
+
         return $this->render('post/ad_post/index.html.twig', [
-            'adPosts' => $adPosts
+            'adPosts' => $adPosts,
+            'ad_search_form' => $searchAdPostForm->CreateView(),
+            'user_search_form' => $searchUserForm->CreateView(),
         ]);
     }
 
