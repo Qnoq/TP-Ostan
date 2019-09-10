@@ -70,7 +70,9 @@
     </div>
 
     {{ form_start(formGallery) }}
-        {{ form_widget(formGallery) }}
+        {{ form_row(formGallery.picture1) }}
+        {{ form_row(formGallery.picture2) }}
+        {{ form_row(formGallery.picture3) }}
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
         </div>
