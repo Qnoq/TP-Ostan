@@ -42,8 +42,7 @@ class UserController extends AbstractController
 
             if(!is_null($gallery->getPicture1())){
                 //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
                 try {
                     //je deplace mon fichier dans le dossier souhaité
                     $file->move(
@@ -53,12 +52,10 @@ class UserController extends AbstractController
                 } catch (FileException $e) {
                     dump($e);
                 }
-
                 $gallery->setPicture1($fileName);
             }
 
             $file = $gallery->getPicture2();
-
             if(!is_null($gallery->getPicture2())){
                 //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
@@ -97,7 +94,7 @@ class UserController extends AbstractController
 
             $gallery->setUser($user);
 
-            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($gallery);
             $entityManager->flush();
 
@@ -120,7 +117,7 @@ class UserController extends AbstractController
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encode)
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $oldAvatar = $user->getAvatar();
 
@@ -172,7 +169,7 @@ class UserController extends AbstractController
 
             /*
                 Si je ne souhaite pas modifier le mot de passe en édition, alors je peux avoir le comportement suivant : mot de passe laissé vide si inchangé.
-                Ainsi je dois tester di le nouveau mot de passe est vide, et si c'est le cas je récupère l'ancien mot de passe
+                Ainsi je dois tester si le nouveau mot de passe est vide, et si c'est le cas je récupère l'ancien mot de passe
             */
 
             // Si le mot de passe est nul
@@ -180,13 +177,11 @@ class UserController extends AbstractController
 
                 // Le mot de passe encodé est l'ancien mot de passe
                 $encodedPassword = $oldPassword;
-
-                // Sinon
             } else {
 
                 // Comme dans la fonction new
-                $encodedPassword = $encode->encodePassword($user, $user->getPassword());
-                // $user->getPassword();
+                $encodedPassword = $encoder->encodePassword($user, $user->getPassword());
+               
             }
 
             // Comme dans la fonction new
@@ -220,12 +215,12 @@ class UserController extends AbstractController
         return md5(uniqid());
     }
 
-     /**   
+    /**   
      * Suppression d'un user :
      *
      * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE","POST"}, requirements={"id"="\d+"})
      */
-    public function delete(Request $request, User $user):Response
+    public function delete(Request $request, User $user): Response
     {
 
         // Je dois d'abord effacer la session pour supprimer le user avec lequel je suis connecté :
