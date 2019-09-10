@@ -10,6 +10,7 @@ use App\Form\GalleryPostType;
 use App\Repository\GalleryPostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -116,6 +117,14 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
+        $oldAvatar = $user->getAvatar();
+
+        if(!empty($oldAvatar)) {
+            $user->setAvatar(
+                new File($this->getParameter('image_directory').'/'.$oldAvatar)
+            );
+        }
+
         // Je récupère l'ancien mot de passe :
         $oldPassword = $user->getPassword();
 
@@ -126,6 +135,35 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if(!is_null($user->getAvatar())){
+
+                $file = $user->getAvatar();
+            
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('image_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+                
+                $user->setAvatar($fileName);
+
+                if(!empty($oldAvatar)){
+
+                    unlink(
+                        $this->getParameter('image_directory') .'/'.$oldAvatar
+                    );
+                }
+
+            } else {
+                
+                $user->setAvatar($oldAvatar);//ancien nom de fichier
+            }
 
             /*
                 Si je ne souhaite pas modifier le mot de passe en édition, alors je peux avoir le comportement suivant : mot de passe laissé vide si inchangé.

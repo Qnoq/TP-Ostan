@@ -24,6 +24,14 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * 
+     * @Assert\File(
+     * maxSize = "1024k", 
+     * mimeTypes={ "image/gif", "image/jpeg", "image/png" },
+     * mimeTypesMessage = "Please valid image format : gif, png, jpeg"
+     * )
+     * 
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
@@ -203,12 +211,12 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar()
     {
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setAvatar($avatar): self
     {
         $this->avatar = $avatar;
 
@@ -292,7 +300,7 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    //Note pour accepter le null , je dois enlever le typehint string pour que cela fonctionne
+    //Note pour accepter le null , je dois enlever le typeint string pour que cela fonctionne
     public function setPassword($password): self
     {
         $this->password = $password;

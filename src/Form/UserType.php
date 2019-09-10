@@ -41,11 +41,18 @@ class UserType extends AbstractType
                     'invalid_message' => 'The password fields must match.',
                     'options' => ['attr' => ['class' => 'password-field']],
                     'required' => true,
+                    'label' => false,
                     'first_options'  => [
-                        'label' => 'Password'
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Mot de passe'
+                        ]
                     ],
                     'second_options' => [
-                        'label' => 'Repeat Password'
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Vérifier le mot de passe'
+                        ]
                     ],
                     'constraints'=> [
                         new NotBlank()
