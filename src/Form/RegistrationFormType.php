@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -63,11 +64,23 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Email'
                 ],])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'type' => PasswordType::class,
                 'mapped' => false,
-                'label' => false,
+                'first_options'  => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Mot de passe'
+                    ]
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Vérifier le mot de passe'
+                    ]
+                ],
                 'attr' => [
                     'placeholder' => 'Mot de passe'
                 ],
