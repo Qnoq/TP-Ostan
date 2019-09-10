@@ -36,10 +36,8 @@ class UserController extends AbstractController
         if ($formGallery->isSubmitted() && $formGallery->isValid()) {
 
             $file = $gallery->getPicture1();
-            $file = $gallery->getPicture2();
-            $file = $gallery->getPicture3();
 
-            if(!is_null($gallery->getPicture1() && $gallery->getPicture2() && $gallery->getPicture3())){
+            if(!is_null($gallery->getPicture1())){
                 //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
@@ -54,7 +52,43 @@ class UserController extends AbstractController
                 }
 
                 $gallery->setPicture1($fileName);
+            }
+
+            $file = $gallery->getPicture2();
+
+            if(!is_null($gallery->getPicture2())){
+                //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                try {
+                    //je deplace mon fichier dans le dossier souhaité
+                    $file->move(
+                        $this->getParameter('image_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
                 $gallery->setPicture2($fileName);
+            }
+
+            $file = $gallery->getPicture3();
+
+            if(!is_null($gallery->getPicture3())){
+                //je genere un nom de fichier unique pour eviter d'ecraser un fichier du meme nom & je concatene avec l'extension du fichier d'origine
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                try {
+                    //je deplace mon fichier dans le dossier souhaité
+                    $file->move(
+                        $this->getParameter('image_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
                 $gallery->setPicture3($fileName);
             }
 
