@@ -80,7 +80,6 @@ class UserController extends AbstractController
      */
     public function updateRole(Request $request, User $user, RoleRepository $roleRepository): JsonResponse
     {
-
         // 1 - On récupère le roleId fourni via l'url de la requête (Request)
         $newRoleId = $request->get("roleId");
         //On récupère l'objet en base qui correspond à cet id (à l'id qu'on aura eu avec la requete dans l'url) pour le stocker
@@ -92,20 +91,11 @@ class UserController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        if ($this->getUser() == $user) {
-            $redirectToLoggout = true;
-            
-        } else {
-            $redirectToLoggout = false;
-            
-        }
-
         //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
         $toReturn = [
             'id' => $user->getId(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
-            'redirectToLoggout' => $redirectToLoggout
         ];
         //On construit une réponse json grâce à notre tableau fait-main toReturn
         $response = new JsonResponse($toReturn);
@@ -118,7 +108,6 @@ class UserController extends AbstractController
      */
     public function updateStatus(Request $request, User $user, StatusRepository $statusRepository): JsonResponse
     {
-
         $statusCode = $request->get("statusCode");
         $newStatus = $statusRepository->findOneBy(['code' => $statusCode]);
 
