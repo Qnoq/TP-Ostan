@@ -7,15 +7,9 @@
 {% block content %}
 
     <div class="mask">
-<<<<<<< HEAD
     <a href="{{ path('user_show', { 'id': user.id }) }}">
         <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
     </a>
-=======
-        <a href="{{ path('user_show', { 'id': user.id }) }}">
-            <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
-        </a>
->>>>>>> b8ea76473f2d7816ca30156e4919892edc9f0671
     </div>
 
     <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
@@ -31,14 +25,10 @@
 
             <p><span class="font-weight-bold">Je suis : 
             {% for job in user.jobs %}
-<<<<<<< HEAD
-                {{ job.name }}
-=======
                 <p>
                     <span class="font-weight-bold">Je suis :
                         {{ job.name }}</span>
                 </p>
->>>>>>> b8ea76473f2d7816ca30156e4919892edc9f0671
             {% endfor %}
             </span></p>
 
