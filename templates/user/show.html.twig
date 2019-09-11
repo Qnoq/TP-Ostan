@@ -4,8 +4,8 @@
     {{ user.username }}
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
     <div class="mask">
         <a href="{{ path('user_show', { 'id': user.id }) }}">
             <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
@@ -21,7 +21,8 @@
         <div class="border border-dark mx-5 my-5 py-3">
             <p>
                 <span class="font-weight-bold">Adresse email :</span>
-                {{ user.email }}</p>
+                {{ user.email }}
+            </p>
 
             <p>
                 <span class="font-weight-bold">Je suis :
@@ -90,17 +91,17 @@
         {% endfor %}
 
         {% if user.id == app.user.id %}
-        </div>
-        {{ form_start(formGallery) }}
-        {{ form_row(formGallery.picture1) }}
-        {{ form_row(formGallery.picture2) }}
-        {{ form_row(formGallery.picture3) }}
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
-        </div>
-        {{ form_end(formGallery) }}
-    {% endif %}
 
+            {{ form_start(formGallery) }}
+            {{ form_row(formGallery.picture1) }}
+            {{ form_row(formGallery.picture2) }}
+            {{ form_row(formGallery.picture3) }}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+            </div>
+            {{ form_end(formGallery) }}
+        {% endif %}
+    </div>
     <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
 {% endblock %}

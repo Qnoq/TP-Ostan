@@ -2,9 +2,9 @@
 {% block content %}
     <h1>Utilisateurs</h1>
     {% for user in users %}
-        <div class='card mb-2'>
+        <div class='card mb-2 mt-5'>
             <div class="card-body">
-                <p>{{user.username}}</p>
+                <p class='title-card'>{{user.username}}</p>
                 <p>Job(s):{% for job in user.jobs %}
                     {{job.name}}
                 {% endfor %}</p>
