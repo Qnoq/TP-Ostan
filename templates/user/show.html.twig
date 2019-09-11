@@ -7,9 +7,9 @@
 {% block content %}
 
     <div class="mask">
-    <a href="{{ path('user_show', { 'id': user.id }) }}">
-        <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
-    </a>
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+            <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
+        </a>
     </div>
 
     <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
@@ -23,6 +23,7 @@
                 <span class="font-weight-bold">Adresse email :</span>
                 {{ user.email }}</p>
 
+<<<<<<< HEAD
             <p><span class="font-weight-bold">Je suis : 
             {% for job in user.jobs %}
                 <p>
@@ -30,6 +31,18 @@
                 </p>
             {% endfor %}
             </span></p>
+=======
+            <p>
+                <span class="font-weight-bold">Je suis :
+                    {% for job in user.jobs %}
+                        <p>
+                            <span class="font-weight-bold">Je suis :
+                                {{ job.name }}</span>
+                        </p>
+                    {% endfor %}
+                </span>
+            </p>
+>>>>>>> 8ee97d6233d309a9e1da66e3aa3dc7026de8978d
 
             <p>
                 <span class="font-weight-bold">Présentation :</span>
@@ -61,6 +74,7 @@
 
     </div>
 
+<<<<<<< HEAD
     <section class="d-flex flex-column">
 
         <h5 class="card-title font-weight-bold mb-0">Galerie</h5>
@@ -116,6 +130,43 @@
         </div>
         {% endif %}
     </section>
+=======
+    <h5 class="card-title font-weight-bold mb-0">Galerie</h5>
+    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+        {% for gallery in user.galleryPosts %}
+            <div class="card-body">
+                <p class="card-text">{{gallery.title}}</p>
+                <a href="{{ path('user_show', { 'id': user.id }) }}">
+                    <img src="{{ asset(picture_upload_path ~ (gallery.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery">
+                </a>
+                <a href="{{ path('user_show', { 'id': user.id }) }}">
+                    <img src="{{ asset(picture_upload_path ~ (gallery.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery">
+                </a>
+                <a href="{{ path('user_show', { 'id': user.id }) }}">
+                    <img src="{{ asset(picture_upload_path ~ (gallery.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery">
+                </a>
+                <p class="card-text">{{gallery.description}}</p>
+                <p class="card-text font-italic text-muted">Posté par
+                    {{gallery.user}}
+                    le
+                    {{ gallery.createdAt | date('d/m/Y à H:i') }}</p>
+                <hr>
+            </div>
+            
+        {% endfor %}
+        
+        {% if user.id == app.user.id %}
+        </div>
+        {{ form_start(formGallery) }}
+        {{ form_row(formGallery.picture1) }}
+        {{ form_row(formGallery.picture2) }}
+        {{ form_row(formGallery.picture3) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        </div>
+        {{ form_end(formGallery) }}
+    {% endif %}
+>>>>>>> 8ee97d6233d309a9e1da66e3aa3dc7026de8978d
 
     <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 

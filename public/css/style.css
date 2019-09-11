@@ -121,6 +121,9 @@ a:hover,a:focus{
   align-self: center;
   margin: auto;
 }
+.image-gallery{
+  width: 250px;
+}
 
 .profil-avatar {
   position: relative;
