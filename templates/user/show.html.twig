@@ -69,8 +69,9 @@
         {% for gallery in user.galleryPosts %}
             <div class="card-body">
                 <p class="card-text">{{gallery.title}}</p>
+
                 <a href="{{ path('user_show', { 'id': user.id }) }}">
-                    <img src="{{ asset(picture_upload_path ~ (gallery.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery">
+                    <img src="{{ asset(picture_upload_path ~ (gallery.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery modal-hover-opacity" onclick="onClick(this)">
                 </a>
                 <a href="{{ path('user_show', { 'id': user.id }) }}">
                     <img src="{{ asset(picture_upload_path ~ (gallery.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-gallery">
@@ -85,9 +86,9 @@
                     {{ gallery.createdAt | date('d/m/Y à H:i') }}</p>
                 <hr>
             </div>
-            
+
         {% endfor %}
-        
+
         {% if user.id == app.user.id %}
         </div>
         {{ form_start(formGallery) }}
