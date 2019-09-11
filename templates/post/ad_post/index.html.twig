@@ -9,42 +9,48 @@
         class="mt-5">
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
-        {% for ad_post in adPosts %}
-            {% if ad_post.type == "Annonce" %}
-
+        {% for post in posts %}
+            {# Si le type des posts est annonce ET si son status est UNBLOCKED, alors tu les affiches. #}
+            {% if post.type == "Annonce" and post.status.code == "UNBLOCKED" %}
 
                 <article>
-
                     <div class="title-card p-1">
-                        <h2 class="font-weight-bold">{{ ad_post.title }}</h2>
+                        <h2 class="font-weight-bold">{{ post.title }}</h2>
                     </div>
 
                     <div
                         class="d-flex">
-
                         {# Picture 1 de préférence #}
-                        <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
+                        <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="picture1">
 
-                        <div class="">
+                        <div>
                             <div>
                                 <p>
                                     {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                                    {{ ad_post.description|truncate(200, true) }}
+                                    {{ post.description|truncate(200, true) }}
                                 </p>
                             </div>
-
                             <div>
-                                <a href="{{ path('ad_post_show', {'id': ad_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
+                                <a href="{{ path('ad_post_show', {'id': post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
                                     Lire la suite
                                 </a>
+                                {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
+                                {% if is_granted('ROLE_USER_ADMIN') %}
+                                    <button
+                                        type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                                        {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                                        {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                                    </button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
+
                     <div class="metadata mb-3 d-flex justify-content-between">
                         <div
                             class="d-flex justify-content-start">
                             {# Boucle pour afficher les TAGS correspondants à l'ANNONCE #}
-                            {% for tag in ad_post.tags %}
+                            {% for tag in post.tags %}
                                 <p>
                                     <span class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</span>
                                 </p>
@@ -52,17 +58,22 @@
                         </div>
                         <span class="font-italic text-muted">
                             Publié le
+<<<<<<< HEAD
                             {{ ad_post.createdAt | date('d/m/Y à H:i') }}
                             par
                             <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': ad_post.user.id }) }}">{{ ad_post.user }}</a>
+=======
+                            {{ post.createdAt | date('d/m/Y à H:i') }}
+                            par
+                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
+>>>>>>> 30a6298837ce485415167efb81c3021aec503341
                         </span>
                     </div>
+
                 </article>
             {% endif %}
         {% endfor %}
-
     </section>
-
 {% endblock %}
 
 {% block search %}
@@ -126,4 +137,37 @@
     </section>
 
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // On récupère l'url de base du server grâce à window.location
+        var baseUrl = window.location.origin;
+        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
+        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
+        function handleStatusButton(elementButton, postId, statusCode) {
+            // console.log(postId);
+            // console.log(window.location)
+            console.log(baseUrl);
+            // console.log(elementButton);
+            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
+            $.ajax({
+                method: "PATCH",
+                url: baseUrl + "/backend/" + postId + "/status/" + statusCode,
+                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
+                success: function (result) {
+                    console.log(toastr);
+                    toastr.success('Statut mis à jour');
+                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
+                    elementButton.onclick = function () {
+                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                    };
+                },
+                error: function () {
+                    toastr.error('Impossible de mettre à jour le statut.')
+
+                }
+            });
+        }
+    </script>
 {% endblock %}

@@ -49,8 +49,20 @@ body {
   margin: auto;
 }
 
-
 .profil-avatar {
+  position: relative;
+  top: 0px;
+  display: inline;
+  margin: 0 auto;
+  margin-left: -25%;
+}
+
+.mask {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
   position: relative;
   top: 90px;
 }

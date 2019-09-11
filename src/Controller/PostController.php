@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use App\Repository\JobRepository;
 use App\Repository\TagRepository;
+use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,10 +73,8 @@ class PostController extends AbstractController
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
-
             $comment->setPost($advicePost);
             $user = $userRepository->findOneByUsername('emoen');
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($comment);
             $entityManager -> flush();
@@ -92,19 +91,21 @@ class PostController extends AbstractController
      * 
      * @Route("/annonce/{id}", name="ad_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
-    public function adPostShow(Post $adPost, Request $request)
+    public function adPostShow(Post $post, Request $request, StatusRepository $statusRepository)
     {
 
         $comment = new Comment();
         $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
-
         $user = $this->getUser();
+        $defaultStatus = 'UNBLOCKED';
+        $unblockedStatus = $statusRepository->findOneByCode($defaultStatus);
+
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
-
-            $comment->setPost($adPost);
+            $comment->setPost($post);
             $comment->setUser($user);
+            $comment->setStatus($unblockedStatus);
 
             $entityManager=$this->getDoctrine()->getManager();
             $entityManager->persist($comment);
@@ -115,10 +116,10 @@ class PostController extends AbstractController
                 'Votre commentaire a bien été enregistré !'
             );
 
-            return $this->redirectToRoute('ad_post_show', ['id' => $adPost->getId()]);
+            return $this->redirectToRoute('ad_post_show', ['id' => $post->getId()]);
         }
         return $this->render('post/ad_post/show.html.twig', [
-            'adPost' => $adPost,
+            'post' => $post,
             'formComment' => $formComment->createView(),
         ]);
     }

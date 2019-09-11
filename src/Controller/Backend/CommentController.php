@@ -4,7 +4,9 @@ namespace App\Controller\Backend;
 
 use App\Entity\Comment;
 use App\Repository\StatusRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -24,36 +26,29 @@ class CommentController extends AbstractController
     }
 
 
-    // Bloquer un commentaire
     /**
-     * @Route("post/comment/{id}", name="comment_block", requirements={"id"="\d+"})
+     * @Route("comment/{id}/status/{statusCode}", name="comment_update_status", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function blockComment(Comment $comment, StatusRepository $statusRepository)
+    public function updateStatus(Request $request, Comment $comment, StatusRepository $statusRepository): JsonResponse
     {
-        $code = "BLOCKED";
-        $blockedStatus = $statusRepository->findOneByCode($code);
-        $comment->setStatus($blockedStatus);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($comment);
-        $entityManager->flush();
-        return $this->redirectToRoute('ad_post');
-    }
+        $statusCode = $request->get("statusCode");
+        $newStatus = $statusRepository->findOneBy(['code' => $statusCode]);
 
-
-     // Débloquer un commentaire
-    /**
-     * @Route("post/comment/{id}", name="comment_unblock", requirements={"id"="\d+"})
-     */
-    public function unblockComment(Comment $comment, StatusRepository $statusRepository)
-    {
-        $code = "UNBLOCKED";
-        $unblockedStatus = $statusRepository->findOneByCode($code);
-        $comment->setStatus($unblockedStatus);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($comment);
-        $entityManager->flush();
-        return $this->redirectToRoute('ad_post');
+        // 1 - On récupère le statusId fourni via l'url de la requête (Request)
+        $comment = $comment->setStatus($newStatus);
+        //On met à jour en base
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+        //On construit manuellement la réponse envoyée au navigateur (pas réussi à utiliser le module sérializer pour transformer un objet en Json)
+        $toReturn = [
+            'id' => $comment->getId(),
+            'user' => $comment->getUser(),
+        ];
+        //On construit une réponse json grâce à notre tableau fait-main toReturn
+        $response = new JsonResponse($toReturn);
+        //On l'envoie au navigateur, on peut les voir dans Network du devtool
+        return $response;
     }
 }
