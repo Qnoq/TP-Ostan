@@ -83,17 +83,27 @@
                     {{ gallery.createdAt | date('d/m/Y à H:i') }}</p>
                 <hr>
             </div>
+
+            {% else %}
+            <div class="d-flex justify-content-center">
+                <p>Votre galerie est vide pour le moment...</p>
+            </div>
+
         {% endfor %}
     </div>
 
-    {{ form_start(formGallery) }}
-    {{ form_row(formGallery.picture1) }}
-    {{ form_row(formGallery.picture2) }}
-    {{ form_row(formGallery.picture3) }}
-    <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
-    </div>
-    {{ form_end(formGallery) }}
+    {% if user.id == app.user.id %}
+
+        {{ form_start(formGallery) }}
+        {{ form_row(formGallery.picture1) }}
+        {{ form_row(formGallery.picture2) }}
+        {{ form_row(formGallery.picture3) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        </div>
+        {{ form_end(formGallery) }}
+
+    {% endif %}
 
     <a class="text-dark mt-5" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
