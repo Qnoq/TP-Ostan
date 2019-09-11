@@ -48,8 +48,10 @@ class PostController extends AbstractController
     /**
      * @Route("/advice-post/new/", name="advicePostNew")
      */
-    public function advicePostNew(Request $request)
+    public function advicePostNew(Request $request, StatusRepository $statusRepository)
     {
+        $statusCode = 'UNBLOCKED';
+        $statusCode= $statusRepository->findOneByCode($statusCode);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -58,7 +60,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $post->setType('Article');
-
+            $post->setStatus($statusCode);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($post);
             $entityManager -> flush();
