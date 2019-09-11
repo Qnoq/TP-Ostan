@@ -26,8 +26,7 @@
             <p><span class="font-weight-bold">Je suis : 
             {% for job in user.jobs %}
                 <p>
-                    <span class="font-weight-bold">Je suis :
-                        {{ job.name }}</span>
+                        {{ job.name }}
                 </p>
             {% endfor %}
             </span></p>
@@ -83,6 +82,8 @@
                     {{ gallery.createdAt | date('d/m/Y à H:i') }}</p>
                 <hr>
             </div>
+            {% else %}
+                <p>Il n'y a pas de galeries pour le moment....</p>
         {% endfor %}
     </div>
 
