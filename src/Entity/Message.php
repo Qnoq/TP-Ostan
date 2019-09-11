@@ -35,6 +35,7 @@ class Message
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messagesReceived")
      */
     private $userReceiver;
+
     public function __construct()
     {
         
@@ -43,7 +44,7 @@ class Message
     }
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
 
