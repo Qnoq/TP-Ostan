@@ -60,11 +60,11 @@
     </article>
 
 
-    <h5 class="card-title font-weight-bold mb-0">Commentaires</h5>
+    <h3 class="card-title font-weight-bold mb-3">Commentaires</h3>
 
 
     <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
-        {% for comment in post.comments if comment.status.code == "UNBLOCKED" %}        
+        {% for comment in post.comments if comment.status.code == "UNBLOCKED" %}
             <div class="card-body">
             <button
                 type="button" class="btn btn-warning mb-3" onclick="handleStatusButtonComment(this,{{comment.id}},{{comment.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
@@ -79,7 +79,7 @@
                 <hr>
             </div>
             {% else %}
-                <p>Il n'y a pas de commentaires pour le moment....</p>
+                <p class="text-center border-0 font-weight-bold">Il n'y a pas de commentaires pour le moment....</p>
         {% endfor %}
     </div>
 

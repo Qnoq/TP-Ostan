@@ -85,16 +85,15 @@
                 <form action="" method="POST">
 
                     <label for="exampleFormControlSelect2">Par tags :</label>
-                    <select name="post-tag" multiple class="form-control" id="exampleFormControlSelect2" onchange="this.form.submit()">
+                    <select name="post-tag" type="search" multiple class="form-control" id="exampleFormControlSelect2" onchange="this.form.submit()">
                         {% for tag in tags %}
                             <option value="{{tag.id}}">{{ tag.name }}</option>
                         {% endfor %}
                     </select>
 
                     <div class="d-flex justify-content-center">
-                        <button type="submit" name="submit" class="btn btn-light border border-dark rounded-0 mb-3 mt-3 font-weight-bold">Chercher</button>
+                        <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 mt-3 font-weight-bold">Chercher</button>
                     </div>
-                    
 
                 </form>
             </div>

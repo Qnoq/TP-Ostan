@@ -34,11 +34,7 @@ class UserController extends AbstractController
         $formGallery = $this->createForm(GalleryPostType::class, $gallery);
         $formGallery->handleRequest($request);
 
-<<<<<<< HEAD
-        // $user = $this->getUser();
-=======
        
->>>>>>> 8ee97d6233d309a9e1da66e3aa3dc7026de8978d
 
         if ($formGallery->isSubmitted() && $formGallery->isValid()) {
 

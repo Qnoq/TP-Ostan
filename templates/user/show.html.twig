@@ -64,8 +64,8 @@
 
     </div>
 
-    <h5 class="card-title font-weight-bold mb-0">Galerie</h5>
-    <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+    <h3 class="card-title font-weight-bold mt-4 mb-3">Galerie</h3>
+    <div class="card ml-5 mb-5 pt-3 px-3 border border-dark">
         {% for gallery in user.galleryPosts %}
             <div class="card-body">
                 <p class="card-text">{{gallery.title}}</p>
@@ -88,7 +88,7 @@
 
             {% else %}
             <div class="d-flex justify-content-center">
-                <p>Votre galerie est vide pour le moment...</p>
+                <p class="text-center border-0 font-weight-bold">Votre galerie est vide pour le moment...</p>
             </div>
 
         {% endfor %}
