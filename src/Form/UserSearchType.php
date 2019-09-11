@@ -20,6 +20,7 @@ class UserSearchType extends AbstractType
                 'class' => Job::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
             ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
