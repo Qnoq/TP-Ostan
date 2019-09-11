@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\MessageRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MessageController extends AbstractController
 {
     /**
      * @Route("/message", name="message")
      */
-    public function index()
+    public function index(MessageRepository $messageRepository)
     {
+        $messages = $messageRepository->findAll();
+
         return $this->render('message/index.html.twig', [
-            'controller_name' => 'MessageController',
+            'messages' => $messages
         ]);
     }
 }
