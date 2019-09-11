@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\RoleRepository;
+use App\Repository\StatusRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="app_register")
      */
-    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, UserPasswordEncoderInterface $passwordEncoder, LoginFormAuthenticator $authenticator, RoleRepository $roleRepository): Response
+    public function register(StatusRepository $statusRepository, Request $request, GuardAuthenticatorHandler $guardHandler, UserPasswordEncoderInterface $passwordEncoder, LoginFormAuthenticator $authenticator, RoleRepository $roleRepository): Response
     {
         $code='ROLE_USER_USER';
         $defaultRole= $roleRepository->findOneByCode($code);
+        $statusCode = 'UNBLOCKED';
+        $statusCode= $statusRepository->findOneByCode($statusCode);
+
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -49,8 +53,8 @@ class RegistrationController extends AbstractController
                 $user->setAvatar($fileName);
             }
 
-            $user->setUsername($user);
-
+            
+            $user->setStatus($statusCode);
             $user->setRole($defaultRole);
             // encode the plain password
             $user->setPassword(

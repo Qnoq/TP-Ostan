@@ -131,9 +131,10 @@ class PostController extends AbstractController
      *
      * @Route("/annonce/new", name="ad_post_new", methods={"GET","POST"})
     */
-    public function adNew(Request $request)
+    public function adNew(Request $request, StatusRepository $statusRepository)
     {
-        
+        $statusCode = 'UNBLOCKED';
+        $statusCode= $statusRepository->findOneByCode($statusCode);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -142,6 +143,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $post->setStatus($statusCode);
             $post->setType('Annonce');
             $post->setUser($user);
 
