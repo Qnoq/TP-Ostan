@@ -47,4 +47,15 @@ class MessageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByTitle($title)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.title = :val')
+            ->setParameter('val', $title)
+            ->orderBy('m.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
