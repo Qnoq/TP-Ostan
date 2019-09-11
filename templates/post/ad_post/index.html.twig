@@ -58,15 +58,9 @@
                         </div>
                         <span class="font-italic text-muted">
                             Publié le
-<<<<<<< HEAD
-                            {{ ad_post.createdAt | date('d/m/Y à H:i') }}
-                            par
-                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': ad_post.user.id }) }}">{{ ad_post.user }}</a>
-=======
                             {{ post.createdAt | date('d/m/Y à H:i') }}
                             par
                             <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
->>>>>>> 30a6298837ce485415167efb81c3021aec503341
                         </span>
                     </div>
 

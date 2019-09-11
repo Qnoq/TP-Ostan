@@ -43,8 +43,8 @@ class PostController extends AbstractController
     public function adList(JobRepository $jobRepository, TagRepository $tagRepository, PostRepository $postRepository, Request $request)
     {
 
-        $adPosts= $postRepository->findAllAdPost();
-        $adPosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $posts= $postRepository->findAllAdPost();
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
 
         $tags = $tagRepository->findAll();
 
@@ -55,7 +55,7 @@ class PostController extends AbstractController
         return $this->render('post/ad_post/index.html.twig', [
             'tags' => $tags,
             'jobs' => $jobs,
-            'adPosts' => $adPosts,
+            'posts' => $posts,
             'searchTag' => $searchTags
         ]);
     }
