@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <h1>Utilisateurs</h1>
+    {% for user in users %}
+        <div class='card mb-2'>
+            <div class="card-body">
+                <p>{{user.username}}</p>
+                <p>Job(s):{% for job in user.jobs %}
+                    {{job.name}}
+                {% endfor %}</p>
+                <p>Tag(s):{% for tag in user.tags %}
+                    {{tag.name}}
+                {% endfor %}</p>
+                <a href="{{path('user_show', {'id': user.id }) }}">Son profil</a> 
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block search %}
+    <section class="ml-5 mr-4 mt-3">
+        <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
+            <i class="fas fa-plus"></i>
+            Ajouter une annonce
+        </a>
+
+        {{ render(controller(
+            'App\\Controller\\UserController::userSearchForm'
+        )) }}
+        <a href="{{path('user_list')}}">Voir tous les utilisateurs</a>
+    </section>
+
+{% endblock %}

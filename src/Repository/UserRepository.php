@@ -19,6 +19,24 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function searchHome($criterias)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.jobs', 'j')
+            ->innerJoin('u.tags', 't')
+            ->andWhere('j IN (:jobs)')
+            ->andWhere('t IN (:tags)')
+            ->setParameters(array(
+                'jobs' => $criterias['jobs'],
+                'tags' => $criterias['tags']
+            ))
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
@@ -47,5 +65,4 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
-
 }

@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Job;
 use App\Entity\Post;
+use App\Form\JobType;
 use App\Form\PostType;
 use App\Entity\Comment;
-use App\Entity\Job;
 use App\Form\CommentType;
-use App\Form\JobType;
+use App\Form\UserSearchType;
+use App\Repository\JobRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
-use App\Repository\CommentRepository;
-use App\Repository\JobRepository;
 use App\Repository\StatusRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,37 +40,28 @@ class PostController extends AbstractController
      * 
      * @Route("/annonces", name="ad_post")
      */
-    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository)
+    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, UserRepository $userRepository)
     {
-        $job = new Job;
-        $formJob = $this->createForm(JobType::class, $job);
-        $formJob->handleRequest($request);
-        if ($formJob->isSubmitted() && $formJob->isValid()) {
-            $criteria = $formJob->getData();
-            dump($criteria);
-            dump($request);
-            die;
-            $jobs = $jobRepository -> searchUserByJob($criteria);
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            
+       
+            $posts = $postRepository->findAllAdPost();
+            $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
+        
 
-            return $this->redirectToRoute('annonces');
-        }
-
-        $posts = $postRepository->findAllAdPost();
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         return $this->render('post/ad_post/index.html.twig', [
             'posts' => $posts,
-            'formJob' => $formJob->createView(),
-
+         
         ]);
+    }
+
+    /**
+     * @Route("/searchUser", name="searchUser")
+     */
+    public function searchUser(Request $request)
+    {
+        dump($request->request);
+        die;
     }
 
     /**
