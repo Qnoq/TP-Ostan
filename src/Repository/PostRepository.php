@@ -90,14 +90,4 @@ class PostRepository extends ServiceEntityRepository
         
         return $query->getResult(); 
     }
-
-    public function findByTag($tags)
-    {
-        $query = $this->createQueryBuilder('p')
-            ->where('p.tags LIKE :tags' )
-            ->setParameter("tags", $tags);
-
-        return $query->getQuery()->getResult();
-        ;
-    }
 }

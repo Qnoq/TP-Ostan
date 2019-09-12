@@ -72,63 +72,12 @@
 
 {% block search %}
 
-    <section class="ml-5 mr-4 mt-2">
+    <section class="ml-5 mr-4 mt-3">
         <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
             <i class="fas fa-plus"></i>
             Ajouter une annonce
         </a>
-
-        <div class="border-bottom border-dark mb-4 pb-3">
-            <h5 class="text-center font-weight-bold">Rechercher une annonce</h5>
-
-            <div class="form-group">
-                <form action="" method="POST">
-
-                    <label for="exampleFormControlSelect2">Par tags :</label>
-                    <select name="post-tag" type="search" multiple class="form-control" id="exampleFormControlSelect2" onchange="this.form.submit()">
-                        {% for tag in tags %}
-                            <option value="{{tag.id}}">{{ tag.name }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 mt-3 font-weight-bold">Chercher</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-
-        <div>
-            <h5 class="text-center font-weight-bold">Rechercher un utilisateur</h5>
-
-            <form action="">
-
-                <label for="exampleFormControlSelect2">Par métiers :</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2">
-                    {% for job in jobs %}
-                        <option>{{ job.name }}</option>
-                    {% endfor %}
-                </select>
-
-
-                <label for="exampleFormControlSelect2">Par tags :</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2">
-                    {% for tag in tags %}
-                        <option>{{ tag.name }}</option>
-                    {% endfor %}
-                </select>
-
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 mt-3 font-weight-bold">Chercher</button>
-                </div>
-
-            </form>
-        </div>
-
     </section>
-
 
 {% endblock %}
 
