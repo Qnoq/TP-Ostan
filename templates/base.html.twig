@@ -45,15 +45,18 @@
                             <li class="nav-item">
                                 <a class="nav-link_home" href="{{path('advice_post')}}">Accueil</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link_home" href="#">Le concept</a>
+                            </li>
                             {# Si je suis authentifié #}
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li class="nav-item">
                                     <a class="nav-link_home" href="{{path('ad_post')}}">Annonces</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link_home" href="{{path('user_list')}}">La communauté</a>
+                                </li>
                             {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link_home" href="#">Le concept</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link_home" href="{{path('contact')}}">Nous contacter</a>
                             </li>

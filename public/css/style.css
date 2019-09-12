@@ -138,6 +138,16 @@ a:hover,a:focus{
   height: 100%;
 }
 
+.profil-avatar-2 {
+  position: relative;
+  top: 0px;
+  margin: 0 auto;
+  
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .mask {
   width: 250px;
   height: 250px;
@@ -145,6 +155,16 @@ a:hover,a:focus{
   overflow: hidden;
   border-radius: 50%;
   position: relative;
+  top: 90px;
+}
+
+.mask-2 {
+  width: 80px;
+  height: 80px;
+
+  overflow: hidden;
+  border-radius: 50%;
+
   top: 90px;
 }
 
@@ -375,14 +395,14 @@ ul {
 
   /************ MESSAGERIE ***********/
 
-  .message-detail {
+   .message-detail {
     padding: 100px;
     border-radius: 10px;
     background-color: #eaecee;
     border: #abb2b9 1px solid;
     margin-top: 100px;
     width: 75%;
-  }
+}
 
   .message-title {
     position: relative;
