@@ -36,8 +36,8 @@ class JobRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Job
+    
+    public function findOneBySomeField($criteria): ?Job
     {
         return $this->createQueryBuilder('j')
             ->andWhere('j.exampleField = :val')
@@ -46,5 +46,5 @@ class JobRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

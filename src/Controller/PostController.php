@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Job;
 use App\Entity\Post;
+use App\Form\JobType;
 use App\Form\PostType;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\UserSearchType;
+use App\Repository\JobRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
-use App\Repository\CommentRepository;
 use App\Repository\StatusRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +28,7 @@ class PostController extends AbstractController
     public function advicePostList(PostRepository $postRepository)
     {
         $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
-        $advicePosts= $postRepository->findAllAdvicePost();
+        $advicePosts = $postRepository->findAllAdvicePost();
 
         return $this->render('post/advice_post/index.html.twig', [
             'advicePosts' => $advicePosts
@@ -34,16 +38,30 @@ class PostController extends AbstractController
     /**
      * Page d'accueil utilisateur (après inscription/connexion) avec la liste des ANNONCES :
      * 
-     * @Route("/annonces", name="ad_post", methods={"GET"})
+     * @Route("/annonces", name="ad_post")
      */
-    public function adList(PostRepository $postRepository)
+    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, UserRepository $userRepository)
     {
+       
+            $posts = $postRepository->findAllAdPost();
+            $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         
-        $posts= $postRepository->findAllAdPost();
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+
+        
+
         return $this->render('post/ad_post/index.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
+         
         ]);
+    }
+
+    /**
+     * @Route("/searchUser", name="searchUser")
+     */
+    public function searchUser(Request $request)
+    {
+        dump($request->request);
+        die;
     }
 
     /**
@@ -62,8 +80,8 @@ class PostController extends AbstractController
             $comment->setPost($advicePost);
             $user = $userRepository->findOneByUsername('emoen');
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager -> persist($comment);
-            $entityManager -> flush();
+            $entityManager->persist($comment);
+            $entityManager->flush();
             return $this->redirectToRoute('advice_post_show', ['id' => $advicePost->getId()]);
         }
         return $this->render('post/advice_post/show.html.twig', [
@@ -93,7 +111,7 @@ class PostController extends AbstractController
             $comment->setUser($user);
             $comment->setStatus($unblockedStatus);
 
-            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -110,17 +128,17 @@ class PostController extends AbstractController
         ]);
     }
 
-// ANNONCES *****************************************************************************************
+    // ANNONCES *****************************************************************************************
 
     /**
      * Page formulaire d'ajout d'une ANNONCE (pour les utilisateurs exclusivement)
      *
      * @Route("/annonce/new", name="ad_post_new", methods={"GET","POST"})
-    */
+     */
     public function adNew(Request $request, StatusRepository $statusRepository)
     {
         $statusCode = 'UNBLOCKED';
-        $statusCode= $statusRepository->findOneByCode($statusCode);
+        $statusCode = $statusRepository->findOneByCode($statusCode);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -144,8 +162,8 @@ class PostController extends AbstractController
 
             return $this->redirectToRoute('ad_post');
         }
-       return $this->render('post/ad_post/new.html.twig', [
-           'form' => $form->createView(),
-       ]);
+        return $this->render('post/ad_post/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

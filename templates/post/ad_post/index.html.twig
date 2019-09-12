@@ -71,12 +71,16 @@
 {% endblock %}
 
 {% block search %}
-
     <section class="ml-5 mr-4 mt-3">
         <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
             <i class="fas fa-plus"></i>
             Ajouter une annonce
         </a>
+        {{ render(controller(
+        'App\\Controller\\UserController::userSearchForm'
+    )) }}
+
+       
     </section>
 
 {% endblock %}
