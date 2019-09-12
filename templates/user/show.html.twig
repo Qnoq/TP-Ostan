@@ -25,11 +25,12 @@
             </p>
 
             <p>
-            
-            {{ form_start(formJob) }}
-            {{ form_row(formJob.name) }}
-                <button class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
-            {{ form_end(formJob) }}
+                <span class="font-weight-bold">Présentation :</span>
+            </p>
+
+            <p class="mx-5">{{ user.description }}</p>
+
+            <p>
 
                 <span class="font-weight-bold">Je suis :
                     {% for job in user.jobs %}
@@ -39,12 +40,6 @@
                     {% endfor %}
                 </span>
             </p>
-
-            <p>
-                <span class="font-weight-bold">Présentation :</span>
-            </p>
-
-            <p class="mx-5">{{ user.description }}</p>
 
             <div class="d-flex justify-content-start ml-5 pt-3 font-italic">
                 <p>Membre depuis le
@@ -120,10 +115,11 @@
         {% if user.id == app.user.id %}
             <div>
                 {{ form_start(formGallery) }}
+                {{ form_row(formGallery.title) }}
                 {{ form_row(formGallery.picture1) }}
                 {{ form_row(formGallery.picture2) }}
                 {{ form_row(formGallery.picture3) }}
-
+                {{ form_row(formGallery.description) }}
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
                 </div>

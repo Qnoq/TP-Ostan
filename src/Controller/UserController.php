@@ -106,27 +106,11 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
-        $job = new Job();
-        $formJob = $this->createForm(JobType::class, $job);
-        $formJob->handleRequest($request);
-       
-        if ($formJob->isSubmitted() && $formJob->isValid()) {
-
-            $job->getUsers($user);
-            $job = $jobRepository->findBy(array ('name'=>$name));
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager -> persist($job);
-            $entityManager -> flush();
-
-            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
-        }
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'galleryPost' => $galleryPost,
             'formGallery' => $formGallery->createView(),
-            'formJob' => $formJob->createView(),
         ]);
     }
 
