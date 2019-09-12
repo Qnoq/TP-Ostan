@@ -11,14 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TagController extends AbstractController
 {
     /**
-     * @Route("/tag", name="tag")
+     * @Route("/tag/{id}", name="tag_show", methods ={"GET"}, requirements={"id"="\d+"})
      */
-    public function index()
+    public function show(Tag $tag)
     {
-        return $this->render('backend/tag/index.html.twig', [
-            'controller_name' => 'TagController',
+        return $this->render('tag/show.html.twig', [
+            'tag' => $tag,
         ]);
     }
 
-    
 }

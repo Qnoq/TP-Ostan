@@ -1,36 +1,81 @@
 {% extends 'base.html.twig' %}
+
 {% block content %}
-    <h1>Utilisateurs</h1>
+
+<h1 class="font-weight-bold text-center">Utilisateurs</h1>
+
+<section class="d-flex flex-wrap">
+
     {% for user in users %}
-        <div class='card mb-2 mt-5'>
-            <div class="card-body">
-                <p class='title-card'>{{user.username}}</p>
-                <p>Job(s):{% for job in user.jobs %}
-                    {{job.name}}
-                {% endfor %}</p>
-                <p>Tag(s):{% for tag in user.tags %}
-                    {{tag.name}}
-                {% endfor %}</p>
-                <a href="{{path('user_show', {'id': user.id }) }}">Son profil</a> 
-            </div>
-        </div>
+                {# Si le status de l'utilisateur est UNBLOCKED, alors tu les affiches. #}
+                {% if user.status.code == "UNBLOCKED" %}
+
+                    <article class="p-4">
+
+                        <div class="d-flex flex-row">
+
+                                <div class="mask-2 mr-3">
+                                    <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar-2 rounded-circle">
+                                </div>
+
+                                <div class="d-flex flex-column">
+
+                                    <h5 class="font-weight-bold mr-3">
+                                        {{ user.username }}
+                                    </h5>
+
+                                    <p>
+                                        {% for job in user.jobs %}
+                                            {{ job.name }}
+                                        {% endfor %}
+                                    </p>
+
+                                </div>
+
+                        </div>
+
+                        <div class="">
+
+                            <div class="d-flex justify-content-start mt-3">
+                                {% for tag in user.tags %}
+                                    <a href="{{ path('tag_show', {'id': tag.id }) }}" class="badge badge-pill badge-light border border-dark text-dark font-weight-bold p-2 mb-2 mr-2">
+                                        {{ tag.name }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ path('user_show', {'id': user.id }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 ">Voir le profil</a>
+                            </div>
+                        </div>
+
+                    </article>
+                    
+                {% endif %}
 
     {% endfor %}
+</section>
 
+<a class="text-dark mt-3" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
 {% endblock %}
 
 {% block search %}
-    <section class="ml-5 mr-4 mt-3">
-        <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
-            <i class="fas fa-plus"></i>
-            Ajouter une annonce
-        </a>
+    <section class="ml-3 mt-3 col-2">
+        <div>
+            <div class="d-flex justify-content-center">
+                <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
+                    <i class="fas fa-plus"></i>
+                    Ajouter une annonce
+                </a>
+            </div>
 
-        {{ render(controller(
+            <h5 class="font-weight-bold text-center">Rechercher un membre de la communauté par métiers et par tags</h5>
+
+            {{ render(controller(
             'App\\Controller\\UserController::userSearchForm'
         )) }}
         <a href="{{path('user_list')}}">Voir tous les utilisateurs</a>
+        </div>
     </section>
-
 {% endblock %}

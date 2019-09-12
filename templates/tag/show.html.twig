@@ -1,21 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des annonces
-{% endblock %}
+{% block title %}{{ tag.name }}{% endblock %}
 
 {% block content %}
 
-    <section
-        class="mt-5">
+<h1 class="font-weight-bold text-uppercase">{{ tag.name }}</h1>
 
-        {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
-        {% for post in posts %}
+<section class="d-flex">
+
+    <section class="mt-5 col-8">
+
+        <h2 class="text-center font-weight-bold mb-5">Liste des annonces avec ce tag</h2>
+
+        {# Je boucle pour afficher toutes les annonces qui ont ce tag #}
+        {% for post in tag.posts %}
+
             {# Si le type des posts est annonce ET si son status est UNBLOCKED, alors tu les affiches. #}
             {% if post.type == "Annonce" and post.status.code == "UNBLOCKED" %}
 
                 <article>
                     <div class="title-card p-1">
-                        <h2 class="font-weight-bold">{{ post.title }}</h2>
+                        <h3 class="font-weight-bold">{{ post.title }}</h3>
                     </div>
 
                     <div
@@ -64,72 +69,55 @@
 
                 </article>
             {% endif %}
+
         {% endfor %}
     </section>
-{% endblock %}
 
-{% block search %}
+    <section class="mt-5 col-4 ">
 
-<section class="ml-3 mt-3 col-2">
-    <div>
-        <div class="d-flex justify-content-center">
-            <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
-                <i class="fas fa-plus"></i>
-                Ajouter une annonce
-            </a>
-        </div>
+        <h2 class="text-center font-weight-bold">Liste des utilisateurs avec ce tag</span></h2>
 
-        <h5 class="font-weight-bold text-center">Rechercher un membre de la communauté par métiers et par tags</h5>
+        {# Je boucle pour afficher tous les users qui ont ce tag #}
+        {% for user in tag.users %}
 
-        {{ render(controller(
-        'App\\Controller\\UserController::userSearchForm'
-    )) }}
+                {# Si le status de l'utilisateur est UNBLOCKED, alors tu les affiches. #}
+                {% if user.status.code == "UNBLOCKED" %}
 
-    </div>
+                    <article class="mx-3">
 
-    <div class="border-top border-dark p-3">
+                        <div class="d-flex flex-row">
 
-        <h5 class="font-weight-bold text-center mb-4">Tags</h5>
-        {% for tag in tags %}
-            <a href="{{ path('tag_show', {'id': tag.id }) }}" class="btn btn-light border border-dark text-dark rounded-0 font-weight-bold p-2 mb-2">
-                {{ tag.name }}
-            </a>
+                                <div class="mask-2 mr-3">
+                                    <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar-2 rounded-circle">
+                                </div>
+
+                                <div class="d-flex flex-column">
+                                    <h5 class="font-weight-bold mr-3">
+                                        {{ user.username }}
+
+                                    </h5>
+                                    <p>
+                                        {% for job in user.jobs %}
+                                            {{ job.name }}
+                                        {% endfor %}</p>
+                                </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-0">
+                            <a href="{{ path('user_show', {'id': user.id }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 ">Voir le profil</a>
+                        </div>
+
+                    </article>
+                    
+                {% endif %}
+
         {% endfor %}
-    </div>
+
+    </section>
+
 </section>
 
+<a class="text-dark mt-3" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        // On récupère l'url de base du server grâce à window.location
-        var baseUrl = window.location.origin;
-        // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
-        // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
-        function handleStatusButton(elementButton, postId, statusCode) {
-            // console.log(postId);
-            // console.log(window.location)
-            console.log(baseUrl);
-            // console.log(elementButton);
-            // On utilise ajax pour faire une requête http en mode "rest" donc sans render
-            $.ajax({
-                method: "PATCH",
-                url: baseUrl + "/backend/" + postId + "/status/" + statusCode,
-                // En cas de succès on affiche un toast confirmant le changement de rôle du user.
-                success: function (result) {
-                    console.log(toastr);
-                    toastr.success('Statut mis à jour');
-                    elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
-                    elementButton.onclick = function () {
-                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
-                    };
-                },
-                error: function () {
-                    toastr.error('Impossible de mettre à jour le statut.')
-
-                }
-            });
-        }
-    </script>
 {% endblock %}

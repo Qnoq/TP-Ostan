@@ -135,6 +135,16 @@ a:hover,a:focus{
   height: 100%;
 }
 
+.profil-avatar-2 {
+  position: relative;
+  top: 0px;
+  margin: 0 auto;
+  
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .mask {
   width: 250px;
   height: 250px;
@@ -142,6 +152,16 @@ a:hover,a:focus{
   overflow: hidden;
   border-radius: 50%;
   position: relative;
+  top: 90px;
+}
+
+.mask-2 {
+  width: 80px;
+  height: 80px;
+
+  overflow: hidden;
+  border-radius: 50%;
+
   top: 90px;
 }
 
