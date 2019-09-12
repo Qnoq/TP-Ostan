@@ -38,6 +38,7 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
     public function findByPage($page = 1, $max = 4)
     {
         if(!is_numeric($page)) {
@@ -70,32 +71,19 @@ class UserRepository extends ServiceEntityRepository
         return $paginator;
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function findAllExceptUser()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    return $this->createQueryBuilder('u')
+        ->andWhere('u.hidden = user')
+        ->setParameter('user', $user)
+        ->orderBy('m.name', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
 }
+
+    
+}
+
+

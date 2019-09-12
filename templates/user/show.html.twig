@@ -24,26 +24,6 @@
                 {{ user.email }}
             </p>
 
-<<<<<<< HEAD
-            <p>
-                <span class="font-weight-bold">Présentation :</span>
-            </p>
-
-            <p class="mx-5">{{ user.description }}</p>
-
-            <p>
-
-                <span class="font-weight-bold">Je suis :
-                    {% for job in user.jobs %}
-                        <p>
-                                {{ job.name }}</span>
-                        </p>
-                    {% endfor %}
-                </span>
-            </p>
-
-            <div class="d-flex justify-content-start ml-5 pt-3 font-italic">
-=======
             <div>
                 {# Affichage du ou des job(s) de l'utilisateur #}
                 {% for job in user.jobs %}
@@ -70,7 +50,6 @@
             </div>
 
             <div class="d-flex justify-content-start ml-5 pt-2 font-italic">
->>>>>>> df0aaef4d41d0d8743c781192b3605d3347c790a
                 <p>Membre depuis le
                     {{ user.createdAt | date('d/m/Y à H:i') }}</p>
             </div>

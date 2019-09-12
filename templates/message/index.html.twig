@@ -10,34 +10,37 @@
 
     <div class="message-user">
         <h1 class="message-title">Messagerie personnelle</h1>
-
-    <a class="btn btn-primary " href="{{path ('newmessage') }} ">Nouveau message</a>
-
     <div>
-    <p>Du plus récent au plus ancien</p>
+    
         {% for message in messages %}
             
             {% if message.user == app.user %}
-                <div class="message-response-title align-self-center">
-                <a href="{{ path ('showmessage', {'title': message.title }) }}">
-                        <div>
-                            <p>{{message.title}}</p>
-                        </div>
-                    </a>
-                     <p class="message-author">Message envoyé le {{message.createdAt|date}} </p>
+                <div class="talk-bubble tri-right round btm-right">
+                    <div class="message-content">
+                        <a href="{{ path ('showmessage', {'title': message.title }) }}">
+                            <div>
+                                <p>{{message.title}}</p>
+                            </div>
+                        </a>
+                        <p class="message-author">Message envoyé le {{message.createdAt|date}} </p>
+                     </div>
                 </div>
             {% elseif message.userReceiver == app.user %}
             
-                <div class="message-response-title">
-                    <a href="{{ path ('showmessage', {'title': message.title })}}">
-                        <div>
-                            <p>{{message.title}}</p> 
-                        </div>
-                    </a>
-                    <p class="message-author">Message envoyé par {{message.user}} le {{message.createdAt|date}}</p>
+                <div class="talk-bubble tri-right round btm-left">
+                    <div class="message-content">
+                        <a href="{{ path ('showmessage', {'title': message.title })}}">
+                            <div>
+                                <p>{{message.title}}</p> 
+                            </div>
+                        </a>
+                        <p class="message-author">Message envoyé par {{message.user}} le {{message.createdAt|date}}</p>
+                    </div>
                 </div>
             {% endif %}
         {% endfor %}
+
+        <a class="btn btn-primary d-flex justify-content-center" href="{{path ('newmessage') }} ">Nouveau message</a>
 
     </div>
     </div>

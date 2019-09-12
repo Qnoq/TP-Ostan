@@ -8,6 +8,9 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+a {
+  color: black;
+}
 /*
 .header {
     background-image: url('../images/marvel.jpg');
@@ -390,16 +393,16 @@ ul {
   }
 
 
-  /************ MESSAGE ***********/
+  /************ MESSAGERIE ***********/
 
-  .message-detail {
+   .message-detail {
     padding: 100px;
     border-radius: 10px;
     background-color: #eaecee;
     border: #abb2b9 1px solid;
     margin-top: 100px;
     width: 75%;
-  }
+}
 
   .message-title {
     position: relative;
@@ -429,6 +432,7 @@ ul {
   .message-author {
     font-style: italic;
     color: grey;
+    text-align: center;
   }
 
   .message-option {
@@ -443,3 +447,99 @@ ul {
     margin-top: 100px;
     width: 75%;
   }
+
+
+  .message-content {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+  }
+
+ 
+
+  /***** bulle de message *****/
+.talk-bubble {
+	margin: 40px;
+  display: inline-block;
+  position: relative;
+	width: 200px;
+	height: auto;
+  background-color: white;
+  box-shadow: 10px 5px 5px grey;
+}
+
+.round{
+  border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+}
+
+
+/* talk bubble contents */
+.talktext{
+  padding: 1em;
+	text-align: center;
+  line-height: 1.5em;
+  margin: 2em;
+ 
+}
+
+/*** SHOW MESSAGE ****/
+
+.send-bubble {
+	margin: 40px;
+  position: relative;
+	width: 100%;
+	height: auto;
+  background-color: white;
+  box-shadow: 10px 5px 5px grey;
+}
+
+.tri-right.btm-right-send:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0px;
+	left: auto;
+  right: 0px;
+  top: auto;
+	bottom: -20px;
+	border: 22px solid;
+  border-color: transparent transparent transparent white;
+}
+
+.bubble-send {
+	margin: 40px;
+  position: relative;
+	width: 100%;
+	height: auto;
+  background-color: white;
+  box-shadow: 10px 5px 5px grey;
+  border: 1px solid red;
+}
+
+
+.tri-right.btm-left-response:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0px;
+	left: 10px;
+  right: auto;
+  top: auto;
+	bottom: -20px;
+	border: 22px solid;
+  border-color: transparent transparent transparent white;
+}
+
+.bubble-response {
+	margin: 40px;
+  position: relative;
+	width: 100%;
+	height: auto;
+  background-color: white;
+  box-shadow: 10px 5px 5px grey;
+  border: 1px solid green;
+}
+
+/**** FIN MESSAGERIE ****/
