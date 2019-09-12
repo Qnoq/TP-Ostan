@@ -14,6 +14,7 @@ use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\CommentRepository;
+use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,17 +41,18 @@ class PostController extends AbstractController
      * 
      * @Route("/annonces", name="ad_post")
      */
-    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, UserRepository $userRepository)
+    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository)
     {
        
             $posts = $postRepository->findAllAdPost();
             $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         
-
+            $tags = $tagRepository->findAll();
         
 
         return $this->render('post/ad_post/index.html.twig', [
             'posts' => $posts,
+            'tags' => $tags
          
         ]);
     }

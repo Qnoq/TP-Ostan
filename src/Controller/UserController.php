@@ -260,7 +260,9 @@ class UserController extends AbstractController
             dump($formName);
             dump($users);
         } else {
-            $users = $userRepository->findAll();
+            // Classés du plus récent au moins récent
+            $users = $userRepository->findBy(array(), array('createdAt' => 'DESC'));
+            // $users = $userRepository->findAll();
         }
 
         return $this->render('user/userList.html.twig', [
