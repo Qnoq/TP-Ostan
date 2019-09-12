@@ -6,9 +6,13 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\UserSearchType;
+use App\Form\AdPostSearchType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
+use App\Repository\JobRepository;
+use App\Repository\TagRepository;
 use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,15 +38,25 @@ class PostController extends AbstractController
     /**
      * Page d'accueil utilisateur (après inscription/connexion) avec la liste des ANNONCES :
      * 
-     * @Route("/annonces", name="ad_post", methods={"GET"})
+     * @Route("/annonces", name="ad_post", methods={"GET","POST"})
      */
-    public function adList(PostRepository $postRepository)
+    public function adList(JobRepository $jobRepository, TagRepository $tagRepository, PostRepository $postRepository, Request $request)
     {
-        
+
         $posts= $postRepository->findAllAdPost();
         $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+
+        $tags = $tagRepository->findAll();
+
+        $jobs = $jobRepository->findAll();
+
+        $searchTags = $request->request->get('post-tag');
+
         return $this->render('post/ad_post/index.html.twig', [
-            'posts' => $posts
+            'tags' => $tags,
+            'jobs' => $jobs,
+            'posts' => $posts,
+            'searchTag' => $searchTags
         ]);
     }
 

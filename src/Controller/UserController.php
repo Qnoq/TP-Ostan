@@ -38,6 +38,8 @@ class UserController extends AbstractController
 
         if ($formGallery->isSubmitted() && $formGallery->isValid()) {
 
+            
+
             $file = $gallery->getPicture1();
 
             if(!is_null($gallery->getPicture1())){
