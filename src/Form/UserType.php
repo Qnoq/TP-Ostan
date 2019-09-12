@@ -96,6 +96,7 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class,['label' => 'Nom'])
             ->add('username', TextType::class,['label' => 'Pseudo'])
             ->add('companyname', TextType::class,['label' => 'Nom de l\'entreprise'])
+            ->add('description', TextType::class,['label' => 'description'])
             ->add('birthdate', BirthdayType::class, [
                 'widget' => 'choice',
             ])

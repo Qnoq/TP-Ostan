@@ -24,6 +24,26 @@
                 {{ user.email }}
             </p>
 
+<<<<<<< HEAD
+            <p>
+                <span class="font-weight-bold">Présentation :</span>
+            </p>
+
+            <p class="mx-5">{{ user.description }}</p>
+
+            <p>
+
+                <span class="font-weight-bold">Je suis :
+                    {% for job in user.jobs %}
+                        <p>
+                                {{ job.name }}</span>
+                        </p>
+                    {% endfor %}
+                </span>
+            </p>
+
+            <div class="d-flex justify-content-start ml-5 pt-3 font-italic">
+=======
             <div>
                 {# Affichage du ou des job(s) de l'utilisateur #}
                 {% for job in user.jobs %}
@@ -50,6 +70,7 @@
             </div>
 
             <div class="d-flex justify-content-start ml-5 pt-2 font-italic">
+>>>>>>> df0aaef4d41d0d8743c781192b3605d3347c790a
                 <p>Membre depuis le
                     {{ user.createdAt | date('d/m/Y à H:i') }}</p>
             </div>
@@ -123,10 +144,11 @@
         {% if user.id == app.user.id %}
             <div>
                 {{ form_start(formGallery) }}
+                {{ form_row(formGallery.title) }}
                 {{ form_row(formGallery.picture1) }}
                 {{ form_row(formGallery.picture2) }}
                 {{ form_row(formGallery.picture3) }}
-
+                {{ form_row(formGallery.description) }}
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
                 </div>

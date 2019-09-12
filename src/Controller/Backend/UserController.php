@@ -27,13 +27,21 @@ class UserController extends AbstractController
     /**
      * @Route("user", name="userList")
      */
-    public function userList(UserRepository $userRepository, RoleRepository $roleRepository)
+    public function userList(UserRepository $userRepository, RoleRepository $roleRepository, Request $request)
     {
+        $db = $this->getDoctrine()->getManager();
+
+        $listUser = $db->getRepository('App:User')->findByPage(
+            $request->query->getInt('page', 1),
+            4
+        );
+
         $roles = $roleRepository->findAll();
         $users = $userRepository->findAll();
         return $this->render('backend/user/userList.html.twig', [
             'users' => $users,
-            'roles' => $roles
+            'roles' => $roles,
+            'listUser' => $listUser
         ]);
     }
 

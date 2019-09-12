@@ -22,7 +22,7 @@ class CommentType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Length([
-                        'min'        => 10,
+                        'min'        => 1,
                         'max'        => 1000,
                         'minMessage' => 'Pas assez de caractères (min attendu : {{ limit }})',
                         'maxMessage' => 'Trop caractères (max attendu : {{ limit }})',
