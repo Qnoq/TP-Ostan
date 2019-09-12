@@ -44,8 +44,10 @@ class MessageType extends AbstractType
         }else {
             $builder
                 ->add('content', TextareaType::class ,array(
+                    'label' => false,
                     'attr' => array(
-                        'placeholder' => 'Message..'
+                        'placeholder' => 'Votre message'
+                        
                     )
                 ));
         };

@@ -3,15 +3,26 @@
 {% block title %}Messagerie{% endblock %}
 
 {% block content %}
-    <h1>Message : {{message.title}}</h1>
+
+    <div class="message-detail">
+        <h1 class="message-title">{{message.title}}</h1>
     
-    {% for message in messages %}
-        <div>
-            <p>{{message.content}}</p>
+    
+        {% for message in messages %}
+            <div class="message-response">
+                <p>{{message.content}}</p>
+                <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
+
+            </div>
+            <br>
+        {% endfor %}
+            
+        <div class="message-option">
+        {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+
+        <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
         </div>
-        <br>
-    {% endfor %}
-        
-    {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+
+    <div>
 
 {% endblock %}
