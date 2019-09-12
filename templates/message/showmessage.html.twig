@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block content %}
+    <h1>Message : {{message.title}}</h1>
+    
+    {% for message in messages %}
+        <div>
+            <p>{{message.content}}</p>
+        </div>
+        <br>
+    {% endfor %}
+        
+    {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+
+{% endblock %}

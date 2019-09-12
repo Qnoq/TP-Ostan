@@ -8,9 +8,11 @@ use App\Entity\User;
 use App\Form\JobType;
 use App\Form\UserType;
 use App\Entity\GalleryPost;
+use App\Form\UserSearchType;
 use App\Form\GalleryPostType;
 use App\Repository\JobRepository;
 use App\Repository\GalleryPostRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -31,7 +33,6 @@ class UserController extends AbstractController
      */
     public function show(GalleryPostRepository $galleryPost, JobRepository $jobRepository, User $user, Request $request, $id)
     {
-
         $gallery = new GalleryPost();
         $formGallery = $this->createForm(GalleryPostType::class, $gallery);
         $formGallery->handleRequest($request);
@@ -256,4 +257,51 @@ class UserController extends AbstractController
         }
         return $this->redirectToRoute('advice_post');
     }
+
+    /**
+     * LISTE DES USERS + RESULTATS DE LA RECHERCHE 
+     * @Route("/users", name="user_list")
+     */
+     public function userList(Request $request, UserRepository $userRepository){
+        $formSearchUser = $this->createForm(UserSearchType::class);
+
+        $formSearchUser->handleRequest($request);
+        if ($formSearchUser->isSubmitted() && $formSearchUser->isValid()) {
+            $formName = $formSearchUser->getName();
+            $criterias = $request->request->get($formName);
+
+            $users = $userRepository->searchHome($criterias);
+
+            dump($criterias);
+            dump($formName);
+            dump($users);
+        } else {
+            $users = $userRepository->findAll();
+        }
+
+        return $this->render('user/userList.html.twig', [
+            'users' => $users,
+            // 'formSearchUser' => $formSearchUser->createView(),
+        ]);
+
+     }
+     
+     public function userSearchForm(Request $request, UserRepository $userRepository){
+        $formSearchUser = $this->createForm(UserSearchType::class);
+
+        // $users = [];
+
+        $formSearchUser->handleRequest($request);
+        // if ($formSearchUser->isSubmitted() && $formSearchUser->isValid()) {
+        //     $formName = $formSearchUser->getName();
+        //     $criterias = $request->request->get($formName);
+
+        //     $users = $userRepository->searchHome($criterias);
+        // }
+
+        return $this->render('user/userListForm.html.twig', [
+            // 'users' => $users,
+            'formSearchUser' => $formSearchUser->createView(),
+        ]);
+     }
 }
