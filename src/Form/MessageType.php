@@ -34,6 +34,7 @@ class MessageType extends AbstractType
                         'placeholder' => 'Titre du message'
                     )
                 ))
+               
                 // pour définir, avec menu déroulant, le destinataire du message
                 ->add('userReceiver', EntityType::class,[
                     'class'=> User::class,
@@ -44,8 +45,10 @@ class MessageType extends AbstractType
         }else {
             $builder
                 ->add('content', TextareaType::class ,array(
+                    'label' => false,
                     'attr' => array(
-                        'placeholder' => 'Message..'
+                        'placeholder' => 'Votre message'
+                        
                     )
                 ));
         };
