@@ -9,6 +9,37 @@
     
     
         {% for message in messages %}
+            
+            {% if message.user == app.user %}
+                <div class="bubble-send tri-right round btm-right-send">
+                    <div class="talktest">
+                        <p class="message-content">{{message.content}}</p>
+                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
+                     </div>
+                </div>
+            {% elseif message.userReceiver == app.user %}
+            
+                <div class="bubble-response tri-right round btm-left-response">
+                     <div class="talktest">
+                        <p class="message-content">{{message.content}}</p>
+                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
+                     </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="message-option">
+            {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+            <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
+        <div>
+
+    </div>
+
+
+
+    {#}
+        {% for message in messages %}
+        
             <div class="message-response">
                 <p>{{message.content}}</p>
                 <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
@@ -17,12 +48,13 @@
             <br>
         {% endfor %}
             
-        <div class="message-option">
+    <div class="message-option">
         {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
 
         <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
-        </div>
 
     <div>
+
+    #}
 
 {% endblock %}

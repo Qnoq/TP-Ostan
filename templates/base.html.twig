@@ -17,9 +17,9 @@
             {% block header %}
                 <div class="header">
                     <h1 class='header-title'>
-                        O'Stan
+                        <a href="{{ path('advice_post')}}">O'Stan</a>
                     </h1>
-
+               
                     <div class='justify-content-end d-flex'>
                         {# Si je suis authentifié #}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
