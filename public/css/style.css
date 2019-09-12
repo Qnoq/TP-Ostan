@@ -262,7 +262,7 @@ article{
     padding:10px;
 
 }
-/* PLAN DU SITE*/
+/*********** PLAN DU SITE *****************/
 
 .page-subheading {
   margin-left: 50px;
@@ -292,7 +292,7 @@ article{
   margin: 10px 0 10px 0;
 }
 
-/* FORMULAIRE DE CONTACT */
+/******* FORMULAIRE DE CONTACT ****************/
 
 .contact-form {
   padding: 50px;
@@ -316,14 +316,14 @@ ul {
 }
 
 
-/* PAGE 404 */
+/******** PAGE 404 *****************/
 
 .page404 {
   background-image: url('../images/lost404.calque.png');
   background-size: cover;
 }
 
-/* GALERIE */
+/********* GALERIE *********************/
 
 .modal {
   z-index:1;
@@ -387,4 +387,59 @@ ul {
   @keyframes zoom {
       from {transform:scale(0)} 
       to {transform:scale(1)}
+  }
+
+
+  /************ MESSAGE ***********/
+
+  .message-detail {
+    padding: 100px;
+    border-radius: 10px;
+    background-color: #eaecee;
+    border: #abb2b9 1px solid;
+    margin-top: 100px;
+    width: 75%;
+  }
+
+  .message-title {
+    position: relative;
+    top: -130px;
+    border: 1px grey solid;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: white;
+    text-align: center;
+  }
+
+  .message-response {
+    border: #abb2b9 1px solid;
+    border-radius: 10px;
+    background-color: #eaecee;
+    padding: 5px;
+  }
+
+  .message-response-title {
+    border: #abb2b9 1px solid;
+    border-radius: 10px;
+    background-color: #eaecee;
+    padding: 5px;
+    text-align: center;
+  }
+
+  .message-author {
+    font-style: italic;
+    color: grey;
+  }
+
+  .message-option {
+    text-align: center;
+  }
+
+  .message-user {
+    padding: 100px;
+    border-radius: 10px;
+    background-color: #eaecee;
+    border: #abb2b9 1px solid;
+    margin-top: 100px;
+    width: 75%;
   }
