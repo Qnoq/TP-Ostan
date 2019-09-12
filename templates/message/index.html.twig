@@ -11,12 +11,11 @@
     <div class="message-user">
         <h1 class="message-title">Messagerie personnelle</h1>
 
-    <a class="btn btn-primary" href="{{path ('newmessage') }} ">Nouveau message</a>
+    <a class="btn btn-primary " href="{{path ('newmessage') }} ">Nouveau message</a>
 
     <div>
     <p>Du plus récent au plus ancien</p>
         {% for message in messages %}
-            
             
             {% if message.user == app.user %}
                 <div class="message-response-title align-self-center">

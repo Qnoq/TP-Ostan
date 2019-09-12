@@ -34,6 +34,7 @@ class MessageType extends AbstractType
                         'placeholder' => 'Titre du message'
                     )
                 ))
+               
                 // pour définir, avec menu déroulant, le destinataire du message
                 ->add('userReceiver', EntityType::class,[
                     'class'=> User::class,
