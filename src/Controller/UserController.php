@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Job;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\JobType;
 use App\Form\UserType;
 use App\Entity\GalleryPost;
 use App\Form\GalleryPostType;
@@ -27,14 +29,12 @@ class UserController extends AbstractController
      *
      * @Route("/profil/{id}", name="user_show", methods ={"GET","POST"}, requirements={"id"="\d+"})
      */
-    public function show(GalleryPostRepository $galleryPost, User $user, Request $request, $id)
+    public function show(GalleryPostRepository $galleryPost, JobRepository $jobRepository, User $user, Request $request, $id)
     {
 
         $gallery = new GalleryPost();
         $formGallery = $this->createForm(GalleryPostType::class, $gallery);
         $formGallery->handleRequest($request);
-
-       
 
         if ($formGallery->isSubmitted() && $formGallery->isValid()) {
 
@@ -105,10 +105,27 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
+        $job = new Job();
+        $formJob = $this->createForm(JobType::class, $job);
+        $formJob->handleRequest($request);
+       
+        if ($formJob->isSubmitted() && $formJob->isValid()) {
+
+            $job->getUsers($user);
+            $job = $jobRepository->findBy(array ('name'=>$name));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager -> persist($job);
+            $entityManager -> flush();
+
+            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'galleryPost' => $galleryPost,
             'formGallery' => $formGallery->createView(),
+            'formJob' => $formJob->createView(),
         ]);
     }
 

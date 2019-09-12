@@ -24,10 +24,15 @@
                 {{ user.email }}</p>
 
             <p>
+            
+            {{ form_start(formJob) }}
+            {{ form_row(formJob.name) }}
+                <button class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
+            {{ form_end(formJob) }}
+
                 <span class="font-weight-bold">Je suis :
                     {% for job in user.jobs %}
                         <p>
-                            <span class="font-weight-bold">Je suis :
                                 {{ job.name }}</span>
                         </p>
                     {% endfor %}
