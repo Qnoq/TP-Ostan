@@ -493,6 +493,7 @@ ul {
 	height: auto;
   background-color: white;
   box-shadow: 10px 5px 5px grey;
+  
 }
 
 .tri-right.btm-right-send:after{
@@ -511,11 +512,13 @@ ul {
 .bubble-send {
 	margin: 40px;
   position: relative;
-	width: 100%;
+  width: 60%;
 	height: auto;
   background-color: white;
   box-shadow: 10px 5px 5px grey;
   border: 1px solid red;
+  right: -35%;
+  
 }
 
 
@@ -535,11 +538,12 @@ ul {
 .bubble-response {
 	margin: 40px;
   position: relative;
-	width: 100%;
+	width: 60%;
 	height: auto;
   background-color: white;
   box-shadow: 10px 5px 5px grey;
   border: 1px solid green;
+  
 }
 
 /**** FIN MESSAGERIE ****/

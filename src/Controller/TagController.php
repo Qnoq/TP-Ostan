@@ -11,9 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TagController extends AbstractController
 {
     /**
-     * @Route("/tag/{id}", name="tag_show", methods ={"GET"}, requirements={"id"="\d+"})
+     * @Route("/tag/{slug}", name="tag_show", methods ={"GET"})
      */
-    public function show(Tag $tag)
+    public function show(Tag $tag, $slug)
     {
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,

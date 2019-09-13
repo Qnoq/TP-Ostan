@@ -1,6 +1,8 @@
 App\Entity\Tag:
   tag{1..10}:
     name: "<word()>"
+    slug: "<word()>"
+
 App\Entity\User:
   user{1..40}:
     username: "<userName()>"
@@ -35,6 +37,7 @@ App\Entity\Post:
     tags: "3x @tag*"
     status: "@status2*"
     type: "<typePost()>"
+    slug: "<word()>"
 
 App\Entity\Comment:
   comment{1..45}:
