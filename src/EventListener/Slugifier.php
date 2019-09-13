@@ -5,6 +5,7 @@ namespace App\EventListener;
 */
 use App\Entity\Movie;
 use App\Entity\Product;
+use App\Entity\Tag;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use App\Utils\Slugger;
 class Slugifier {

@@ -70,9 +70,9 @@ class PostController extends AbstractController
     /**
      * Page de détail d'un ARTICLE DE CONSEILS (pas de possibilité de commenter) :
      *
-     * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/advicepost/{slug}", name="advice_post_show", methods={"GET","POST"})
      */
-    public function advicePostShow(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository)
+    public function advicePostShow(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository, Slugger $slugger)
     {
 
         $comment = new Comment();

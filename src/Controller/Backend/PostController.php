@@ -79,7 +79,7 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/post/edit/{id}", name="advicePostEdit", methods="GET|POST")
+     * @Route("/post/edit/{post}", name="advicePostEdit", methods="GET|POST")
      */
     public function advicePostEdit(Request $request, Post $post)
     {
@@ -88,7 +88,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Article modifié.');
-            return $this->redirectToRoute('backend_advicePostEdit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('backend_advicePostEdit', ['slug' => $post->getSlug()()]);
         }
         return $this->render('backend/post/advicePostEdit.html.twig', [
             'post' => $post,
@@ -97,7 +97,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/advicepost/delete/{id}", name="advicePostDelete", methods="DELETE", requirements={"id"="\d+"})
+     * @Route("/post/advicepost/delete/{slug}", name="advicePostDelete", methods="DELETE")
      */
     public function advicePostDelete(Request $request, Post $post): Response
     {
@@ -111,7 +111,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/ad/delete/{id}", name="adDelete", methods="DELETE", requirements={"id"="\d+"})
+     * @Route("/post/ad/delete/{slug}", name="adDelete", methods="DELETE")
      */
     public function adDelete(Request $request, Post $post): Response
     {
@@ -126,7 +126,7 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/{id}/status/{statusCode}", name="post_update_status", methods={"PATCH"}, requirements={"id"="\d+"})
+     * @Route("/{id}/status/{statusCode}", name="post_update_status", methods={"PATCH"})
      */
     public function updateStatus(Request $request, Post $post, StatusRepository $statusRepository): JsonResponse
     {
