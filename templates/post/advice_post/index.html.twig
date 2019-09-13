@@ -5,13 +5,14 @@
 
 {% block content %}
 
-    <section class="border border-dark ml-5 mb-5">
+    <section class="presentation">
+    <div>
 
         <div class="text-center">
             <h1 class="text-uppercase font-weight-bold border-bottom border-dark py-3 mx-5">Bienvenue sur O'Stan !</h1>
             <p class="py-3 px-3">Lorem ipsum ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur tempore atque quaerat ab? Ad aliquid minima laudantium sed! Velit eos suscipit earum iure provident, illum necessitatibus sequi quam vel modi eveniet libero ab sapiente eum at magni ratione ipsa perspiciatis.</p>
         </div>
-
+        </div>
     </section>
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
@@ -41,7 +42,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ path('advice_post_show', {'id': advice_post.id }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
+                            <a class="btn btn-elegant" href="{{ path('advice_post_show', {'id': advice_post.id }) }}">
                                 Lire la suite
                             </a>
                         </div>

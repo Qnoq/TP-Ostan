@@ -8,33 +8,46 @@
         </title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link
+        rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+        <!-- Font Awesome -->
+        <link
+        rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/css/mdb.min.css" rel="stylesheet">
+
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
         </head>
         <body>
             {% block header %}
-                <div class="header">
-                    <h1 class='header-title'>
-                        O'Stan
-                    </h1>
-                    <div class='justify-content-end d-flex'>
+                <div class="jumbotron">
+                    <div>
+                        <img class='logo' src="{{asset('images/logo.svg')}}" alt="">
+                    </div>
+                    <div class='nav-connexion'>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_USER_ADMIN') %}
                                 <a class="nav-link" href="{{path('backend_adList')}}">Admin</a>
                             {% endif %}
+                            <a class="nav-link" href="{{path('message') }}">Messagerie</a>
                             <a class="nav-link" href="{{path('user_show', {'id': app.user.id }) }}">Mon profil</a>
                             <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
                         {% else %}
                             <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
                             <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-                            
+
                         {% endif %}
                     </div>
 
 
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-dark text-white bg-info">
+                <nav class="navbar navbar-expand-lg navbar-dark unique-color navbar_home">
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -44,30 +57,33 @@
                         <ul class="navbar-nav mr-auto">
 
                             <li class="nav-item">
-                                <a class="nav-link_home" href="{{path('advice_post')}}">Accueil</a>
+                                <a class="btn amber lighten-2" href="{{path('advice_post')}}">Accueil</a>
                             </li>
                             {# Si je suis authentifié #}
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
                                 <li class="nav-item">
-                                    <a class="nav-link_home" href="{{path('ad_post')}}">Annonces</a>
+                                    <a class="btn amber lighten-2" href="{{path('ad_post')}}">Annonces</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn amber lighten-2" href="{{path('user_list')}}">La communauté</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link_home" href="#">Le concept</a>
+                                <a class="btn amber lighten-2" href="#">Le concept</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link_home" href="{{path('contact')}}">Nous contacter</a>
+                                <a class="btn amber darken-1" href="{{path('contact')}}">Nous contacter</a>
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar_backend">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent15">
                         <ul class="navbar-nav mx-auto">
 
                             <li class="nav-item">
@@ -76,7 +92,7 @@
                             <li class="nav-item">
                                 <a class="nav-link_backend" href="{{path('backend_advicePostList')}}">Articles</a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link_backend" href="{{path('backend_userList')}}">Utilisateurs</a>
                             </li>
@@ -127,9 +143,14 @@
                     </nav>
                 </footer>
 
-                <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <!-- JQuery -->
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <!-- Bootstrap tooltips -->
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+                <!-- Bootstrap core JavaScript -->
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                <!-- MDB core JavaScript -->
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/js/mdb.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             {% endblock %}
             {% block javascripts %}{% endblock %}

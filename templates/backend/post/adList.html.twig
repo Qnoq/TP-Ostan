@@ -12,16 +12,16 @@
                 <p>par
                     {{post.user.username}}
                     le
-                    {{ post.createdAt | date('d/m/Y à H:i') }}
+                    {{ post.createdAt | date('d/m/Y à H:i') }}</p>
                     <a class="btn btn-primary" href="">Voir l'annonce</a>
                     {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
                     <button
                         type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
                         {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
-                        {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                        <i class="fas fa-minus-circle"></i> {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
                     </button>
                     {{include('backend/post/_delete_ad.html.twig')}}
-                </p>
+                
             </article>
         {% endif %}
     {% endfor %}

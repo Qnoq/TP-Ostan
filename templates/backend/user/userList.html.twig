@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Les utilisateurs</h1>
     <div class="table-responsive">
-        <table class="table table-striped userTable">
+        <table id="horizontalScroll" class="table table-striped userTable">
             <thead class="position-sticky">
                 <tr>
                     <th scope="col">#Id</th>
@@ -121,6 +121,13 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+$('#horizontalScroll').dataTable({
+"scrollX": true
+});
+$('.dataTables_length').addClass('bs-select');
+});
     </script>
 
 {% endblock %}
