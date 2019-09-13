@@ -2,13 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Job;
+
 use App\Entity\Post;
-use App\Form\JobType;
 use App\Form\PostType;
 use App\Entity\Comment;
 use App\Form\CommentType;
-use App\Form\UserSearchType;
 use App\Repository\JobRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
@@ -28,6 +26,7 @@ class PostController extends AbstractController
      */
     public function advicePostList(PostRepository $postRepository)
     {
+
         $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         $advicePosts = $postRepository->findAllAdvicePost();
 
