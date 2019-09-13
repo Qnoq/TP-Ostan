@@ -20,7 +20,7 @@ class PostType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre de l\'annonce - article'
+                    'placeholder' => 'Titre'
                 ],])
             ->add('picture1', FileType::class, [
                 'data_class' => null,
@@ -46,7 +46,9 @@ class PostType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Message'
+                    'placeholder' => 'Message',
+                    'cols' => '5', 
+                    'rows' => '5'
                 ],])
             // ->add('createdAt')
             // ->add('updatedAt')
@@ -56,7 +58,14 @@ class PostType extends AbstractType
             //          'Annonce' => false,
             //      ],])
             // ->add('user')
-            ->add('tags')
+            ->add('tags', null, [
+                'attr' => [
+                    'class'=>'select-tags'
+                ],
+                'label_attr'=>[
+                    'class'=>'label_select-tags'
+                ]
+            ])
             // ->add('status')
         ;
     }

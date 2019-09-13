@@ -72,7 +72,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllExceptUser()
+    public function findAllExceptUser($user)
     {
     return $this->createQueryBuilder('u')
         ->andWhere('u.hidden = user')
