@@ -1,0 +1,11 @@
+<ul class="list-unstyled text-center">
+    {% for user in users|slice(0,5) %}
+
+        {# {% if user.jobs == "Illustrateur" and user.jobs == "Auteur" %} #}
+        <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026714d" alt="..." class="rounded-circle">
+            |
+            <span>{{user.username}}</span>
+        </li>
+        {# {% endif %} #}
+    {% endfor %}
+</ul>

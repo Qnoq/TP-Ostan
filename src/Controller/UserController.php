@@ -269,7 +269,6 @@ class UserController extends AbstractController
             'users' => $users,
             // 'formSearchUser' => $formSearchUser->createView(),
         ]);
-
      }
      
      public function userSearchForm(Request $request, UserRepository $userRepository){
@@ -290,4 +289,14 @@ class UserController extends AbstractController
             'formSearchUser' => $formSearchUser->createView(),
         ]);
      }
+
+     public function usersNavList(UserRepository $userRepository){
+         
+        $users = $userRepository->findAll();
+        return $this->render('user/usersNavList.html.twig', [
+           'users' => $users,
+           // 'formSearchUser' => $formSearchUser->createView(),
+       ]);
+    }
+
 }
