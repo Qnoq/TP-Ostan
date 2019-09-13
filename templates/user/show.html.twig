@@ -44,7 +44,7 @@
                 {# Affichage du ou des tag(s) de l'utilisateur #}
                 {% for tag in user.tags %}
                     <p>
-                        <a href="{{ path('tag_show', {'id': tag.id }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</a>
+                        <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</a>
                     </p>
                 {% endfor %}
             </div>

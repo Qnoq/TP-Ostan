@@ -53,7 +53,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("tag/edit/{id}", name="tag_edit", methods="GET|POST")
+     * @Route("tag/edit/{slug}", name="tag_edit", methods="GET|POST")
      */
     public function edit(Request $request, Tag $tag) 
     {
@@ -62,7 +62,7 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Tag modifié.');
-            return $this->redirectToRoute('backend_tag_edit', ['id' => $tag->getId()]);
+            return $this->redirectToRoute('backend_tag_edit', ['slug' => $tag->getSlug()]);
         }
         
         return $this->render('backend/tag/edit.html.twig', [
@@ -73,7 +73,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("tag/delete/{id}", name="tag_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("tag/delete/{slug}", name="tag_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Tag $tag): Response
     {

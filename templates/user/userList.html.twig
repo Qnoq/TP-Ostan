@@ -38,7 +38,7 @@
 
                             <div class="d-flex justify-content-start mt-3">
                                 {% for tag in user.tags %}
-                                    <a href="{{ path('tag_show', {'id': tag.id }) }}" class="badge badge-pill badge-light border border-dark text-dark font-weight-bold p-2 mb-2 mr-2">
+                                    <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill badge-light border border-dark text-dark font-weight-bold p-2 mb-2 mr-2">
                                         {{ tag.name }}
                                     </a>
                                 {% endfor %}
