@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Utils\Slugger;
 use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,13 +49,15 @@ class PostController extends AbstractController
     /**
      * @Route("/advice-post/new/", name="advicePostNew")
      */
-    public function advicePostNew(Request $request, StatusRepository $statusRepository)
+    public function advicePostNew(Request $request, StatusRepository $statusRepository, Slugger $slugger)
     {
         $statusCode = 'UNBLOCKED';
         $statusCode= $statusRepository->findOneByCode($statusCode);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+
+        
 
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,21 +68,35 @@ class PostController extends AbstractController
             $entityManager -> persist($post);
             $entityManager -> flush();
 
+
+            // rajouter le slugger lors de la création d'un article conseil
+            // n'a pas l'air de fonctionner .....
+            //$slug = $slugger->slugify($post->getTitle());
+            //$post->setSlug($slug);
+
+
             $this->addFlash(
                 'success',
                 'Votre article a bien été enregistré !'
             );
 
+            
+         
+
             return $this->redirectToRoute('backend_advicePostList');
         }
+
+         
         return $this->render('backend/post/advicePostNew.html.twig', [
             'form' => $form->createView(),
         ]);
+
+       
     }
 
 
     /**
-     * @Route("/post/edit/{post}", name="advicePostEdit", methods="GET|POST")
+     * @Route("/post/edit/{slug}", name="advicePostEdit", methods="GET|POST")
      */
     public function advicePostEdit(Request $request, Post $post)
     {
@@ -88,7 +105,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Article modifié.');
-            return $this->redirectToRoute('backend_advicePostEdit', ['slug' => $post->getSlug()()]);
+            return $this->redirectToRoute('backend_advicePostEdit', ['slug' => $post->getSlug()]);
         }
         return $this->render('backend/post/advicePostEdit.html.twig', [
             'post' => $post,

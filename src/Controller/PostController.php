@@ -85,7 +85,7 @@ class PostController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('advice_post_show', ['id' => $advicePost->getId()]);
+            return $this->redirectToRoute('advice_post_show', ['slug' => $advicePost->getSlug()]);
         }
         return $this->render('post/advice_post/show.html.twig', [
             'advicePost' => $advicePost,
