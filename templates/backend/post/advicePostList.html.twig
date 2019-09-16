@@ -19,7 +19,7 @@
                 </td>
                 <td>
                     {#<a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Voir</a>#}
-                    <a href="{{path ('backend_advicePostEdit', {'id': post.id})}}">Editer</a>
+                    <a href="{{path ('backend_advicePostEdit', {'slug': post.slug})}}">Editer</a>
 
                     {# pour avoir la fonction supprimer, ne pas mettre de bouton mais directement l'include de la fonction delete #}
                     {{include('backend/post/_delete.html.twig')}}
