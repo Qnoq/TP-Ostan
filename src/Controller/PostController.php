@@ -136,7 +136,7 @@ class PostController extends AbstractController
     /**
      * Page formulaire d'ajout d'une ANNONCE (pour les utilisateurs exclusivement)
      *
-     * @Route("/annonce/new", name="ad_post_new", methods={"GET","POST"})
+     * @Route("/annonces/new", name="ad_post_new", methods={"GET","POST"})
      */
     public function adNew(Request $request, StatusRepository $statusRepository)
     {

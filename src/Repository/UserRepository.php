@@ -38,6 +38,21 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function findJob($criterias)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.jobs', 'j')
+            ->andWhere('j IN (:jobs)')
+            ->setParameters(array(
+                'jobs' => $criterias['jobs'],
+            ))
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function findByPage($page = 1, $max = 4)
     {
