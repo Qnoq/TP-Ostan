@@ -6,6 +6,15 @@
 
 
 {% block content %}
+<style>
+        .content{
+            margin: 1em auto;
+          
+            width: 100%;
+
+            }
+        
+    </style>
     <div class="mask">
         <a href="{{ path('user_show', { 'id': user.id }) }}">
             <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
@@ -124,7 +133,7 @@
         </div>
 
         {% if user.id == app.user.id %}
-            <div>
+            <div class="gallery-form">
                 {{ form_start(formGallery) }}
                 {{ form_row(formGallery.title) }}
                 {{ form_row(formGallery.picture1) }}

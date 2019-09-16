@@ -3,6 +3,7 @@
 {% block title %}Administration
 {% endblock %}
 {% block content %}
+
     <h1>Les articles</h1>
     <a href="{{path ('backend_advicePostNew')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un article</a>
     <tbody>
@@ -30,4 +31,6 @@
                 {{ pagination(listPost) }}
             </td>
         </tr>
+        <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
+   
 {% endblock %}

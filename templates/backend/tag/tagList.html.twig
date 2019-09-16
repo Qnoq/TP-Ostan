@@ -21,7 +21,7 @@
                     <th scope="row">{{tag.id}}</th>
                     <td>{{tag.name}}</td>
                     <td>
-                        <a href="{{path ('backend_tag_edit', {'id': tag.id})}}">Editer</a>
+                        <button class="btn btn-default" href="{{path ('backend_tag_edit', {'id': tag.id})}}"><i class="far fa-edit"></i> Editer</button>
                         {# Mettre un include et non pas un <a> car le <a> envoie en GET car il n'y a pas de submit #}
                         {{ include('backend/tag/_delete.html.twig') }}
                     </td>
