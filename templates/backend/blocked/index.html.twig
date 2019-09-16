@@ -32,7 +32,7 @@
                             {{post.user.username}}
                             le
                             {{ post.createdAt | date('d/m/Y à H:i') }}
-                            <a class="btn btn-primary" href="">Voir l'annonce</a>
+                            <a class="btn btn-primary" href="{{ path ('ad_post_show', {'slug': post.slug}) }}">Voir l'annonce</a>
                             {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
                             <button
                                 type="button" class="btn btn-warning" onclick="handleStatusButtonAd(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">

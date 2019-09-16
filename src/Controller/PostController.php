@@ -6,15 +6,16 @@ use App\Entity\Job;
 use App\Entity\Post;
 use App\Form\JobType;
 use App\Form\PostType;
+use App\Utils\Slugger;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\UserSearchType;
 use App\Repository\JobRepository;
+use App\Repository\TagRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\CommentRepository;
-use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,9 +70,9 @@ class PostController extends AbstractController
     /**
      * Page de détail d'un ARTICLE DE CONSEILS (pas de possibilité de commenter) :
      *
-     * @Route("/advicepost/{id}", name="advice_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/advicepost/{slug}", name="advice_post_show", methods={"GET","POST"})
      */
-    public function advicePostShow(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository)
+    public function advicePostShow(Post $advicePost, Request $request, UserRepository $userRepository, CommentRepository $commentRepository, Slugger $slugger)
     {
 
         $comment = new Comment();
@@ -84,7 +85,7 @@ class PostController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('advice_post_show', ['id' => $advicePost->getId()]);
+            return $this->redirectToRoute('advice_post_show', ['slug' => $advicePost->getSlug()]);
         }
         return $this->render('post/advice_post/show.html.twig', [
             'advicePost' => $advicePost,
@@ -95,10 +96,10 @@ class PostController extends AbstractController
     /**
      * Page de de détail d'une ANNONCE avec formulaire pour poster un commentaire (pour les utilisateurs exclusivement) :
      * 
-     * @Route("/annonce/{id}", name="ad_post_show", methods={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/annonce/{slug}", name="ad_post_show", methods={"GET","POST"})
      */
-    public function adPostShow(Post $post, Request $request, StatusRepository $statusRepository)
-    {
+    public function adPostShow(Post $post, Request $request, StatusRepository $statusRepository, Slugger $slugger)
+    { 
 
         $comment = new Comment();
         $formComment = $this->createForm(CommentType::class, $comment);
@@ -122,7 +123,7 @@ class PostController extends AbstractController
                 'Votre commentaire a bien été enregistré !'
             );
 
-            return $this->redirectToRoute('ad_post_show', ['id' => $post->getId()]);
+            return $this->redirectToRoute('ad_post_show', ['slug' => $post->getSlug()]);
         }
         return $this->render('post/ad_post/show.html.twig', [
             'post' => $post,
