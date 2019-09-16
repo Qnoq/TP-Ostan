@@ -114,12 +114,12 @@ class UserController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * Modification d'un user :
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder, UserRepository $userRepository): Response
     {
 
         $job = new Job();
@@ -130,12 +130,10 @@ class UserController extends AbstractController
         $formJob = $this->createForm(JobType::class, $job);
         $formJob->handleRequest($request);
 
-        
-
 
         if ($formJob->isSubmitted() && $formJob->isValid()) {
 
-            $formName = $formSearchUser->getName();
+            $formName = $$user->getName();
             $criterias = $request->request->get($formName);
 
             $users = $userRepository->findJob($criterias);
@@ -143,9 +141,8 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($job);
             $entityManager -> flush();
-           
             
-
+           
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 
