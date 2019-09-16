@@ -5,8 +5,7 @@
 
 {% block content %}
 
-    <section
-        class="section-post">
+    <section class="section-post">
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
         {% for post in listPost %}
@@ -60,7 +59,6 @@
                             <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
                         </span>
                     </div>
-
                 </article>
             {% endif %}
         {% endfor %}
