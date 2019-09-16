@@ -114,28 +114,9 @@
                         <div>
                             <h4 class="title-sidebar">Des talents à découvrir !</h4>
 
-                            <ul class="list-unstyled text-center">
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026714d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Illustrateur et/ou Auteur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026724d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Illustrateur et/ou Auteur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026734d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Illustrateur et/ou Auteur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026744d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Illustrateur et/ou Auteur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026754d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Illustrateur et/ou Auteur</span>
-                                </li>
-                            </ul>
+                            {{render(controller(
+                                'App\\Controller\\UserController::usersNavList'
+                            ))}}
                         </div>
 
                         <div>
