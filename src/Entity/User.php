@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Job;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -113,6 +114,7 @@ class User implements UserInterface, \Serializable
     private $messages;
 
     /**
+     * 
      * @ORM\ManyToMany(targetEntity="App\Entity\Job", inversedBy="users")
      */
     private $jobs;
