@@ -1,3 +1,4 @@
+
 {% extends 'base_backend.html.twig' %}
 
 {% block title %}Administration
@@ -5,34 +6,25 @@
 {% block content %}
 
     <h1>Les articles</h1>
-    <a href="{{path ('backend_advicePostNew')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un article</a>
-    <tbody>
-    <table class="table table-striped userTable">
-        {% for post in listPost %}
-            <tr>
-                <td>
+    <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
+    
+   
+        {% for post in posts %}
+         
                     <h3>{{post.title}}</h3>
-
-                </td>
-                <td>
+                
                     <p>{{post.description|truncate(300, true)}}</p>
                 </td>
                 <td>
-                    {#<a href="{{path ('backend_advicePostEdit', {'id': advicePost.id})}}">Voir</a>#}
+                    {#<a href="{{path ('backend_advicePostEdit', {'slug': advicePost.slug})}}">Voir</a>#}
                     <a href="{{path ('backend_advicePostEdit', {'slug': post.slug})}}">Editer</a>
-
                     {# pour avoir la fonction supprimer, ne pas mettre de bouton mais directement l'include de la fonction delete #}
                     {{include('backend/post/_delete.html.twig')}}
                 </td>
             </tr>
         {% endfor %}
-        </table>
-    </tbody>
-        <tr>
-            <td colspan="2">
-                {{ pagination(listPost) }}
-            </td>
-        </tr>
         <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
    
+   
 {% endblock %}
+
