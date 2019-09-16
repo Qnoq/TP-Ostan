@@ -35,12 +35,14 @@
 
             <div>
                 <span class="font-weight-bold">Je suis :</span>
+                <ul>
                 {# Affichage du ou des job(s) de l'utilisateur #}
                 {% for job in user.jobs %}
-                    <p>
+                    <li>
                             {{ job.name }}
-                    </p>
+                    </li>
                 {% endfor %}
+                </ul>
             </div>
 
             <p>
