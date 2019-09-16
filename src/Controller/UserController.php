@@ -137,7 +137,7 @@ class UserController extends AbstractController
             $criterias = $request->request->get($formName);
 
             $users = $userRepository->findJob($criterias);
-
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($job);
             $entityManager -> flush();

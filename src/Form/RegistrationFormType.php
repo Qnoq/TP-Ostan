@@ -73,14 +73,15 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Email'
                 ],])
-            ->add('jobs', EntityType::class, array(
+            ->add('jobs', EntityType::class, [
                 'class' => Job::class,
-                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'mapped' => false,
-                'required'=> false,
-            ))
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'attr' => [
+                    'class' => 'material-checkbox'
+                ],
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
