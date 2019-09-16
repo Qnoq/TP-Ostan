@@ -135,17 +135,16 @@ class UserController extends AbstractController
 
         if ($formJob->isSubmitted() && $formJob->isValid()) {
 
-            $formName = $formSearchUser->getName();
+            $formName = $$user->getName();
             $criterias = $request->request->get($formName);
 
             $users = $userRepository->findJob($criterias);
-
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($job);
             $entityManager -> flush();
            
             
-
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 

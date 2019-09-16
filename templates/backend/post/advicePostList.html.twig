@@ -9,7 +9,7 @@
     <a type="button" href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"></i>Ajouter un article</a>
    
    
-        {% for post in posts %}
+        {% for post in listPost %}
          
                     <h3>{{post.title}}</h3>
                 
@@ -24,7 +24,11 @@
             </tr>
         {% endfor %}
         <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
-   
+   <tr>
+            <td colspan="2">
+                {{ pagination(listPost) }}
+            </td>
+        </tr>
    
 {% endblock %}
 
