@@ -17,7 +17,6 @@ use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -43,11 +42,11 @@ class PostController extends AbstractController
      * 
      * @Route("/annonces", name="ad_post")
      */
-    public function adList(PostRepository $postRepository, TagRepository $tagRepository)
+    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository)
     {
        
-            $posts = $postRepository->findAllAdPost(array(), array('createdAt' => 'DESC'));
-            
+            $posts = $postRepository->findAllAdPost();
+            $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         
             $tags = $tagRepository->findAll();
         
@@ -59,7 +58,14 @@ class PostController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("/searchUser", name="searchUser")
+     */
+    public function searchUser(Request $request)
+    {
+        dump($request->request);
+        die;
+    }
 
     /**
      * Page de détail d'un ARTICLE DE CONSEILS (pas de possibilité de commenter) :
@@ -132,7 +138,7 @@ class PostController extends AbstractController
      *
      * @Route("/annonces/new", name="ad_post_new", methods={"GET","POST"})
      */
-    public function adNew(Request $request, StatusRepository $statusRepository): Response
+    public function adNew(Request $request, StatusRepository $statusRepository)
     {
         $statusCode = 'UNBLOCKED';
         $statusCode = $statusRepository->findOneByCode($statusCode);
@@ -160,7 +166,6 @@ class PostController extends AbstractController
             return $this->redirectToRoute('ad_post');
         }
         return $this->render('post/ad_post/new.html.twig', [
-            'post' => $post,
             'form' => $form->createView(),
         ]);
     }
