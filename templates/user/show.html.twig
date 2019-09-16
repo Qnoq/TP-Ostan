@@ -34,10 +34,10 @@
             </p>
 
             <div>
+                <span class="font-weight-bold">Je suis :</span>
                 {# Affichage du ou des job(s) de l'utilisateur #}
                 {% for job in user.jobs %}
                     <p>
-                        <span class="font-weight-bold">Je suis :</span>
                             {{ job.name }}
                     </p>
                 {% endfor %}
