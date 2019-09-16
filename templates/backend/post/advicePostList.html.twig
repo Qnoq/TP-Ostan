@@ -1,3 +1,4 @@
+
 {% extends 'base_backend.html.twig' %}
 
 {% block title %}Administration
@@ -5,16 +6,13 @@
 {% block content %}
 
     <h1>Les articles</h1>
-    <a href="{{path ('backend_advicePostNew')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un article</a>
-    <tbody>
-    <table class="table table-striped userTable">
-        {% for post in listPost %}
-            <tr>
-                <td>
+    <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
+    
+   
+        {% for post in posts %}
+         
                     <h3>{{post.title}}</h3>
-
-                </td>
-                <td>
+                
                     <p>{{post.description|truncate(300, true)}}</p>
                 </td>
                 <td>
@@ -26,13 +24,8 @@
                 </td>
             </tr>
         {% endfor %}
-        </table>
-    </tbody>
-        <tr>
-            <td colspan="2">
-                {{ pagination(listPost) }}
-            </td>
-        </tr>
         <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
    
+   
 {% endblock %}
+
