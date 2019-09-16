@@ -136,7 +136,7 @@ class PostController extends AbstractController
     /**
      * Page formulaire d'ajout d'une ANNONCE (pour les utilisateurs exclusivement)
      *
-     * @Route("/annonce/new", name="ad_post_new", methods={"GET","POST"})
+     * @Route("/annonces/new", name="ad_post_new", methods={"GET","POST"})
      */
     public function adNew(Request $request, StatusRepository $statusRepository)
     {
@@ -168,5 +168,14 @@ class PostController extends AbstractController
         return $this->render('post/ad_post/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function adPostsNavList(PostRepository $postRepository){
+
+        // Classés du plus récent au moins récent
+        $adPosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('post/ad_post/adPostsNavList.html.twig', [
+           'adPosts' => $adPosts,
+       ]);
     }
 }

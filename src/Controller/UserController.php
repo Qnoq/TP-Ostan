@@ -304,4 +304,13 @@ class UserController extends AbstractController
             'formSearchUser' => $formSearchUser->createView(),
         ]);
      }
+
+     public function usersNavList(UserRepository $userRepository){
+
+        // Classés du plus récent au moins récent
+        $users = $userRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('user/usersNavList.html.twig', [
+           'users' => $users,
+       ]);
+    }
 }
