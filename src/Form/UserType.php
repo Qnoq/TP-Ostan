@@ -2,11 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Job;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -102,6 +105,14 @@ class UserType extends AbstractType
             ])
             ->add('phonenumber')
             ->add('email', EmailType::class,['label' => 'Adresse email'])
+            ->add('jobs', EntityType::class, array(
+                'class' => Job::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => false,
+                'required'=> false,
+            ))
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -110,6 +121,7 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
+            
         ;
     }
 
