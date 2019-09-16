@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Les annonces</h1>
     
-    {% for post in adListPost %}
+    {% for post in posts %}
             
         {% if post.status.code == "UNBLOCKED" %}
            
@@ -30,11 +30,6 @@
             
         {% endif %}
     {% endfor %}
-    <tr>
-            <td colspan="2">
-                {{ pagination(adListPost) }}
-            </td>
-        </tr>
 {% endblock %}
 
 

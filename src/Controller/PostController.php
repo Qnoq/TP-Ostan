@@ -27,21 +27,13 @@ class PostController extends AbstractController
      * 
      * @Route("/", name="advice_post", methods={"GET"})
      */
-    public function advicePostList(PostRepository $postRepository, Request $request)
+    public function advicePostList(PostRepository $postRepository)
     {
-        $db = $this->getDoctrine()->getManager();
-
-        $adviceListPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
-        );
-
         $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         $advicePosts = $postRepository->findAllAdvicePost();
 
         return $this->render('post/advice_post/index.html.twig', [
-            'advicePosts' => $advicePosts,
-            'adviceListPost' => $adviceListPost
+            'advicePosts' => $advicePosts
         ]);
     }
 
@@ -53,22 +45,15 @@ class PostController extends AbstractController
     public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository)
     {
        
-        $db = $this->getDoctrine()->getManager();
-
-        $listPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            10
-        );
-        $posts = $postRepository->findAllAdPost();
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
-    
-        $tags = $tagRepository->findAll();
+            $posts = $postRepository->findAllAdPost();
+            $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        
+            $tags = $tagRepository->findAll();
         
 
         return $this->render('post/ad_post/index.html.twig', [
             'posts' => $posts,
-            'tags' => $tags,
-            'listPost' => $listPost
+            'tags' => $tags
          
         ]);
     }

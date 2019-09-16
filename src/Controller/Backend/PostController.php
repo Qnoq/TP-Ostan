@@ -25,20 +25,12 @@ class PostController extends AbstractController
     /**
      * @Route("/", name="adList")
      */
-    public function adList(PostRepository $postRepository, Request $request)
+    public function adList(PostRepository $postRepository)
     {
-
-        $db = $this->getDoctrine()->getManager();
-
-        $adListPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
-        );
 
         $posts = $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
             'posts' => $posts,
-            'adListPost' => $adListPost,
             
         ]);
     }
@@ -52,7 +44,7 @@ class PostController extends AbstractController
 
         $listPost = $db->getRepository('App:Post')->findByPage(
             $request->query->getInt('page', 1),
-            5
+            10
         );
 
         $posts = $postRepository->findAllAdvicePost();
