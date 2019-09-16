@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Message;
+use App\Entity\Post;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class MessageType extends AbstractType
 {
@@ -28,6 +30,8 @@ class MessageType extends AbstractType
     {
         // récupérer l'url
         $url = ($_SERVER["REQUEST_URI"]);
+
+        
 
         // construit un formulaire différent selon l'url, à partir de la meme Entité
         if($url == '/message/new'){
@@ -44,20 +48,30 @@ class MessageType extends AbstractType
                     'attr' =>array(
                         'placeholder' => 'Titre du message'
                     )
-                ))
+                    ))
                
+
                 // pour définir, avec menu déroulant, le destinataire du message
+                
                 ->add('userReceiver', EntityType::class,[
                     'class'=> User::class,
                     'expanded' =>false,
                     'multiple' =>false,
+                    
                 ])
+                
+
+
+                
             ;
+
 
         // TEST CORRECTION PB D'ENVOI DE MAIL A SOI MEME //
         // pour intercepter la soumission du formulaire avant sa soumission et en modifier les champs
+        /*
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+                $user = $event->getData()->getUser();
 
-            $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($user) {
                 if (null !== $event->getData()->getUserReceiver()) {
                     // we don't need to add the userReceiver field because
                     // the message will be addresse $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -74,6 +88,7 @@ class MessageType extends AbstractType
     
                 $form = $event->getForm();
     
+                // voir option Lucie
                 $formOptions = [
                     'class' => User::class,
                     'expanded' =>false,
@@ -88,7 +103,7 @@ class MessageType extends AbstractType
                 $form->add('userReceiver', EntityType::class, $formOptions);
             });
 
-
+        */
         // FIN TEST CORRECTION BUG //
 
         }else {

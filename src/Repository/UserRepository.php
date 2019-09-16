@@ -77,11 +77,11 @@ class UserRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('u')
         ->andWhere('u.hidden = user')
         ->setParameter('user', $user)
-        ->orderBy('m.name', 'ASC')
+        ->orderBy('u.username', 'ASC')
         ->getQuery()
         ->getResult()
     ;
-}
+    }
 
     
 }

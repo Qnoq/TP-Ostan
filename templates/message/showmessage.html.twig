@@ -11,10 +11,11 @@
         {% for message in messages %}
             
             {% if message.user == app.user %}
+                
                 <div class="bubble-send tri-right round btm-right-send">
                     <div class="talktest">
                         <p class="message-content">{{message.content}}</p>
-                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
+                       <div class="message-author">envoyé le {{message.createdAt|date("m/d/Y")}}</div>
                      </div>
                 </div>
             {% elseif message.userReceiver == app.user %}
@@ -22,7 +23,7 @@
                 <div class="bubble-response tri-right round btm-left-response">
                      <div class="talktest">
                         <p class="message-content">{{message.content}}</p>
-                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
+                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date("m/d/Y")}}</div>
                      </div>
                 </div>
             {% endif %}
