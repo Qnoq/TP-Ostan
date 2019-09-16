@@ -74,15 +74,16 @@ class PostController extends AbstractController
 
             $post->setType('Article');
             $post->setStatus($statusCode);
+
+            $slug = $slugger->slugify($post->getTitle());
+            $post->setSlug($slug);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($post);
             $entityManager -> flush();
 
 
-            // rajouter le slugger lors de la création d'un article conseil
-            // n'a pas l'air de fonctionner .....
-            //$slug = $slugger->slugify($post->getTitle());
-            //$post->setSlug($slug);
+       
 
 
             $this->addFlash(

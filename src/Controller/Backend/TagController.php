@@ -4,6 +4,7 @@ namespace App\Controller\Backend;
 
 use App\Entity\Tag;
 use App\Form\TagType;
+use App\Utils\Slugger;
 use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,11 +31,15 @@ class TagController extends AbstractController
     /**
      * @Route("tag/new", name="tag_new")
      */
-    public function new(Request $request)
+    public function new(Request $request, Slugger $slugger)
     {
         $tag = new Tag();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
+
+        $slug = $slugger->slugify($tag->getName());
+        $tag->setSlug($slug);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($tag);
@@ -55,10 +60,14 @@ class TagController extends AbstractController
     /**
      * @Route("tag/edit/{slug}", name="tag_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Tag $tag) 
+    public function edit(Request $request, Tag $tag, Slugger $slugger) 
     {
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
+
+        $slug = $slugger->slugify($tag->getName());
+        $tag->setSlug($slug);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Tag modifié.');
