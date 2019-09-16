@@ -52,7 +52,7 @@
                     toastr.success('Statut mis à jour');
                     elementButton.textContent = statusCode == "BLOCKED" ? "Débloquer" : "Bloquer";
                     elementButton.onclick = function () {
-                        return handleStatusButton(elementButton, postSlug, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
+                        return handleStatusButton(elementButton, postId, statusCode == "BLOCKED" ? "UNBLOCKED" : "BLOCKED")
                     };
                 },
                 error: function () {
