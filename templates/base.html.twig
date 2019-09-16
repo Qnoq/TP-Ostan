@@ -27,9 +27,9 @@
         {% block header %}
             <div class="jumbotron">
                 
-                <div>
+                <a href="{{path('advice_post')}}">
                     <img class='logo' src="{{asset('images/logo.svg')}}" alt="">
-                </div>
+                </a>
                 <div
                     class='nav-connexion'>
                     {# Si je suis authentifié #}
@@ -82,68 +82,18 @@
                     <div class="d-none d-lg-block sidebar">
 
                         <div>
-                            <h4 class="title-sidebar">Les actualités</h4>
-                            <div class="my-3 mx-3 text-center">
-                                <div class="card">
-                                    <div class="card-body px-2 py-2">
-                                        <h5 class="card-title font-weight-bold">Actualité 1</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, dolores?</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="my-3 mx-3 text-center">
-                                <div class="card">
-                                    <div class="card-body px-2 py-2">
-                                        <h5 class="card-title font-weight-bold">Actualité 2</h5>
-                                        <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus, suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="my-3 mx-3 text-center">
-                                <div class="card">
-                                    <div class="card-body px-2 py-2">
-                                        <h5 class="card-title font-weight-bold">Actualité 3</h5>
-                                        <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus, suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 class="title-sidebar">Des talents à découvrir !</h4>
-
+                            <h4 class="title-sidebar">Les dernières annonces</h4>
                             {{render(controller(
-                                'App\\Controller\\UserController::usersNavList'
+                                'App\\Controller\\PostController::adPostsNavList'
                             ))}}
                         </div>
 
                         <div>
-                            <h4 class="title-sidebar">Des éditeurs investis !</h4>
+                            <h4 class="title-sidebar">Ils nous ont rejoints !</h4>
 
-                            <ul class="list-unstyled text-center class=text-center">
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026764d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Editeur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026774d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Editeur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026784d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Editeur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026794d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Editeur</span>
-                                </li>
-                                <li><img src="https://i.pravatar.cc/20?u=a042581f4e29026804d" alt="..." class="rounded-circle">
-                                    |
-                                    <span>User - Editeur</span>
-                                </li>
-                            </ul>
+                            {{render(controller(
+                                'App\\Controller\\UserController::usersNavList'
+                            ))}}
                         </div>
 
                     </div>
