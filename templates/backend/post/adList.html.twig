@@ -3,6 +3,7 @@
 {% endblock %}
 {% block content %}
     <h1>Les annonces</h1>
+    
     {% for post in posts %}
             
         {% if post.status.code == "UNBLOCKED" %}
@@ -26,6 +27,7 @@
                     {{include('backend/post/_delete_ad.html.twig')}}
                 
             </article>
+            
         {% endif %}
     {% endfor %}
 {% endblock %}
