@@ -17,6 +17,7 @@ class JobType extends AbstractType
     {
         $builder->add('jobs', EntityType::class, array(
                 'class' => Job::class,
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false,

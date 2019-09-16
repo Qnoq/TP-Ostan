@@ -22,12 +22,7 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Titre'
                 ],])
-            // pour éviter le message d'erreur de slug manquant => à optimiser 
-            ->add('slug', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Confirmation du titre - slug'
-                ],])
+            
             ->add('picture1', FileType::class, [
                 'data_class' => null,
                 'label' => false,
