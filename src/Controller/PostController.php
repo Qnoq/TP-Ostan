@@ -184,4 +184,13 @@ class PostController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    public function adPostsNavList(PostRepository $postRepository){
+
+        // Classés du plus récent au moins récent
+        $adPosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('post/ad_post/adPostsNavList.html.twig', [
+           'adPosts' => $adPosts,
+       ]);
+    }
 }

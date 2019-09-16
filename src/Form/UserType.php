@@ -105,14 +105,17 @@ class UserType extends AbstractType
             ])
             ->add('phonenumber')
             ->add('email', EmailType::class,['label' => 'Adresse email'])
-            ->add('jobs', EntityType::class, array(
+
+            ->add('jobs', EntityType::class, [
                 'class' => Job::class,
-                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'mapped' => false,
-                'required'=> false,
-            ))
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'attr' => [
+                    'class' => 'material-checkbox'
+                ],
+            ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

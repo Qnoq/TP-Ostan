@@ -114,12 +114,12 @@ class UserController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * Modification d'un user :
      *
      * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder, UserRepository $userRepository): Response
     {
 
         $job = new Job();
@@ -129,8 +129,6 @@ class UserController extends AbstractController
 
         $formJob = $this->createForm(JobType::class, $job);
         $formJob->handleRequest($request);
-
-        
 
 
         if ($formJob->isSubmitted() && $formJob->isValid()) {
@@ -143,8 +141,8 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($job);
             $entityManager -> flush();
-           
             
+           
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 
@@ -319,4 +317,13 @@ class UserController extends AbstractController
             'formSearchUser' => $formSearchUser->createView(),
         ]);
      }
+
+     public function usersNavList(UserRepository $userRepository){
+
+        // Classés du plus récent au moins récent
+        $users = $userRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('user/usersNavList.html.twig', [
+           'users' => $users,
+       ]);
+    }
 }

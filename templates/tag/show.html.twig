@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<h1 class="font-weight-bold text-uppercase">{{ tag.name }}</h1>
+<h1 class="font-weight-bold text-uppercase text-center">{{ tag.name }}</h1>
 
 <section class="d-flex">
 
-    <section class="mt-5 col-8">
+    <section class="mt-5 col-12">
 
         <h2 class="text-center font-weight-bold mb-5">Liste des annonces avec ce tag</h2>
 
@@ -73,7 +73,7 @@
         {% endfor %}
     </section>
 
-    <section class="mt-5 col-4 ">
+    <section class="mt-5 col-4">
 
         <h2 class="text-center font-weight-bold">Liste des utilisateurs avec ce tag</span></h2>
 
@@ -118,6 +118,6 @@
 
 </section>
 
-<a class="text-dark mt-3" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
+<a class="text-dark mt-3 text-center" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
 {% endblock %}
