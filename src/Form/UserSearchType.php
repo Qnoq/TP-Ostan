@@ -18,9 +18,11 @@ class UserSearchType extends AbstractType
         $builder
             ->add('jobs', EntityType::class, [
                 'class' => Job::class,
-                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'label_attr' => array('class' => 'pure-material-checkbox'),
+                
             ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,

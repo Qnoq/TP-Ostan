@@ -21,10 +21,10 @@
                     {# attention, ne pas mettre le slug, laisser le id pour les fonctions ajax #}
                         type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
                         {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
-                        {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                        <i class="fas fa-minus-circle"></i> {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
                     </button>
                     {{include('backend/post/_delete_ad.html.twig')}}
-                </p>
+                
             </article>
         {% endif %}
     {% endfor %}

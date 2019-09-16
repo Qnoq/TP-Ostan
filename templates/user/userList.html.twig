@@ -4,14 +4,12 @@
 
 <h1 class="font-weight-bold text-center">Utilisateurs</h1>
 
-<section class="d-flex flex-wrap">
+<section class="d-flex flex-wrap justify-content-center">
 
     {% for user in users %}
                 {# Si le status de l'utilisateur est UNBLOCKED, alors tu les affiches. #}
                 {% if user.status.code == "UNBLOCKED" %}
-
                     <article class="p-4">
-
                         <div class="d-flex flex-row">
 
                                 <div class="mask-2 mr-3">
@@ -45,7 +43,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                <a href="{{ path('user_show', {'id': user.id }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 ">Voir le profil</a>
+                                <a href="{{ path('user_show', {'id': user.id }) }}" class="btn btn-elegant">Voir le profil</a>
                             </div>
                         </div>
 

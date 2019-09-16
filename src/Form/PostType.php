@@ -20,7 +20,7 @@ class PostType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre de l\'annonce - article'
+                    'placeholder' => 'Titre'
                 ],])
             // pour éviter le message d'erreur de slug manquant => à optimiser 
             ->add('slug', TextType::class, [
@@ -52,7 +52,9 @@ class PostType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Message'
+                    'placeholder' => 'Message',
+                    'cols' => '5', 
+                    'rows' => '5'
                 ],])
             // ->add('createdAt')
             // ->add('updatedAt')
@@ -62,7 +64,14 @@ class PostType extends AbstractType
             //          'Annonce' => false,
             //      ],])
             // ->add('user')
-            ->add('tags')
+            ->add('tags', null, [
+                'attr' => [
+                    'class'=>'select-tags'
+                ],
+                'label_attr'=>[
+                    'class'=>'label_select-tags'
+                ]
+            ])
             // ->add('status')
             ->add('slug', TextType::class, [
                 'label' => false,

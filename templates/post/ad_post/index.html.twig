@@ -6,7 +6,7 @@
 {% block content %}
 
     <section
-        class="mt-5">
+        class="section-post">
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
         {% for post in posts %}
@@ -39,7 +39,7 @@
                                     <button
                                         type="button" class="btn btn-warning" onclick="handleStatusButton(this,{{post.slug}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
                                         {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
-                                        {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                                       <i class="fas fa-minus-circle"></i> {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
                                     </button>
                                 {% endif %}
                             </div>
@@ -70,10 +70,10 @@
 
 {% block search %}
 
-<section class="ml-3 mt-3 col-2">
+<div class="ml-3 mt-3 col-2">
     <div>
         <div class="d-flex justify-content-center">
-            <a href="{{ path('ad_post_new') }}" class="py-3 px-3 mb-5 btn btn-light border border-dark rounded-0 font-weight-bold">
+            <a href="{{ path('ad_post_new') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Ajouter une annonce
             </a>
@@ -96,7 +96,7 @@
             </a>
         {% endfor %}
     </div>
-</section>
+</div>
 
 
 {% endblock %}
