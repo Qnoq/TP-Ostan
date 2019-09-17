@@ -54,7 +54,6 @@ class PostController extends AbstractController
             5 // Nombre de résultats par page
         );
         return $this->render('backend/post/advicePostList.html.twig', [
-            'posts' => $posts,
             'listPost' => $listPost
 
         ]);
