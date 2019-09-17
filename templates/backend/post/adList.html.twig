@@ -33,6 +33,17 @@
     {{ knp_pagination_render(adListPost) }}
 {% endblock %}
 
+    {% block search %}
+
+        <div class="ml-3 mt-3 col-2">
+
+            <h5>Coucou Je suis dans le block Search
+            </h5>
+        </div>
+    </div>
+
+
+{% endblock %}
 
 
 {% block javascripts %}
@@ -41,8 +52,7 @@
         var baseUrl = window.location.origin;
         // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
         // PostId = l'id de l'user envoyé en 2ème paramètre grâce à Twig
-        function handleStatusButton(elementButton, postId, statusCode) {
-            // console.log(postSlug);
+        function handleStatusButton(elementButton, postId, statusCode) { // console.log(postSlug);
             console.log(window.location)
             console.log(baseUrl);
             console.log(elementButton);

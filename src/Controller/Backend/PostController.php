@@ -28,6 +28,7 @@ class PostController extends AbstractController
      */
     public function adList(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
     {
+       
 
         $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdPost();
         $adListPost = $paginator->paginate(
@@ -37,6 +38,7 @@ class PostController extends AbstractController
         );
         return $this->render('backend/post/adList.html.twig', [
             'adListPost' => $adListPost,
+          
             
         ]);
     }
