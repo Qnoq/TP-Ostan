@@ -40,9 +40,9 @@ class PostController extends AbstractController
 
             $users = $userRepository->searchHome($criterias);
 
-            dump($criterias);
-            dump($formTitle);
-            dump($users);
+            //dump($criterias);
+            //dump($formTitle);
+            //dump($users);
 
         } else {
             
