@@ -38,17 +38,12 @@ class PostController extends AbstractController
             $formTitle = $formSearchPost->getTitle();
             $criterias = $request->request->get($formTitle);
 
-            $users = $userRepository->searchHome($criterias);
-
-            //dump($criterias);
-            //dump($formTitle);
-            //dump($users);
+            $postsearch = $postRepository->searchHome($criterias);
 
         } else {
             
             // Classés par date de création, du plus récent au plus ancien
-            //$users = $userRepository->findBy(array(), array('name' => 'ASC'));
-            $postsearch = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+            $postsearch = $postRepository->findByTitle(array(), array('createdAt' => 'DESC'));
             
         }
 
