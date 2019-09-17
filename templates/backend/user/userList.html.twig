@@ -66,12 +66,7 @@
             </tbody>
         </table>
     </div>
-
-    <tr>
-            <td colspan="2">
-                {{ pagination(listUser) }}
-            </td>
-        </tr>
+                {{ knp_pagination_render(listUser) }}
 {% endblock %}
 {% block javascripts %}
     <script>
