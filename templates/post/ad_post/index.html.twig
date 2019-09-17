@@ -5,11 +5,10 @@
 
 {% block content %}
 
-    <section
-        class="section-post">
+    <section class="section-post">
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
-        {% for post in posts %}
+        {% for post in listPost %}
             {# Si le type des posts est annonce ET si son status est UNBLOCKED, alors tu les affiches. #}
             {% if post.type == "Annonce" and post.status.code == "UNBLOCKED" %}
 
@@ -18,8 +17,7 @@
                         <h2 class="font-weight-bold">{{ post.title }}</h2>
                     </div>
 
-                    <div
-                        class="d-flex">
+                    <div class="d-flex">
                         {# Picture 1 de préférence #}
                         <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="picture1">
 
@@ -61,11 +59,15 @@
                             <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
                         </span>
                     </div>
-
                 </article>
             {% endif %}
         {% endfor %}
     </section>
+        <tr>    
+            <td colspan="2">
+                {{ pagination(listPost) }}
+            </td>
+        </tr>
 {% endblock %}
 
 {% block search %}

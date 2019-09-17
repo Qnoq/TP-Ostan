@@ -32,18 +32,17 @@
                 <span class="font-weight-bold">Adresse email :</span>
                 {{ user.email }}
             </p>
-            {{ form_start(formJob) }}
-            {{ form_row(formJob) }}
-            {{ form_end(formJob) }}
 
             <div>
+                <span class="font-weight-bold">Je suis :</span>
+                <ul>
                 {# Affichage du ou des job(s) de l'utilisateur #}
                 {% for job in user.jobs %}
-                    <p>
-                        <span class="font-weight-bold">Je suis :</span>
+                    <li>
                             {{ job.name }}
-                    </p>
+                    </li>
                 {% endfor %}
+                </ul>
             </div>
 
             <p>

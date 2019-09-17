@@ -78,6 +78,14 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email'
+                ],])
+            ->add('jobs', EntityType::class, [
+                'class' => Job::class,
+                'multiple' => true,
+                'expanded' => true,
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'attr' => [
+                    'class' => 'material-checkbox'
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
