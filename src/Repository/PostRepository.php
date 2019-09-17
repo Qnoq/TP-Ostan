@@ -33,62 +33,7 @@ class PostRepository extends ServiceEntityRepository
         return $query->getResult(); 
     }
 
-
-    public function findAllAdPost()
-    {
-        $query = $this->getEntityManager()->createQuery("
-            SELECT p
-            FROM App\Entity\Post p            
-            WHERE p.type = 'Annonce'
-        ");
-        
-        return $query->getResult(); 
-    }
-
-    public function findOneByCode()
-    {
-        $query = $this->getEntityManager()->createQuery("
-            SELECT p
-            FROM App\Entity\Post p
-            JOIN App\Entity\Status s ON p = s.code
-        ");
-        
-        return $query->getResult(); 
-    }
-
-    public function findByPage($page = 1, $max = 4)
-    {
-        if(!is_numeric($page)) {
-            throw new \InvalidArgumentException(
-                '$page must be an integer ('.gettype($page).' : '.$page.')'
-            );
-        }
-
-        if(!is_numeric($page)) {
-            throw new \InvalidArgumentException(
-                '$max must be an integer ('.gettype($max).' : '.$max.')'
-            );
-        }
-
-        $dql = $this->createQueryBuilder('post');
-        $dql->orderBy('post.createdAt', 'DESC');
-
-        $firstResult = ($page - 1) * $max;
-
-        $query = $dql->getQuery();
-        $query->setFirstResult($firstResult);
-        $query->setMaxResults($max);
-
-        $paginator = new Paginator($query);
-
-        if(($paginator->count() <=  $firstResult) && $page != 1) {
-            throw new NotFoundHttpException('Page not found');
-        }
-
-        return $paginator;
-    }
-
-
+    
     // retourne la liste des posts filtrés par titre
     public function findByTitle($title){
         $query = $this->createQueryBuilder('p')

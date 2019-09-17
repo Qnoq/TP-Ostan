@@ -25,11 +25,7 @@
             </tr>
         {% endfor %}
         <button href="{{path ('backend_advicePostNew')}}" class="btn btn-primary d-block" role="button"><i class="fas fa-plus"> </i> Ajouter un article</button>
-   <tr>
-            <td colspan="2">
-                {{ pagination(listPost) }}
-            </td>
-        </tr>
+        {{ knp_pagination_render(listPost) }}
    
 {% endblock %}
 
