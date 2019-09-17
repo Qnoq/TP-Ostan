@@ -78,7 +78,8 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email'
-                ],])
+                ],
+            ])
             ->add('jobs', EntityType::class, [
                 'class' => Job::class,
                 'multiple' => true,
@@ -152,31 +153,44 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->get('jobs')->addEventListener(
-                FormEvents::PRE_SET_DATA,
+                FormEvents::PRE_SUBMIT,
                 function (FormEvent $event) {
+                    $jobs = $event->getData();
                     $form = $event->getForm();
-                    $datas = $event->getData();
-                    foreach ($datas as $data) {
-                        //     dump($data->getName());
-                        //   die;
-                        if ($data->getName() == "Editeur") {
-                            //dump('coucou');
-                            $form->getParent()
-                                ->add('siret', NumberType::class, [
-                                    'label' => false,
-                                    'attr' => array('placeholder' => 'Siret')
 
-                                ])
-                                ->add('companyname', TextType::class, [
-                                    'label' => false,
-                                    'required' => true,
-                                    'attr' => [
-                                        'placeholder' => 'Nom de l\'entreprise'
-                                    ],
-                                ]);
-                        }
+                    foreach ($jobs as $job ) {
+                        dump($job);
+                    };
+                        # code...
+                    
+                    
+                    dump($jobs);
+                    dump($form);
+                    
+
+                    
+                    die;
+
+
+                    if ($jobs->getName() == "Editeur") {
+                        //dump('coucou');
+                        $form->getParent()
+                            ->add('siret', NumberType::class, [
+                                'label' => false,
+                                'attr' => array('placeholder' => 'Siret')
+
+                            ])
+                            ->add('companyname', TextType::class, [
+                                'label' => false,
+                                'required' => true,
+                                'attr' => [
+                                    'placeholder' => 'Nom de l\'entreprise'
+                                ],
+                            ]);
                     }
                 }
+
+
             );
     }
 
