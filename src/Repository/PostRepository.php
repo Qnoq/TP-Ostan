@@ -88,5 +88,15 @@ class PostRepository extends ServiceEntityRepository
         return $paginator;
     }
 
+
+    // retourne la liste des posts filtrés par titre
+    public function findByTitle($title){
+        $query = $this->createQueryBuilder('p')
+                      ->where('p.title LIKE :searchTitle')
+                      ->setParameter('searchTitle', '%' . $title . '%')
+                      ->orderBy('p.title', 'ASC'); 
+        return $query->getQuery()->getResult();
+    }
+
     
 }

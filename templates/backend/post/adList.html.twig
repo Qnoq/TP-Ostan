@@ -3,13 +3,18 @@
 {% endblock %}
 {% block content %}
     <h1>Les annonces</h1>
-    
-    {% for post in adListPost %}
+
+        <div>
+            <h5 class="font-weight-bold text-center">Rechercher les annonces par utilisateurs et job</h5>
+            {{ render(controller('App\\Controller\\Backend\\PostController::postSearchForm'
+            )) }}     
+        </div>
+
+    {% for post in posts %}
             
         {% if post.status.code == "UNBLOCKED" %}
-           
             
-            <article class="mb-5 pt-3 px-3 border border-dark">
+            <article class="ml-5 my-5 pt-3 px-3 border border-dark">
                 <h3>{{post.title}}</h3>
                 <p>{{post.description}}</p>
                 <p>par
@@ -25,16 +30,23 @@
                         <i class="fas fa-minus-circle"></i> {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
                     </button>
                     {{include('backend/post/_delete_ad.html.twig')}}
-                
+            
             </article>
             
         {% endif %}
     {% endfor %}
-    <tr>
-            <td colspan="2">
-                {{ pagination(adListPost) }}
-            </td>
-        </tr>
+{% endblock %}
+
+
+{% block search %}
+    <section class="ml-3 mt-3 col-2">
+        <div>
+            <h5 class="font-weight-bold text-center">Rechercher les annonces par utilisateurs et job</h5>
+            {{ render(controller(
+            'App\Controller\PostController::postSearchForm'
+            )) }}     
+        </div>
+    </section>
 {% endblock %}
 
 
@@ -70,3 +82,5 @@
         }
     </script>
 {% endblock %}
+
+

@@ -6,8 +6,10 @@ namespace App\Controller\Backend;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Utils\Slugger;
+use App\Form\PostSearchType;
 use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -22,26 +24,67 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class PostController extends AbstractController
 {
+
     /**
+     * LISTE DES ANNONCES + FILTRE/RECHERCHE PAR UTILISATEUR/JOB
      * @Route("/", name="adList")
      */
-    public function adList(PostRepository $postRepository, Request $request)
+    public function adList(PostRepository $postRepository, UserRepository $userRepository, Request $request)
     {
+        $formSearchPost = $this->createForm(PostSearchType::class);
 
-        $db = $this->getDoctrine()->getManager();
+        $formSearchPost->handleRequest($request);
+        if ($formSearchPost->isSubmitted() && $formSearchPost->isValid()) {
+            $formTitle = $formSearchPost->getTitle();
+            $criterias = $request->request->get($formTitle);
 
-        $adListPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
-        );
+            $users = $userRepository->searchHome($criterias);
+
+            dump($criterias);
+            dump($formTitle);
+            dump($users);
+
+        } else {
+            
+            // Classés par date de création, du plus récent au plus ancien
+            //$users = $userRepository->findBy(array(), array('name' => 'ASC'));
+            $postsearch = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+            
+        }
 
         $posts = $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
+            //'users' => $users,
+            'postsearch' => $postsearch,
             'posts' => $posts,
-            'adListPost' => $adListPost,
-            
+            //'formSearchPost' => $formSearchPost->createView(),
         ]);
     }
+
+
+    public function postSearchForm(Request $request, PostRepository $postRepository){
+
+        $formSearchPost = $this->createForm(PostSearchType::class);
+        $formSearchPost->handleRequest($request);
+    
+        return $this->render('backend/post/adListForm.html.twig', [
+            'formSearchPost' => $formSearchPost->createView(),
+        ]);
+     }
+
+
+
+    public function postNavList(PostRepository $postRepository){
+
+        // Classés du plus récent au moins récent
+        $postsearch = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('backend/post/adListSearch.html.twig', [
+            'postsearch' => $postsearch,
+       ]);
+    }
+
+   /* FIN RECHERCHE */
+
 
     /**
      * @Route("/articles", name="advicePostList")
