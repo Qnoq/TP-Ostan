@@ -606,3 +606,13 @@ ul {
 }
 
 /**** FIN MESSAGERIE ****/
+
+/* BACKEND */
+.body_articles{
+  display:flex;
+  justify-content: space-between;
+  
+}
+.content_backend{
+  width: 80%;
+}

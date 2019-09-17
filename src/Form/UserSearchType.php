@@ -29,7 +29,7 @@ class UserSearchType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
             ])
-            ->add('Rechercher', SubmitType::class);;
+            ->add('Rechercher', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
