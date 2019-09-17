@@ -6,6 +6,7 @@ use App\Entity\Job;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
@@ -54,6 +55,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @NotBlank(groups={"A"})
      */
     private $companyname;
 
@@ -64,6 +66,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @NotBlank(groups={"A"})
      */
     private $siret;
 

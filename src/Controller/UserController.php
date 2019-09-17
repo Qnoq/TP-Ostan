@@ -270,9 +270,6 @@ class UserController extends AbstractController
 
             $users = $userRepository->searchHome($criterias);
 
-            dump($criterias);
-            dump($formName);
-            dump($users);
         } else {
             // Classés du plus récent au moins récent
             $users = $userRepository->findBy(array(), array('createdAt' => 'DESC'));

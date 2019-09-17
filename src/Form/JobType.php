@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Job;
-use App\Form\JobType;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
