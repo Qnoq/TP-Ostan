@@ -6,13 +6,14 @@ use App\Entity\User;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -27,17 +28,17 @@ class UserController extends AbstractController
     /**
      * @Route("user", name="userList")
      */
-    public function userList(UserRepository $userRepository, RoleRepository $roleRepository, Request $request)
+    public function userList(UserRepository $userRepository, RoleRepository $roleRepository, Request $request, PaginatorInterface $paginator)
     {
-        $db = $this->getDoctrine()->getManager();
-
-        $listUser = $db->getRepository('App:User')->findByPage(
-            $request->query->getInt('page', 1),
-            4
-        );
+        
 
         $roles = $roleRepository->findAll();
-        $users = $userRepository->findAll();
+        $users = $this->getDoctrine()->getRepository(User::class)->findBy(array(), array('username' => 'ASC'));
+        $listUser = $paginator->paginate(
+            $users, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
         return $this->render('backend/user/userList.html.twig', [
             'users' => $users,
             'roles' => $roles,

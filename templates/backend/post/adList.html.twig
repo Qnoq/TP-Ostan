@@ -30,11 +30,7 @@
             
         {% endif %}
     {% endfor %}
-    <tr>
-            <td colspan="2">
-                {{ pagination(adListPost) }}
-            </td>
-        </tr>
+    {{ knp_pagination_render(adListPost) }}
 {% endblock %}
 
 

@@ -16,6 +16,7 @@ use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\CommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,21 +28,19 @@ class PostController extends AbstractController
      * 
      * @Route("/", name="advice_post", methods={"GET"})
      */
-    public function advicePostList(PostRepository $postRepository, Request $request)
+    public function advicePostList(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
     {
-        $db = $this->getDoctrine()->getManager();
 
-        $adviceListPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
+        $advicePosts = $this->getDoctrine()->getRepository(Post::class)->findAllAdvicePost();
+        $advicelistPosts = $paginator->paginate(
+            $advicePosts, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
         );
-
-        $advicePosts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
-        $advicePosts = $postRepository->findAllAdvicePost();
 
         return $this->render('post/advice_post/index.html.twig', [
             'advicePosts' => $advicePosts,
-            'adviceListPost' => $adviceListPost
+            'advicelistPosts' => $advicelistPosts
         ]);
     }
 
@@ -50,17 +49,15 @@ class PostController extends AbstractController
      * 
      * @Route("/annonces", name="ad_post")
      */
-    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository)
+    public function adList(JobRepository $jobRepository, Request $request, PostRepository $postRepository, TagRepository $tagRepository, UserRepository $userRepository, PaginatorInterface $paginator)
     {
        
-        $db = $this->getDoctrine()->getManager();
-
-        $listPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            10
+        $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdPost();
+        $listPosts = $paginator->paginate(
+            $posts, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
         );
-        $posts = $postRepository->findAllAdPost();
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
     
         $tags = $tagRepository->findAll();
         
@@ -68,7 +65,7 @@ class PostController extends AbstractController
         return $this->render('post/ad_post/index.html.twig', [
             'posts' => $posts,
             'tags' => $tags,
-            'listPost' => $listPost
+            'listPosts' => $listPosts
          
         ]);
     }

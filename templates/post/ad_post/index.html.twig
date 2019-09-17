@@ -8,7 +8,7 @@
     <section class="section-post">
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
-        {% for post in listPost %}
+        {% for post in listPosts %}
             {# Si le type des posts est annonce ET si son status est UNBLOCKED, alors tu les affiches. #}
             {% if post.type == "Annonce" and post.status.code == "UNBLOCKED" %}
 
@@ -62,12 +62,8 @@
                 </article>
             {% endif %}
         {% endfor %}
+        {{ knp_pagination_render(listPosts) }}
     </section>
-        <tr>    
-            <td colspan="2">
-                {{ pagination(listPost) }}
-            </td>
-        </tr>
 {% endblock %}
 
 {% block search %}

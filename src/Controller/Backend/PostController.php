@@ -8,6 +8,7 @@ use App\Form\PostType;
 use App\Utils\Slugger;
 use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -25,19 +26,16 @@ class PostController extends AbstractController
     /**
      * @Route("/", name="adList")
      */
-    public function adList(PostRepository $postRepository, Request $request)
+    public function adList(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
     {
 
-        $db = $this->getDoctrine()->getManager();
-
-        $adListPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
+        $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdPost();
+        $adListPost = $paginator->paginate(
+            $posts, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
         );
-
-        $posts = $postRepository->findAllAdPost();
         return $this->render('backend/post/adList.html.twig', [
-            'posts' => $posts,
             'adListPost' => $adListPost,
             
         ]);
@@ -46,16 +44,15 @@ class PostController extends AbstractController
     /**
      * @Route("/articles", name="advicePostList")
      */
-    public function advicePostList(PostRepository $postRepository, Request $request)
+    public function advicePostList(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
     {
-        $db = $this->getDoctrine()->getManager();
 
-        $listPost = $db->getRepository('App:Post')->findByPage(
-            $request->query->getInt('page', 1),
-            5
+        $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdvicePost();
+        $listPost = $paginator->paginate(
+            $posts, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
         );
-
-        $posts = $postRepository->findAllAdvicePost();
         return $this->render('backend/post/advicePostList.html.twig', [
             'posts' => $posts,
             'listPost' => $listPost
