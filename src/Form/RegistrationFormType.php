@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Job;
 use App\Entity\User;
 use App\Form\JobType;
+use phpDocumentor\Reflection\DocBlock\Description;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -80,15 +81,7 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Email'
                 ],
             ])
-            ->add('jobs', EntityType::class, [
-                'class' => Job::class,
-                'multiple' => true,
-                'expanded' => true,
-                'attr' => ['class' => 'custom-control custom-checkbox'],
-                'attr' => [
-                    'class' => 'material-checkbox'
-                ],
-            ])
+
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -127,9 +120,41 @@ class RegistrationFormType extends AbstractType
                 'expanded' => true,
                 'attr' => ['class' => 'custom-control custom-checkbox'],
                 'label_attr' => array('class' => 'pure-material-checkbox'),
-                'mapped' => false,
 
             ])
+            ->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function (FormEvent $event) {
+                    $user = $event->getData();
+                    $form = $event->getForm();
+                    if(!is_null($user->getEmail())){
+                    
+                        dd($user);
+                    }
+                    $jobs = $user->getJobs();
+                    $userJobList = [];
+                    foreach($jobs as $job){
+                        $userJobList[] = $job->getName();
+                    }
+                    if(in_array('Editeur', $userJobList)){
+
+
+                    // $form
+                    //     ->add('siret', NumberType::class, [
+                    //         'label' => false,
+                    //         'attr' => array('placeholder' => 'Siret')
+
+                    //     ])
+                    //     ->add('companyname', TextType::class, [
+                    //         'label' => false,
+                    //         'required' => true,
+                    //         'attr' => [
+                    //             'placeholder' => 'Nom de l\'entreprise'
+                    //         ],
+                    //     ]);
+                }
+            }
+            )
 
 
             // ->add('siret', NumberType::class,[
@@ -150,48 +175,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Vous devez accepter les conditions générales d\'utilisation',
                     ]),
                 ],
-            ])
-
-            ->get('jobs')->addEventListener(
-                FormEvents::PRE_SUBMIT,
-                function (FormEvent $event) {
-                    $jobs = $event->getData();
-                    $form = $event->getForm();
-
-                    foreach ($jobs as $job ) {
-                        dump($job);
-                    };
-                        # code...
-                    
-                    
-                    dump($jobs);
-                    dump($form);
-                    
-
-                    
-                    die;
-
-
-                    if ($jobs->getName() == "Editeur") {
-                        //dump('coucou');
-                        $form->getParent()
-                            ->add('siret', NumberType::class, [
-                                'label' => false,
-                                'attr' => array('placeholder' => 'Siret')
-
-                            ])
-                            ->add('companyname', TextType::class, [
-                                'label' => false,
-                                'required' => true,
-                                'attr' => [
-                                    'placeholder' => 'Nom de l\'entreprise'
-                                ],
-                            ]);
-                    }
-                }
-
-
-            );
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
