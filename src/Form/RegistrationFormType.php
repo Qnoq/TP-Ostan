@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Job;
 use App\Entity\User;
 use App\Form\JobType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -29,50 +32,54 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avatar', FileType::class,[
+            ->add('avatar', FileType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Avatar'
-                ],])
-            ->add('firstname', TextType::class,[
+                ],
+            ])
+
+            ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Prénom'
-                ],])
-            ->add('lastname', TextType::class,[
+                ],
+            ])
+            ->add('lastname', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom'
-                ],])
-            ->add('username', TextType::class,[
+                ],
+            ])
+            ->add('username', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Pseudo'
-                ],])
-            ->add('description', TextType::class,[
+                ],
+            ])
+            ->add('description', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Description'
-                ],])
-            ->add('companyname', TextType::class,[
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom de l\'entreprise'
-                ],])
+                ],
+            ])
+
             ->add('birthdate', BirthdayType::class, [
                 'widget' => 'choice',
                 'label' => 'Date anniversaire',
             ])
-            ->add('phonenumber', TelType::class,[
+            ->add('phonenumber', TelType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Numéro de téléphone'
-                ],])
-            ->add('email', EmailType::class,[
+                ],
+            ])
+            ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email'
-                ],])
+                ],
+            ])
             ->add('jobs', EntityType::class, [
                 'class' => Job::class,
                 'multiple' => true,
@@ -114,23 +121,84 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            
+            ->add('jobs', EntityType::class, [
+                'class' => Job::class,
+                'multiple' => true,
+                'expanded' => true,
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'label_attr' => array('class' => 'pure-material-checkbox'),
+                'mapped' => false,
+
+            ])
+
+
+            // ->add('siret', NumberType::class,[
+            //     'label' => false,
+            //     'attr' => [
+            //         'placeholder' => 'Siret'
+            //     ],])
+            //     ->add('companyname', TextType::class,[
+            //         'label' => false,
+            //         'attr' => [
+            //             'placeholder' => 'Nom de l\'entreprise'
+            //         ],])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'Accepter les conditions générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions générales d\'utilisation',
                     ]),
                 ],
             ])
-        ;
+
+            ->get('jobs')->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                function (FormEvent $event) {
+                    $jobs = $event->getData();
+                    $form = $event->getForm();
+
+                    foreach ($jobs as $job ) {
+                        dump($job);
+                    };
+                        # code...
+                    
+                    
+                    dump($jobs);
+                    dump($form);
+                    
+
+                    
+                    die;
+
+
+                    if ($jobs->getName() == "Editeur") {
+                        //dump('coucou');
+                        $form->getParent()
+                            ->add('siret', NumberType::class, [
+                                'label' => false,
+                                'attr' => array('placeholder' => 'Siret')
+
+                            ])
+                            ->add('companyname', TextType::class, [
+                                'label' => false,
+                                'required' => true,
+                                'attr' => [
+                                    'placeholder' => 'Nom de l\'entreprise'
+                                ],
+                            ]);
+                    }
+                }
+
+
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['Default']
         ]);
     }
 }

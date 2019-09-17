@@ -65,7 +65,8 @@ class UserType extends AbstractType
             } else { //sinon si je ne suis pas creation , c'est que mon user a un id donc que je suis en modification
 
                 //j'ajoute au formulaire pendant l'evenement de remplissage des données mon champs password
-                $form->add('password', RepeatedType::class, [
+                $form
+                ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
                     'options' => ['attr' => ['class' => 'password-field']],
@@ -82,6 +83,13 @@ class UserType extends AbstractType
                             'placeholder' => 'Laissez vide si inchangé'
                         ]
                     ],
+                ])
+                ->add('jobs', EntityType::class, [
+                    'class' => Job::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    
+                    
                 ]);
             }
             

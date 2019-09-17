@@ -8,6 +8,7 @@ use App\Form\PostType;
 use App\Utils\Slugger;
 use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
+use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -27,6 +28,7 @@ class PostController extends AbstractController
      */
     public function adList(PostRepository $postRepository, Request $request)
     {
+       
 
         $db = $this->getDoctrine()->getManager();
 
@@ -39,6 +41,7 @@ class PostController extends AbstractController
         return $this->render('backend/post/adList.html.twig', [
             'posts' => $posts,
             'adListPost' => $adListPost,
+          
             
         ]);
     }
