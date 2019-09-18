@@ -27,6 +27,7 @@ class PostRepository extends ServiceEntityRepository
             SELECT p
             FROM App\Entity\Post p            
             WHERE p.type = 'Article'
+            ORDER BY p.createdAt DESC
         ");
         
 
@@ -40,6 +41,7 @@ class PostRepository extends ServiceEntityRepository
             SELECT p
             FROM App\Entity\Post p            
             WHERE p.type = 'Annonce'
+            ORDER BY p.createdAt DESC
         ");
         
         return $query->getResult(); 
@@ -55,38 +57,4 @@ class PostRepository extends ServiceEntityRepository
         
         return $query->getResult(); 
     }
-
-    public function findByPage($page = 1, $max = 4)
-    {
-        if(!is_numeric($page)) {
-            throw new \InvalidArgumentException(
-                '$page must be an integer ('.gettype($page).' : '.$page.')'
-            );
-        }
-
-        if(!is_numeric($page)) {
-            throw new \InvalidArgumentException(
-                '$max must be an integer ('.gettype($max).' : '.$max.')'
-            );
-        }
-
-        $dql = $this->createQueryBuilder('post');
-        $dql->orderBy('post.createdAt', 'DESC');
-
-        $firstResult = ($page - 1) * $max;
-
-        $query = $dql->getQuery();
-        $query->setFirstResult($firstResult);
-        $query->setMaxResults($max);
-
-        $paginator = new Paginator($query);
-
-        if(($paginator->count() <=  $firstResult) && $page != 1) {
-            throw new NotFoundHttpException('Page not found');
-        }
-
-        return $paginator;
-    }
-
-    
 }
