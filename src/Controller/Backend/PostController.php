@@ -6,8 +6,10 @@ namespace App\Controller\Backend;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Utils\Slugger;
+use App\Form\PostSearchType;
 use App\Repository\PostRepository;
 use App\Repository\StatusRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,25 +25,76 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class PostController extends AbstractController
 {
+
     /**
+     * LISTE DES ANNONCES + FILTRE/RECHERCHE PAR UTILISATEUR/JOB
      * @Route("/", name="adList")
      */
-    public function adList(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
+    public function adList(PostRepository $postRepository, UserRepository $userRepository, Request $request, PaginatorInterface $paginator)
     {
-       
+        $formSearchPost = $this->createForm(PostSearchType::class);
 
+        $formSearchPost->handleRequest($request);
+        if ($formSearchPost->isSubmitted() && $formSearchPost->isValid()) {
+            //dd($request);
+            $formName= $formSearchPost->getName();
+            $criterias = $request->request->get($formName);
+
+            $postsearch = $postRepository->searchAdList($criterias);
+            //dd($criterias['users']);
+        }else {
+            
+            // Classés par date de création, du plus récent au plus ancien
+            $postsearch = $postRepository->findAllAdPost();
+            
+        }
+
+        dump($formSearchPost->getData());
+        
+
+        // PAGINATION //
+        
         $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdPost();
+
         $adListPost = $paginator->paginate(
             $posts, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5 // Nombre de résultats par page
         );
+        // FIN PAGINATION //
+        
+
         return $this->render('backend/post/adList.html.twig', [
+            'postsearch' => $postsearch,
             'adListPost' => $adListPost,
-          
-            
+     
         ]);
     }
+
+
+    public function postSearchForm(Request $request, PostRepository $postRepository){
+
+        $formSearchPost = $this->createForm(PostSearchType::class);
+        $formSearchPost->handleRequest($request);
+    
+        return $this->render('backend/post/adListForm.html.twig', [
+            'formSearchPost' => $formSearchPost->createView(),
+        ]);
+     }
+
+
+
+    public function postNavList(PostRepository $postRepository){
+
+        // Classés du plus récent au moins récent
+        $postsearch = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        return $this->render('backend/post/adListSearch.html.twig', [
+            'postsearch' => $postsearch,
+       ]);
+    }
+
+   /* FIN RECHERCHE */
+
 
     /**
      * @Route("/articles", name="advicePostList")
