@@ -29,14 +29,21 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // récupérer l'url
-        $url = ($_SERVER["REQUEST_URI"]);
+        //$url = ($_SERVER["REQUEST_URI"]);
 
         
 
         // construit un formulaire différent selon l'url, à partir de la meme Entité
-        if($url == '/message/new'){
+        //if($url == '/message/new'){
         
             $builder
+
+                ->add('title', TextType::class, array(
+                    'attr' =>array(
+                        'placeholder' => 'Titre du message'
+                    )
+                    ))
+                    
                 ->add('content', TextareaType::class ,array(
                     'attr' => array(
                         'placeholder' => 'Message..'
@@ -44,11 +51,7 @@ class MessageType extends AbstractType
                 ))
                 //->add('createdAt')
                 //->add('email')
-                ->add('title', TextType::class, array(
-                    'attr' =>array(
-                        'placeholder' => 'Titre du message'
-                    )
-                    ))
+                
                
 
                 // pour définir, avec menu déroulant, le destinataire du message
@@ -106,16 +109,20 @@ class MessageType extends AbstractType
         */
         // FIN TEST CORRECTION BUG //
 
-        }else {
-            $builder
-                ->add('content', TextareaType::class ,array(
-                    'label' => false,
-                    'attr' => array(
-                        'placeholder' => 'Votre message'
+        // }else {
+        //     $builder
+
+            
+        //         ->add('content', TextareaType::class ,array(
+        //             'label' => false,
+        //             'attr' => array(
+        //                 'placeholder' => 'Votre message'
                         
-                    )
-                ));
-        };
+        //             )
+        //         ))
+                
+                 
+        // };
     }
 
     public function configureOptions(OptionsResolver $resolver)
