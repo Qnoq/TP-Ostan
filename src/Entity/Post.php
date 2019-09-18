@@ -119,36 +119,36 @@ class Post
 
     
     
-    public function getPicture1(): ?string
+    public function getPicture1()
     {
         return $this->picture1;
     }
 
-    public function setPicture1(?string $picture1): self
+    public function setPicture1($picture1): self
     {
         $this->picture1 = $picture1;
 
         return $this;
     }
 
-    public function getPicture2(): ?string
+    public function getPicture2()
     {
         return $this->picture2;
     }
 
-    public function setPicture2(?string $picture2): self
+    public function setPicture2($picture2): self
     {
         $this->picture2 = $picture2;
 
         return $this;
     }
 
-    public function getPicture3(): ?string
+    public function getPicture3()
     {
         return $this->picture3;
     }
 
-    public function setPicture3(?string $picture3): self
+    public function setPicture3($picture3): self
     {
         $this->picture3 = $picture3;
 
