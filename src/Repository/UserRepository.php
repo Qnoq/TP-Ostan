@@ -25,6 +25,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function searchHome($criterias)
     {
+        
         return $this->createQueryBuilder('u')
             ->innerJoin('u.jobs', 'j')
             ->innerJoin('u.tags', 't')

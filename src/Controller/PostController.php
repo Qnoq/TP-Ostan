@@ -92,8 +92,10 @@ class PostController extends AbstractController
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
+
             $comment->setPost($advicePost);
             $user = $userRepository->findOneByUsername('emoen');
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -150,7 +152,7 @@ class PostController extends AbstractController
      *
      * @Route("/annonces/new", name="ad_post_new", methods={"GET","POST"})
      */
-    public function adNew(Request $request, StatusRepository $statusRepository)
+    public function adNew(Request $request, StatusRepository $statusRepository, Slugger $slugger)
     {
         $statusCode = 'UNBLOCKED';
         $statusCode = $statusRepository->findOneByCode($statusCode);
@@ -165,6 +167,11 @@ class PostController extends AbstractController
             $post->setStatus($statusCode);
             $post->setType('Annonce');
             $post->setUser($user);
+
+
+            $slug = $slugger->slugify($post->getTitle());
+            $post->setSlug($slug);
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
