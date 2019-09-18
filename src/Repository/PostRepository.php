@@ -27,6 +27,7 @@ class PostRepository extends ServiceEntityRepository
             SELECT p
             FROM App\Entity\Post p            
             WHERE p.type = 'Article'
+            ORDER BY p.createdAt DESC
         ");
         
 
@@ -38,7 +39,8 @@ class PostRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQuery("
             SELECT p
             FROM App\Entity\Post p
-            WHERE p.type = 'Annonce'            
+            WHERE p.type = 'Annonce'
+            ORDER BY p.createdAt DESC         
         ");
 
         return $query->getResult(); 
