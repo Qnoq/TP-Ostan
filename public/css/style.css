@@ -215,6 +215,11 @@ footer {
   height: 100%;
 }
 
+.profil-avatar-3 {
+  width: 20%;
+  height: 20%;
+}
+
 .mask {
   width: 250px;
   height: 250px;
@@ -226,6 +231,7 @@ footer {
   margin: auto;
 }
 
+/* Pour la page Tag */
 .mask-2 {
   width: 80px;
   height: 80px;
