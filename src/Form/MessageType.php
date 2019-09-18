@@ -37,23 +37,29 @@ class MessageType extends AbstractType
         if($url == '/message/new'){
         
             $builder
-                ->add('content', TextareaType::class ,array(
-                    'attr' => array(
-                        'placeholder' => 'Message..'
-                    )
-                ))
-                //->add('createdAt')
-                //->add('email')
+
                 ->add('title', TextType::class, array(
+                    'label' => false,
                     'attr' =>array(
                         'placeholder' => 'Titre du message'
                     )
                     ))
+                    
+                ->add('content', TextareaType::class ,array(
+                    'label' => false,
+                    'attr' => array(
+                        'placeholder' => 'Message...'
+                    )
+                ))
+                //->add('createdAt')
+                //->add('email')
+                
                
 
                 // pour définir, avec menu déroulant, le destinataire du message
                 
                 ->add('userReceiver', EntityType::class,[
+                    'label' => false,
                     'class'=> User::class,
                     'expanded' =>false,
                     'multiple' =>false,
@@ -106,16 +112,20 @@ class MessageType extends AbstractType
         */
         // FIN TEST CORRECTION BUG //
 
-        }else {
-            $builder
+         }else {
+             $builder
+
+            
                 ->add('content', TextareaType::class ,array(
                     'label' => false,
                     'attr' => array(
                         'placeholder' => 'Votre message'
                         
                     )
-                ));
-        };
+                    ));
+                
+                 
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

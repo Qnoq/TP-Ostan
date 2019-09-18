@@ -39,8 +39,12 @@ class PostRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQuery("
             SELECT p
             FROM App\Entity\Post p
+<<<<<<< HEAD
             WHERE p.type = 'Annonce'
             ORDER BY p.createdAt DESC         
+=======
+            WHERE p.type = 'Annonce'            
+>>>>>>> dc54bcf75b6d4b503b6cdce8ca6cb98a7fb4d488
         ");
 
         return $query->getResult(); 
