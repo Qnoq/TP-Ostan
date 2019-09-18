@@ -29,24 +29,26 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // récupérer l'url
-        //$url = ($_SERVER["REQUEST_URI"]);
+        $url = ($_SERVER["REQUEST_URI"]);
 
         
 
         // construit un formulaire différent selon l'url, à partir de la meme Entité
-        //if($url == '/message/new'){
+        if($url == '/message/new'){
         
             $builder
 
                 ->add('title', TextType::class, array(
+                    'label' => false,
                     'attr' =>array(
                         'placeholder' => 'Titre du message'
                     )
                     ))
                     
                 ->add('content', TextareaType::class ,array(
+                    'label' => false,
                     'attr' => array(
-                        'placeholder' => 'Message..'
+                        'placeholder' => 'Message...'
                     )
                 ))
                 //->add('createdAt')
@@ -57,6 +59,7 @@ class MessageType extends AbstractType
                 // pour définir, avec menu déroulant, le destinataire du message
                 
                 ->add('userReceiver', EntityType::class,[
+                    'label' => false,
                     'class'=> User::class,
                     'expanded' =>false,
                     'multiple' =>false,
@@ -109,20 +112,20 @@ class MessageType extends AbstractType
         */
         // FIN TEST CORRECTION BUG //
 
-        // }else {
-        //     $builder
+         }else {
+             $builder
 
             
-        //         ->add('content', TextareaType::class ,array(
-        //             'label' => false,
-        //             'attr' => array(
-        //                 'placeholder' => 'Votre message'
+                ->add('content', TextareaType::class ,array(
+                    'label' => false,
+                    'attr' => array(
+                        'placeholder' => 'Votre message'
                         
-        //             )
-        //         ))
+                    )
+                    ));
                 
                  
-        // };
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
