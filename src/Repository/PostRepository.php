@@ -38,7 +38,7 @@ class PostRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQuery("
             SELECT p
             FROM App\Entity\Post p
-            WHERE p.type = 'Article'            
+            WHERE p.type = 'Annonce'            
         ");
 
         return $query->getResult(); 
