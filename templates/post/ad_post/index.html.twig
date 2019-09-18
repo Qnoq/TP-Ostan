@@ -19,8 +19,16 @@
 
                     <div class="d-flex">
                         {# Picture 1 de préférence #}
-                        <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="picture1">
+                        <div class="container1">
+                        <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+                        </div>
 
+                        <div id="modal01" class="modal" onclick="this.style.display='none'">
+                        <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <div class="modal-cont">
+                            <img id="img01" style="max-width:100%">
+                        </div>
+                        </div>
                         <div>
                             <div>
                                 <p>
@@ -56,7 +64,7 @@
                             Publié le
                             {{ post.createdAt | date('d/m/Y à H:i') }}
                             par
-                            {# <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a> #}
+                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
                         </span>
                     </div>
                 </article>
@@ -129,6 +137,12 @@
 
                 }
             });
+        }
+    </script>
+    <script>
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
         }
     </script>
 {% endblock %}

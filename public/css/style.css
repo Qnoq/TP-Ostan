@@ -397,11 +397,12 @@ ul {
 .modal-cont {
   margin: auto;
   display: block;
-  position: absolute;
-  top: 0%;
-  left: 30%;
+  position: fixed;
+  top: 30%;
+  left: 45%;
   transform: translate(-30%, -30%);
   text-align: center;
+  z-index: 99;
 }
 
 .modal-hover-opacity {
