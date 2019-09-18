@@ -122,39 +122,7 @@ class RegistrationFormType extends AbstractType
                 'label_attr' => array('class' => 'pure-material-checkbox'),
 
             ])
-            ->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) {
-                    $user = $event->getData();
-                    $form = $event->getForm();
-                    if(!is_null($user->getEmail())){
-                    
-                        dd($user);
-                    }
-                    $jobs = $user->getJobs();
-                    $userJobList = [];
-                    foreach($jobs as $job){
-                        $userJobList[] = $job->getName();
-                    }
-                    if(in_array('Editeur', $userJobList)){
-
-
-                    // $form
-                    //     ->add('siret', NumberType::class, [
-                    //         'label' => false,
-                    //         'attr' => array('placeholder' => 'Siret')
-
-                    //     ])
-                    //     ->add('companyname', TextType::class, [
-                    //         'label' => false,
-                    //         'required' => true,
-                    //         'attr' => [
-                    //             'placeholder' => 'Nom de l\'entreprise'
-                    //         ],
-                    //     ]);
-                }
-            }
-            )
+            
 
 
             // ->add('siret', NumberType::class,[
@@ -175,7 +143,8 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Vous devez accepter les conditions générales d\'utilisation',
                     ]),
                 ],
-            ]);
+            ]);           
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
