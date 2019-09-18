@@ -34,37 +34,40 @@ class PostController extends AbstractController
     {
         $formSearchPost = $this->createForm(PostSearchType::class);
 
-
         $formSearchPost->handleRequest($request);
         if ($formSearchPost->isSubmitted() && $formSearchPost->isValid()) {
-            $formTitle = $formSearchPost->getTitle();
-            $criterias = $request->request->get($formTitle);
+            //dd($request);
+            $formName= $formSearchPost->getName();
+            $criterias = $request->request->get($formName);
 
-            $postsearch = $postRepository->searchHome($criterias);
-
-        } else {
+            $postsearch = $postRepository->searchAdList($criterias);
+            //dd($criterias['users']);
+        }else {
             
             // Classés par date de création, du plus récent au plus ancien
-            $postsearch = $postRepository->findByTitle(array(), array('createdAt' => 'DESC'));
+            $postsearch = $postRepository->findAllAdPost();
             
         }
 
+        dump($formSearchPost->getData());
+        
+
+        // PAGINATION //
+        
         $posts = $this->getDoctrine()->getRepository(Post::class)->findAllAdPost();
+
         $adListPost = $paginator->paginate(
             $posts, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5 // Nombre de résultats par page
         );
-
-        //$posts = $postRepository->findAllAdPost();
+        // FIN PAGINATION //
+        
 
         return $this->render('backend/post/adList.html.twig', [
-            //'users' => $users,
             'postsearch' => $postsearch,
             'adListPost' => $adListPost,
-            //'posts' => $posts,
-            //'formSearchPost' => $formSearchPost->createView(),
-
+     
         ]);
     }
 
