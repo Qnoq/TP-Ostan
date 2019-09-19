@@ -13,23 +13,42 @@
         <div>
             <div>
                 <p
-                    class="mt-5 px-3">
+                    id="editor1" class="mt-5 px-3">
                     {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                    {{ post.description }}
+                    {{ post.description|raw }}
                 </p>
             </div>
         </div>
-
-        <div class="my-5 d-flex flex-wrap justify-content-around">
-            {# Exemple emplacement des images #}
-            {# Picture 1 #}
-            <img
-            class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt=""> {# Picture 2 #}
-            <img
-            class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-            {# Picture 3 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-        </div>
+        <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+                <div class="card-body">
+                    <div
+                        class="container1">
+                        {# <a href="{{ path('user_show', { 'id': user.id }) }}"> #}
+                        <img
+                        src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+                    {# </a> #}
+                    </div>
+                    <div
+                        class="container1">
+                        {# <a href="{{ path('user_show', { 'id': user.id }) }}"> #}
+                        <img
+                        src="{{ asset(picture_upload_path ~ (post.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+                    {# </a> #}
+                    </div>
+                    <div
+                        class="container1">
+                        {# <a href="{{ path('user_show', { 'id': user.id }) }}"> #}
+                        <img
+                        src="{{ asset(picture_upload_path ~ (post.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+                    {# </a> #}
+                    </div>
+                </div>
+                <div id="modal01" class="modal" onclick="this.style.display='none'">
+                    <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <div class="modal-cont">
+                        <img id="img01" style="max-width:100%">
+                    </div>
+                </div>
         {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
         {% if is_granted('ROLE_USER_ADMIN') %}
             <button
@@ -99,6 +118,13 @@
 
 {% block javascripts %}
     <script>
+    $( document ).ready( function() {
+           $( '#editor1' ).ckeditor();  
+       } );
+ 
+       function setValue() {
+           $( '#editor1' ).val( $( 'input#val' ).val() );
+       }
         // On récupère l'url de base du server grâce à window.location
         var baseUrl = window.location.origin;
         // Element = Element html du select que l'on a grâce au 'this' dans le onchange du select.
@@ -128,8 +154,12 @@
             });
         }
     </script>
-
-
+    <script>
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+        }
+    </script>
     <script>
         // On récupère l'url de base du server grâce à window.location
         var baseUrl = window.location.origin;

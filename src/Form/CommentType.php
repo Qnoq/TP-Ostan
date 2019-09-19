@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -16,7 +17,12 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
+                'label' => false,
+                'config' => [
+                    'uiColor' => "#e2e2e2",
+                    'required' => true
+                ],
                 'label' => 'Poster un commentaire :',
                 'empty_data' => '',
                 'constraints' => [

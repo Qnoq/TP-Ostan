@@ -301,6 +301,11 @@ footer {
   height: 100%;
 }
 
+.profil-avatar-3 {
+  width: 20%;
+  height: 20%;
+}
+
 .mask {
   width: 250px;
   height: 250px;
@@ -312,6 +317,7 @@ footer {
   margin: 0 auto;
 }
 
+/* Pour la page Tag */
 .mask-2 {
   width: 80px;
   height: 80px;
@@ -342,8 +348,9 @@ footer {
 
 
 
-/* ******PRESENTATION ACCEUIL ***** */
-/* .presentation {
+
+/* ******PRESENTATION ACCUEIL ***** */
+.presentation {
   position: relative;
   background: rgba(92, 152, 255, 0);
   overflow: hidden;
@@ -512,12 +519,17 @@ ul {
 .page404 {
   background-image: url("../images/lost404.calque.png");
   background-size: cover;
+  background-position: center;
+  position: relative;
+  justify-content: flex-end;
+  text-align: center;
+  height: 800px;
 }
 
 /********* GALERIE *********************/
 
 .modal {
-  z-index: 1;
+  z-index: 10;
   display: none;
   padding-top: 10px;
   position: static;
@@ -525,7 +537,7 @@ ul {
   top: 0;
   width: 100%;
   height: 100%;
-  /* overflow:auto; */
+  overflow:auto;
   /* background-color:rgb(0,0,0);
   background-color:rgba(0,0,0,0.8) */
 }

@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le concept O'Stan !{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center font-weight-bold"> Le concept O'Stan !</h1>
+
+<section class="text-center">
+
+    <article>
+
+        <p>
+            Vous êtes <span class="font-weight-bold">illustrateur</span> de bandes dessinées, amateur ou professionnel, et vous souhaitez participer à de nouveaux projets ?
+        </p> 
+        <p>
+            Vous êtes <span class="font-weight-bold">auteur</span> de bandes dessinées ou d'histoires (de romans, de nouvelles ou autre), amateur ou professionnel, et vous souhaitez adapter celles-ci en bandes dessinées ou romans graphiques ?
+        </p> 
+        <p>
+            Vous êtes une <span class="font-weight-bold">maison d'édition</span> ? Vous souhaitez découvrir et donner la chance à de nouveaux talents et de nouveaux projets ? 
+        </p>
+        <p>
+            Si vous vous reconnaissez, ce site est fait pour vous !
+        </p>
+
+    </article>
+
+    <article>
+
+        <h3 class="text-center font-weight-bold py-3">O'Stan ? C'est quoi ?</h3>
+
+        <p> 
+            Le concept du site O'Stan est simple et aussi novateur dans le milieu de la bande dessinée :
+        </p> 
+        <p class="text-uppercase font-weight-bold">
+            Faciliter la mise en relation de passionnés du "neuvième art" qu'ils soient illustrateurs, auteurs ou maisons d'édition !
+        </p> 
+        
+        <p> 
+            Ce site a pour but premier de voir émerger de <span class="font-weight-bold">nouveaux projets</span>, de <span class="font-weight-bold">nouvelles collaborations</span> et de <span class="font-weight-bold">nouveaux talents</span> autour de la bande dessinées !
+        </p>
+
+    </article>
+
+</section>
+
+<article>
+
+    <h3 class="text-center font-weight-bold py-3">Ce site a été conçu par 4 développeurs web en herbe. Il se murmure même qu'il s'agit des meilleurs de leur génération ! Les voici :</h3>
+
+    <article class="mx-3 my-2">
+
+        <div>
+
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('images/lucie.png') }}" class="profil-avatar-3 rounded-circle">
+            </div>
+
+            <div class="text-center">
+
+                <h4 class="font-weight-bold mt-3">
+                    Lucie
+                </h4>
+
+                <p class="px-5">
+                    J'ai 22 ans, j'habite en Bretagne et j'ai rejoint O'Clock pour devenir Développeuse Web ! J'avais déjà pratiqué un peu de code au lycée et j'ai eu envie de continuer dans cette lancée ! ?
+                </p>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    <article class="mx-3 my-2">
+
+        <div>
+
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('images/marvel.jpg') }}" class="profil-avatar-3 rounded-circle">
+            </div>
+
+            <div class="text-center">
+
+                <h4 class="font-weight-bold mt-3">
+                    Karine
+                </h4>
+
+                <p class="px-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid inventore consequuntur harum aspernatur nulla architecto placeat saepe, debitis veniam corporis! Voluptatem nobis eligendi perferendis veniam fuga dolore quod, suscipit modi?
+                </p>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    <article class="mx-3 my-2">
+
+        <div>
+
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('images/emeric.png') }}" class="profil-avatar-3 rounded-circle">
+            </div>
+
+            <div class="text-center">
+
+                <h4 class="font-weight-bold mt-3">
+                    Emeric
+                </h4>
+
+                <p class="px-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid inventore consequuntur harum aspernatur nulla architecto placeat saepe, debitis veniam corporis! Voluptatem nobis eligendi perferendis veniam fuga dolore quod, suscipit modi?
+                </p>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    <article class="mx-3 my-2">
+
+        <div>
+
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('images/max.png') }}" class="profil-avatar-3 rounded-circle">
+            </div>
+
+            <div class="text-center">
+
+                <h4 class="font-weight-bold mt-3">
+                    Maxime
+                </h4>
+
+                <p class="px-5">
+                    Passionné de comics de 32 ans, je suis dessinateurs à mes heures perdues ! Dessiner me permet de me détendre et d'observer davantage le monde qui m'entoure ! C'est comme un exutoire pour moi ! Je suis également passionné de cinéma, d'automobile et de l'Italie ! Après une reconversion professionnelle effectuée grâce à O'Clock, je suis désormais développeur web junior !
+                </p>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</article>
+
+
+<p class="text-center">Des suggestions ? Des questions ? <a href="{{path('contact')}}">N'hésitez surtout pas à nous contacter !</a></p>
+
+
+
+
+
+
+{% endblock %}

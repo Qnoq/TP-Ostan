@@ -4,10 +4,9 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,17 +22,7 @@ class PostType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Titre'
-                ],
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min'        => 1,
-                        'max'        => 100,
-                        'minMessage' => 'Pas assez de caractères (min attendu : {{ limit }})',
-                        'maxMessage' => 'Trop caractères (max attendu : {{ limit }})',
-                    ])
-                ]
-                ])
+                ],])
             
             ->add('picture1', FileType::class, [
                 'data_class' => null,
@@ -56,8 +45,12 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'label' => false,
+                'config' => [
+                    'uiColor' => "#e2e2e2",
+                    'required' => true
+                ],
                 'attr' => [
                     'placeholder' => 'Message',
                     'cols' => '5', 

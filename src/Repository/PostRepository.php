@@ -34,27 +34,47 @@ class PostRepository extends ServiceEntityRepository
         return $query->getResult(); 
     }
 
-
     public function findAllAdPost()
     {
         $query = $this->getEntityManager()->createQuery("
             SELECT p
-            FROM App\Entity\Post p            
+            FROM App\Entity\Post p
             WHERE p.type = 'Annonce'
-            ORDER BY p.createdAt DESC
+            ORDER BY p.createdAt DESC         
         ");
-        
+
         return $query->getResult(); 
     }
 
-    public function findOneByCode()
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function searchAdList($criterias)
     {
-        $query = $this->getEntityManager()->createQuery("
-            SELECT p
-            FROM App\Entity\Post p
-            JOIN App\Entity\Status s ON p = s.code
-        ");
-        
-        return $query->getResult(); 
+            return $this->createQueryBuilder('p')
+            // relier les tables job et user, dans lesquelles on va plonger
+            ->innerJoin('p.jobs', 'j')
+            ->innerJoin('p.users', 'u')
+
+            ->andWhere('j IN (:jobs)')
+            ->andWhere('u IN (:users)')
+            ->setParameters(array(
+                'jobs' => $criterias['jobs'],
+                'users' => $criterias['users']
+            ));
+
+            // ->getQuery()
+            // ->getResult();
+
+        // $query = $this->getEntityManager()->createQuery("
+        //     SELECT name, username
+        //     FROM post 
+        //     INNER JOIN job 
+        //     INNER JOIN user         
+        // ");
+        // return $query->getResult(); 
+            
     }
+
+    
 }

@@ -34,8 +34,8 @@
                         <li class="nav-item">
                             <a  href="{{path('advice_post')}}">Accueil</a>
                         </li>
-                        <li class="nav-item">
-                            <a  href="#">Le concept</a>
+                        <li class="nav-item">                
+                            <a href="{{path('concept')}}">Le concept</a>
                         </li>
                         {# Si je suis authentifié #}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
