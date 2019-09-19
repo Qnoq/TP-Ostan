@@ -7,6 +7,7 @@ use App\Utils\Slugger;
 use App\Repository\RoleRepository;
 use Nelmio\Alice\Loader\NativeLoader;
 use App\DataFixtures\MyCustomNativeLoader;
+use App\Repository\StatusRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -16,11 +17,12 @@ class AppFixtures extends Fixture
  
     private $slugger;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, Slugger $slugger, RoleRepository $roleRepository)
+    public function __construct(UserPasswordEncoderInterface $encoder, Slugger $slugger, RoleRepository $roleRepository, StatusRepository $statusRepository)
     {
       $this->encoder = $encoder; 
       $this->slugger = $slugger;  
       $this->roleRepository = $roleRepository;
+      $this->statusRepository = $statusRepository;
    
     }
 
@@ -50,10 +52,16 @@ class AppFixtures extends Fixture
         $em->flush();
 
         $role = 'ROLE_USER_ADMIN' ;
+        $codeStatus = 'ROLE_USER_ADMIN' ;
+        $statusCode = 'UNBLOCKED';
+        $statusCode= $this->statusRepository->findOneByCode($statusCode);
+
         $adminRole = $this->roleRepository->findByCode($role);
         $userAdmin =new User ;
         $userAdmin->setFirstname('admin');
         $userAdmin->setLastname('admin');
+        $userAdmin->setStatus($statusCode);
+
         $userAdmin->setBirthdate(new \Datetime());
 
 
