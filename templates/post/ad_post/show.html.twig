@@ -6,6 +6,8 @@
 
 {% block content %}
 
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
     <article class="ml-5 my-5 pt-3 px-3 border border-dark">
         <div class="title-card border border-dark text-center py-2 mx-5">
             <h2 class="font-weight-bold">{{ post.title }}</h2>
@@ -109,6 +111,17 @@
     {{ form_end(formComment) }}
     <a class="text-dark text-center" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
+
+   {% else %}
+
+    <p>Page accessible uniquement aux utilisateurs authentifiés. Merci de 
+    <a href="{{ path ('app_login') }}">vous connecter</a>
+    ou  <a href="{{ path ('app_register') }}"> créer un compte.</a>
+    </p>
+
+    {% endif %}
+
+    
 {% endblock %}
 
 
