@@ -12,7 +12,7 @@ App\Entity\User:
     password: "<password()>"
     birthdate: "<date_create()>"
     companyname: "<company()>"
-    role: "@role*"
+    role: "@role2*"
     address: "<address()>"
     description: <realText(200)>
     phonenumber: <randomNumber()>
