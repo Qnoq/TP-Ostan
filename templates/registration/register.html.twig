@@ -1,32 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
-<div class="card ml-5 my-5 pt-3 px-3 border border-dark">
-<div class="card-body">
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.avatar) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.description) }}
-        {{ form_row(registrationForm.jobs) }}
-       
+    <h1 class="title-register">Inscription</h1>
 
-        {{ form_row(registrationForm.birthdate) }}
-        {{ form_row(registrationForm.phonenumber) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.jobs) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        
+    <div class="form-register">
+        <div class="card-body">
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.avatar) }}
+            {{ form_row(registrationForm.firstname) }}
+            {{ form_row(registrationForm.lastname) }}
+            {{ form_row(registrationForm.username) }}
+            {{ form_row(registrationForm.description) }}
+            <div class="form-group-stan">
+            {{ form_row(registrationForm.birthdate) }}
+                <img class='img-stan' src="{{asset('images/stanpool.png')}}" alt="logo du site">
 
-        <button class="btn">Envoyer</button>
-        {{ form_end(registrationForm) }}
-</div>
-</div>
-        
-    
+                {{ form_row(registrationForm.jobs) }}
+            </div>
+            
+            {{ form_row(registrationForm.phonenumber) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.jobs) }}
+            {{ form_row(registrationForm.plainPassword) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+
+            <button class="btn btn-warning">Envoyer</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+
+
 {% endblock %}

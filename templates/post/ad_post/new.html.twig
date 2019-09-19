@@ -3,7 +3,13 @@
 {% block title %}Ajouter une annonce{% endblock %}
 
 {% block content %}
+<style>
+        .content {
+            margin: 1em auto;
+            width: 55%;
 
+        }
+    </style>
 <h1 class="text-center font-weight-bold mb-5">Ajout d'une annonce</h1>
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

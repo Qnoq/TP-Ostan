@@ -53,7 +53,7 @@ class PostType extends AbstractType
                 ],
                 'attr' => [
                     'placeholder' => 'Message',
-                    'cols' => '5', 
+                    'cols' => '50', 
                     'rows' => '5'
                 ],])
             // ->add('createdAt')
@@ -72,11 +72,7 @@ class PostType extends AbstractType
                     'class'=>'label_select-tags'
                 ]
             ])
-            // ->add('status')
-            ->add('slug', TextType::class, [
-                'label' => false,
-                'required' => false,
-            ])
+           
         ;
     }
 

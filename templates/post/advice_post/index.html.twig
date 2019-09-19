@@ -5,28 +5,13 @@
 
 {% block content %}
 
-    <section class="presentation">
-    <div>
-
-        <div class="text-center">
-            <h1 class="text-uppercase font-weight-bold border-bottom border-dark py-3 mx-5">Bienvenue sur O'Stan !</h1>
-            <p class="py-3 px-3">Lorem ipsum ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur tempore atque quaerat ab? Ad aliquid minima laudantium sed! Velit eos suscipit earum iure provident, illum necessitatibus sequi quam vel modi eveniet libero ab sapiente eum at magni ratione ipsa perspiciatis.</p>
-        </div>
-        </div>
-    </section>
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicelistPosts %}
-    {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
+        {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
         {% if advice_post.type == "Article" %}
-
-
-            <article>
-
-                <div class="title-card p-1">
-                    <h2 class="font-weight-bold">{{ advice_post.title }}</h2>
-                </div>
-
+            <article class="animated slideInUp">
+                <h2 class="title-card">{{ advice_post.title }}</h2>
                 <div
                     class="d-flex">
 
@@ -42,20 +27,20 @@
                         </div>
 
                         <div>
-                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-light border border-dark rounded-0 font-weight-bold">
+                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-light">
                                 Lire la suite
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="metadata mb-3 font-italic text-muted d-flex justify-content-end">
+                <div class="date_post">
                     <span>Publié le
                         {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
                 </div>
 
             </article>
-            
+
         {% endif %}
     {% endfor %}
     {{ knp_pagination_render(advicelistPosts) }}

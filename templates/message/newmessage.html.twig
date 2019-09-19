@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Messagerie{% endblock %}
+{% block title %}Messagerie
+{% endblock %}
 
 {% block content %}
+    <style>
+        .content {
+            margin: 1em auto;
+            width: 100%;
 
-    {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+        }
+    </style>
+    <div class="form_message">
 
-    <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
+        {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
 
+        <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
+    </div>
 {% endblock %}
