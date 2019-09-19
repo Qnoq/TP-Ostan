@@ -24,10 +24,22 @@
     <div id="sitemap" class="row center-column d-flex align-items-center">
         <h3 class="page-subheading">Page d'accueil </h3>
             <ul class="tree">
-                <li>_ Nos articles conseils</li>
-                <li><a href="{{path ('advice_post') }}">_ Les actualités</li>
-                <li><a href="#"></a>_ Des talents à découvrir</li>
-                <li><a href="#"></a>_ Des éditeurs investis</li>
+
+                <li><a href="{{path ('advice_post') }}">_ Nos articles conseils</li>
+
+                {# lien différent selon qu'il soit ou non enregistré #}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    <li><a href="{{path ('user_list') }}">_ Des talents à découvrir</a></li>
+                    <li><a href="{{path ('user_list') }}">_ Des éditeurs investis</a></li>
+
+                {% else %}
+
+                    <li><a href="{{ path ('app_login') }}">_ Des talents à découvrir</a></li>
+                    <li><a href="{{ path ('app_login') }}">_ Des éditeurs investis</a></li>
+
+                {% endif %}
+
                 <li><a href="{{path ('contact') }}">_ Nous contacter</a></li>
                 <li><a href="{{path ('mentions_legales') }}">_ Mentions légales</a></li>
                 
@@ -39,7 +51,21 @@
     <div id="sitemap" class="row center-column d-flex align-items-center">
         <h3 class="page-subheading">Accès utilisateur </h3>
              <ul class="tree">
-                
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    <li><a href="{{path ('user_show', {'id': app.user.id }) }}">_ Mon profil</a></li>
+                    <li><a href="{{path ('ad_post') }}">_ Liste des annonces</a></li>
+                    <li><a href="{{path ('user_list') }}">_ Liste des utilisateurs</a></li>
+                            <ul>
+                                <li><a href="{{path ('user_list') }}">_ Scénaristes</a></li>
+                                <li><a href="{{path ('user_list') }}">_ Illustrateurs</a></li>
+                                <li><a href="{{path ('user_list') }}">_ Editeurs</a></li>
+                            </ul>
+                    <li><a href="{{path ('newmessage') }}">_ Envoyer un message privé</a></li>
+
+                {% else %}
+
                     <li><a href="{{path ('app_login') }}">_ Mon profil</a></li>
                     <li><a href="{{path ('app_login') }}">_ Liste des annonces</a></li>
                     <li><a href="{{path ('app_login') }}">_ Liste des utilisateurs</a></li>
@@ -49,7 +75,10 @@
                                 <li><a href="{{path ('app_login') }}">_ Editeurs</a></li>
                             </ul>
                     <li><a href="{{path ('app_login') }}">_ Envoyer un message privé</a></li>
-                
+
+                {% endif %}
+
+
             </ul>
 
    </div>
