@@ -20,16 +20,46 @@
 
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
 
 
     </head>
     <body>
         {% block header %}
+        <nav class="navbar navbar-expand-lg navbar-dark navbar_home">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a  href="{{path('advice_post')}}">Accueil</a>
+                        </li>
+                        <li class="nav-item">                
+                            <a href="{{path('concept')}}">Le concept</a>
+                        </li>
+                        {# Si je suis authentifié #}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li class="nav-item">
+                                <a href="{{path('ad_post')}}">Annonces</a>
+                            </li>
+                            <li class="nav-item">
+                                <a  href="{{path('user_list')}}">La communauté</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a  href="{{path('contact')}}">Nous contacter</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <div class="jumbotron">
 
                 <a href="{{path('advice_post')}}">
-                    <img class='logo' src="{{asset('images/logo.svg')}}" alt="">
+                    <img class='logo' src="{{asset('images/logo.svg')}}" alt="logo du site">
                 </a>
+                <h2 class="title_home">Bienvenue sur O'Stan !</h2>
+            <p class="presentation">Lorem ipsum ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur tempore atque quaerat ab? Ad aliquid minima laudantium sed! Velit eos suscipit earum iure provident, illum necessitatibus sequi quam vel modi eveniet libero ab sapiente eum at magni ratione ipsa perspiciatis.</p>
                 <div
                     class='nav-connexion'>
                     {# Si je suis authentifié #}
@@ -47,33 +77,7 @@
                 </div>
             </div>
 
-            <nav class="navbar navbar-expand-lg navbar-dark unique-color navbar_home">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="btn amber lighten-2" href="{{path('advice_post')}}">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn amber lighten-2" href="{{path('concept')}}">Le concept</a>
-                        </li>
-                        {# Si je suis authentifié #}
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li class="nav-item">
-                                <a class="btn amber lighten-2" href="{{path('ad_post')}}">Annonces</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn amber lighten-2" href="{{path('user_list')}}">La communauté</a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="btn amber darken-1" href="{{path('contact')}}">Nous contacter</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            
         {% endblock %}
 
         {% block body %}

@@ -1,7 +1,7 @@
 {# Boucle pour afficher dans la sidebar les 5 dernières annonces postées sur le site #}
 {% for adPost in adPosts|slice(0,5) %}
 
-    <div class="my-3 mx-3 text-center">
+    <div class="card-sidebar">
 
         <div class="card">
 
@@ -15,7 +15,7 @@
 
             {% endif %}
 
-                <h5 class="card-title font-weight-bold">{{ adPost.title|truncate(30, true) }}</h5>
+                <h6 class="card-title font-weight-bold">{{ adPost.title|truncate(30, true) }}</h6>
                 <p class="font-italic">Publié le
                     {{ adPost.createdAt | date('d/m/Y à H:i') }}
                 </p>

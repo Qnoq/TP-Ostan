@@ -1,56 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Le concept O'Stan !{% endblock %}
+{% block title %}Le concept O'Stan !
+{% endblock %}
 
 {% block content %}
+    <style>
+        .content {
+            margin: 1em 5em;
+            width: 55%;
 
-<h1 class="text-center font-weight-bold"> Le concept O'Stan !</h1>
+        }
+    </style>
 
-<section class="text-center">
+    <h1 class="text-center font-weight-bold">
+        Le concept O'Stan !</h1>
+    <img class='img-stan mx-auto' src="{{asset('images/stanlix.png')}}" alt="logo du site">
+
+    <section class="text-center">
+
+
+        <section class="concept-presentation">
+            <div>
+
+                <div class="text-center">
+                    <p>
+                        Vous êtes
+                        <span class="font-weight-bold">illustrateur</span>
+                        de bandes dessinées, amateur ou professionnel, et vous souhaitez participer à de nouveaux projets ?
+                    </p>
+                    <p>
+                        Vous êtes
+                        <span class="font-weight-bold">auteur</span>
+                        de bandes dessinées ou d'histoires (de romans, de nouvelles ou autre), amateur ou professionnel, et vous souhaitez adapter celles-ci en bandes dessinées ou romans graphiques ?
+                    </p>
+                    <p>
+                        Vous êtes une
+                        <span class="font-weight-bold">maison d'édition</span>
+                        ? Vous souhaitez découvrir et donner la chance à de nouveaux talents et de nouveaux projets ?
+                    </p>
+                    <p>
+                        Si vous vous reconnaissez, ce site est fait pour vous !
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <article>
+
+            <h3 class="text-center font-weight-bold py-3 title-concept">O'Stan ? C'est quoi ?</h3>
+
+            <p>
+                Le concept du site O'Stan est simple et aussi novateur dans le milieu de la bande dessinée :
+            </p>
+            <p class="text-uppercase font-weight-bold">
+                Faciliter la mise en relation de passionnés du "neuvième art" qu'ils soient illustrateurs, auteurs ou maisons d'édition !
+            </p>
+
+            <p>
+                Ce site a pour but premier de voir émerger de
+                <span class="font-weight-bold">nouveaux projets</span>, de
+                <span class="font-weight-bold">nouvelles collaborations</span>
+                et de
+                <span class="font-weight-bold">nouveaux talents</span>
+                autour de la bande dessinées !
+            </p>
+
+        </article>
+
+    </section>
 
     <article>
 
-        <p>
-            Vous êtes <span class="font-weight-bold">illustrateur</span> de bandes dessinées, amateur ou professionnel, et vous souhaitez participer à de nouveaux projets ?
-        </p> 
-        <p>
-            Vous êtes <span class="font-weight-bold">auteur</span> de bandes dessinées ou d'histoires (de romans, de nouvelles ou autre), amateur ou professionnel, et vous souhaitez adapter celles-ci en bandes dessinées ou romans graphiques ?
-        </p> 
-        <p>
-            Vous êtes une <span class="font-weight-bold">maison d'édition</span> ? Vous souhaitez découvrir et donner la chance à de nouveaux talents et de nouveaux projets ? 
-        </p>
-        <p>
-            Si vous vous reconnaissez, ce site est fait pour vous !
-        </p>
+        <h3 class="text-center font-weight-bold title-concept pt-2">Ce site a été conçu par 4 développeurs web en herbe.
+        </h3>
+        <h6 class="text-center title-concept-sub">
+            Il se murmure même qu'il s'agit des meilleurs de leur génération !<img class="pizza-emeric" src="{{ asset('images/pizza.png') }}" alt="La pizza d'Emeric"></h6>
+        <h4 class="text-center font-weight-bold py-3 title-concept">Les voici :</h4>
 
-    </article>
 
-    <article>
-
-        <h3 class="text-center font-weight-bold py-3">O'Stan ? C'est quoi ?</h3>
-
-        <p> 
-            Le concept du site O'Stan est simple et aussi novateur dans le milieu de la bande dessinée :
-        </p> 
-        <p class="text-uppercase font-weight-bold">
-            Faciliter la mise en relation de passionnés du "neuvième art" qu'ils soient illustrateurs, auteurs ou maisons d'édition !
-        </p> 
-        
-        <p> 
-            Ce site a pour but premier de voir émerger de <span class="font-weight-bold">nouveaux projets</span>, de <span class="font-weight-bold">nouvelles collaborations</span> et de <span class="font-weight-bold">nouveaux talents</span> autour de la bande dessinée !
-        </p>
-
-    </article>
-
-</section>
-
-<article>
-
-    <h3 class="text-center font-weight-bold py-3">Ce site a été conçu par 4 développeurs web en herbe. Il se murmure même qu'il s'agit des meilleurs de leur génération ! Les voici :</h3>
-
-    <article class="mx-3 my-2">
-
-        <div>
+        <div class="dev-presentation">
 
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('images/lucie.png') }}" class="profil-avatar-3 rounded-circle">
@@ -63,18 +91,15 @@
                 </h4>
 
                 <p class="px-5">
-                    J'ai 22 ans, j'habite en Bretagne et j'ai rejoint O'Clock pour devenir Développeuse Web ! J'avais déjà pratiqué un peu de code au lycée et j'ai eu envie de continuer dans cette lancée !
+                    J'ai 22 ans, j'habite en Bretagne et j'ai rejoint O'Clock pour devenir Développeuse Web ! J'avais déjà pratiqué un peu de code au lycée et j'ai eu envie de continuer dans cette lancée ! J'adore les comics de chez DC Comics, les mangas également et mon super-vilain préféré est le Joker (le meilleur non ?). Je suis très contente de pouvoir dire que je suis enfin développeuse web junior, spécialisée en Symfony.
                 </p>
 
             </div>
 
         </div>
 
-    </article>
 
-    <article class="mx-3 my-2">
-
-        <div>
+        <div class="dev-presentation">
 
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('images/karine.png') }}" class="profil-avatar-3 rounded-circle">
@@ -96,11 +121,8 @@
 
         </div>
 
-    </article>
 
-    <article class="mx-3 my-2">
-
-        <div>
+        <div class="dev-presentation">
 
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('images/emeric.png') }}" class="profil-avatar-3 rounded-circle">
@@ -120,11 +142,8 @@
 
         </div>
 
-    </article>
 
-    <article class="mx-3 my-2">
-
-        <div>
+        <div class="dev-presentation">
 
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('images/max.png') }}" class="profil-avatar-3 rounded-circle">
@@ -144,16 +163,13 @@
 
         </div>
 
+
     </article>
 
-</article>
 
-
-<p class="text-center">Des suggestions ? Des questions ? <a href="{{path('contact')}}">N'hésitez surtout pas à nous contacter !</a></p>
-
-
-
-
+    <p class="text-center">Des suggestions ? Des questions ?
+        <a href="{{path('contact')}}">N'hésitez surtout pas à nous contacter !</a>
+    </p>
 
 
 {% endblock %}
