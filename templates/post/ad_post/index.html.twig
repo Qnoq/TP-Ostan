@@ -4,7 +4,13 @@
 {% endblock %}
 
 {% block content %}
+<style>
+        .content {
+            margin: 1em auto;
+            width: 55%;
 
+        }
+    </style>
     <section
         class="section-post">
 
@@ -13,7 +19,7 @@
             {# Si le type des posts est annonce ET si son status est UNBLOCKED, alors tu les affiches. #}
             {% if post.type == "Annonce" and post.status.code == "UNBLOCKED" %}
 
-                <article>
+                <article class="animated slideInUp">
 
                     <h2 class="title-card">{{ post.title }}</h2>
 

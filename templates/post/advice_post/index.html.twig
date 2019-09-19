@@ -10,7 +10,7 @@
     {% for advice_post in advicelistPosts %}
         {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
         {% if advice_post.type == "Article" %}
-            <article>
+            <article class="animated slideInUp">
                 <h2 class="title-card">{{ advice_post.title }}</h2>
                 <div
                     class="d-flex">

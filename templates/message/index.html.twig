@@ -4,10 +4,9 @@
 {% endblock %}
 
 {% block content %}
-    <style>
+   <style>
         .content {
             margin: 1em auto;
-            max-width: 800px;
             width: 100%;
 
         }
@@ -26,30 +25,30 @@
                                 <a href="{{ path ('showmessage', {'title': message.title }) }}">
                                     <div>
                                         <p class="title-message">{{message.title}}</p>
+                                        <p class="content-message">{{message.content|truncate(100, true)}}</p>
                                     </div>
                                 </a>
                                 <p class="message-author">Message envoyé le
-                                    {{message.createdAt|date}} à {{message.userReceiver}}
+                                    {{message.createdAt|date}}
+                                    à
+                                    {{message.userReceiver}}
                                 </p>
                             </div>
-
-                            
                         </div>
-
-
                     {% elseif message.userReceiver == app.user %}
 
                         <div class="talk-bubble tri-right round btm-left">
                             <div class="message-content">
                                 <a href="{{ path ('showmessage', {'title': message.title })}}">
                                     <div>
-                                        <p>{{message.title}}</p>
+                                        <p class="title-message">{{message.title}}</p>
+                                        <p class="content-message">{{message.content|truncate(100, true)}}</p>
                                     </div>
                                 </a>
                                 <p class="message-author">Message envoyé par
                                     {{message.user}}
                                     le
-                                    {{message.createdAt|date("m/d/Y")}}</p>
+                                    {{message.createdAt|date}}</p>
                             </div>
                         </div>
                     {% endif %}

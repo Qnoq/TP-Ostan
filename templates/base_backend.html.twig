@@ -26,7 +26,7 @@
         </head>
         <body>
             {% block header %}
-            <nav class="navbar navbar-expand-lg navbar-dark navbar_home">
+                <nav class="navbar navbar-expand-lg navbar-light navbar_home">
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -38,6 +38,9 @@
                             <li class="nav-item">
                                 <a href="{{path('advice_post')}}">Accueil</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{path('concept')}}">Le concept</a>
+                            </li>
                             {# Si je suis authentifié #}
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
@@ -45,14 +48,12 @@
                                     <a href="{{path('ad_post')}}">Annonces</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a  href="{{path('user_list')}}">La communauté</a>
+                                    <a href="{{path('user_list')}}">La communauté</a>
                                 </li>
                             {% endif %}
+
                             <li class="nav-item">
-                                <a  href="#">Le concept</a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="{{path('contact')}}">Nous contacter</a>
+                                <a href="{{path('contact')}}">Nous contacter</a>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +79,7 @@
 
 
                 </div>
-                
+
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar_backend">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -113,18 +114,19 @@
                 </nav>
             {% endblock %}
             {% block body %}
-            <div class="body_backend">
-                {# Je veux afficher le message paramétrés dans les méthodes add, edit et delete #}
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ label }}">
-                            {{ message }}
-                        </div>
+                <div
+                    class="body_backend">
+                    {# Je veux afficher le message paramétrés dans les méthodes add, edit et delete #}
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
 
-                {% block content %}{% endblock %}
-                {% block search %}{% endblock %}
+                    {% block content %}{% endblock %}
+                    {% block search %}{% endblock %}
                 </div>
             {% endblock %}
 

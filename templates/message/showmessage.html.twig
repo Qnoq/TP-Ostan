@@ -1,69 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Messagerie{% endblock %}
+{% block title %}Messagerie
+{% endblock %}
 
 {% block content %}
-<style>
+    <style>
         .content {
             margin: 1em auto;
-            max-width: 800px;
-            width: 100%;
+            width: 60%;
 
         }
     </style>
 
     <div class="message-detail">
         <h1 class="message-title">{{message.title}}</h1>
-    
-    
-        {% for message in messages %}
-            
-            {% if message.user == app.user %}
-                
-                <div class="bubble-send tri-right round btm-right-send">
-                    <div class="talktest">
-                        <p class="message-content">{{message.content}}</p>
-                       <div class="message-author">envoyé le {{message.createdAt|date("m/d/Y")}}</div>
-                     </div>
-                </div>
-            {% elseif message.userReceiver == app.user %}
-            
-                <div class="bubble-response tri-right round btm-left-response">
-                     <div class="talktest">
-                        <p class="message-content">{{message.content}}</p>
-                       <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date("m/d/Y")}}</div>
-                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+        <div class="messages">
+            {% for message in messages %}
 
+                {% if message.user == app.user %}
+
+                    <div class="bubble-send tri-right round btm-right-send">
+                        <div class="talktest">
+                            <p class="message-content">{{message.content}}</p>
+                            <div class="message-author">envoyé le
+                                {{message.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy HH:mm')}}</div>
+                        </div>
+                    </div>
+                {% elseif message.userReceiver == app.user %}
+
+                    <div class="bubble-response tri-right round btm-left-response">
+                        <div class="talktest">
+                            <p class="message-content">{{message.content}}</p>
+                            <div class="message-author-response">écrit par
+                                {{message.user}}, le
+                                {{message.createdAt|localizeddate('none', 'none', 'FR_fr',null,'d MMMM yyyy HH:mm')}}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
         <div class="message-option">
-            {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
+            {{ include('message/_form.html.twig', {'button_label': 'Envoyer'}) }}
             <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
-        <div>
 
+        </div>
     </div>
-
-
-
-    {#}
-        {% for message in messages %}
-        
-            <div class="message-response">
-                <p>{{message.content}}</p>
-                <div class="message-author">écrit par {{message.user}}, le {{message.createdAt|date}}</div>
-
-            </div>
-            <br>
-        {% endfor %}
-            
-    <div class="message-option">
-        {{ include('message/_form.html.twig', {'button_label': 'Créer un nouveau message'}) }}
-
-        <a class="btn btn-primary" href="{{path('message') }}">Retour à la messagerie</a>
-
-    <div>
-
-    #}
 
 {% endblock %}
