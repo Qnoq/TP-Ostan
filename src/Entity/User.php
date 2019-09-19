@@ -54,8 +54,8 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @NotBlank(groups={"A"})
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * 
      */
     private $companyname;
 
@@ -66,7 +66,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @NotBlank(groups={"A"})
+     * 
      */
     private $siret;
 
