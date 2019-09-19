@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\User;
 use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,6 +55,7 @@ class MainController extends AbstractController
      */
     public function sitemap()
     {
+
         return $this->render('main/plan_du_site.html.twig', [
         ]);
     }
@@ -63,6 +65,8 @@ class MainController extends AbstractController
      */
      public function concept()
      {
+
+
          return $this->render('main/concept.html.twig', [
          ]);
      }
