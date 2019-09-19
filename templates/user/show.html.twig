@@ -8,8 +8,6 @@
 {% block content %}
 <style>
         .content{
-            margin: 1em auto;
-          
             width: 100%;
 
             }
@@ -21,13 +19,13 @@
         </a>
     </div>
 
-    <div class="profil-card text-center border border-dark mx-5 pt-5 px-5">
+    <div class="profil-card">
 
         <div class="pt-5">
             <h1 class="font-weight-bold">{{ user.username }}</h1>
         </div>
 
-        <div class="border border-dark mx-5 my-5 py-3">
+        <div class="profil-presentation">
             <p>
                 <span class="font-weight-bold">Adresse email :</span>
                 {{ user.email }}
@@ -55,12 +53,12 @@
                 {# Affichage du ou des tag(s) de l'utilisateur #}
                 {% for tag in user.tags %}
                     <p>
-                        <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="font-weight-bold btn btn-light border border-dark rounded-0 mr-2">{{ tag.name }}</a>
+                        <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill info-color lighten-2 mr-1">{{ tag.name }}</a>
                     </p>
                 {% endfor %}
             </div>
 
-            <div class="d-flex justify-content-start ml-5 pt-2 font-italic">
+            <div class="blockquote-footer">
                 <p>Membre depuis le
                     {{ user.createdAt | date('d/m/Y à H:i') }}</p>
             </div>
@@ -88,7 +86,7 @@
 
         <h5 class="card-title font-weight-bold mb-0 text-center">Galerie</h5>
 
-        <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
+        <div class="card-gallery">
             {% for gallery in user.galleryPosts %}
                 <div class="card-body">
                     <p class="card-text">{{gallery.title}}</p>
