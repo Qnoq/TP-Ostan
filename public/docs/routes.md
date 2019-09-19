@@ -45,10 +45,14 @@
 |`/backend/annonce/edit/{id}/`|POST|Backend\PostController|adEdit|Edition d'une annonce|Page pour éditer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
 |`/backend/annonce/block/{id}/`|GET|Backend\PostController|annonceBlock|Bloquer une annonce |--|
 |`/backend/annonce/delete/{id}/`|POST|Backend\PostController|adDelete|Suppression d'une annonce|Page pour supprimer une annonce|pour modifier une annonce avec par exemple, un message en rouge "mention supprimée, ne respecte pas la charte"|
+|`backend/comment/{id}/status/{statusCode}`|PATCH|Backend\CommentController|Gestion d blocage d'un commentaire|-|
+
 |`/backend/comment/block/{id}/`|GET|Backend\CommentController|commentBlock|Bloquer un commentaire |--|
 |`/backend/comment/delete/{id}/`|GET|Backend\CommentController|commentDelete|Suppression commentaire utilisateur|Suppression d'un commentaire utilisateur |--|
+
 |`/backend/advice-post/`|GET|Backend\PostController|advicepostList|Liste de tous les articles| le titre, le détail, la date de création et de modification|--|
 |`/backend/advice-post/new/`|POST|Backend\PostController|advicepostNew|Creation articles|Page creation d'article|formulaire de création d'article|
 |`backend/advice-post/{id}/`|GET|Backend\PostController|advicePostShow|Détail d'un article| Un article en entier|--|
 |`backend/advice-post/edit/{id}/`|POST|Backend\PostController|advicePostEdit|Edition d'un article|Edition d'un article|Formulaire|
 |`backend/advice-post/delete/{id}/`|POST|Backend\PostController|advicePostDelete|Suppression d'un article|Suppression d'un article|Formulaire|
+|`backend/blocked`|GET|Backend\BlockendController|index|gestion des blocages|-|

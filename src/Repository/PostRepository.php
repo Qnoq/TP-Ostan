@@ -51,28 +51,29 @@ class PostRepository extends ServiceEntityRepository
      */
     public function searchAdList($criterias)
     {
-            return $this->createQueryBuilder('p')
+            //return $this->createQueryBuilder('p')
             // relier les tables job et user, dans lesquelles on va plonger
-            ->innerJoin('p.jobs', 'j')
-            ->innerJoin('p.users', 'u')
+            // ->innerJoin('p.jobs', 'j')
+            // ->innerJoin('p.users', 'u')
 
-            ->andWhere('j IN (:jobs)')
-            ->andWhere('u IN (:users)')
-            ->setParameters(array(
-                'jobs' => $criterias['jobs'],
-                'users' => $criterias['users']
-            ));
-
+            // ->andWhere('j IN (:jobs)')
+            // ->andWhere('u IN (:users)')
+            // ->setParameters(array(
+            //     'jobs' => $criterias['jobs'],
+            //     'users' => $criterias['users']
+            // ));
             // ->getQuery()
             // ->getResult();
 
-        // $query = $this->getEntityManager()->createQuery("
-        //     SELECT name, username
-        //     FROM post 
-        //     INNER JOIN job 
-        //     INNER JOIN user         
-        // ");
-        // return $query->getResult(); 
+
+            $query = $this->getEntityManager()->createQuery("
+            SELECT * 
+            FROM post 
+            INNER JOIN job 
+            WHERE post.type = 'Annonce' AND job.name = 'Auteur'         
+        ");
+
+        return $query->getResult(); 
             
     }
 
