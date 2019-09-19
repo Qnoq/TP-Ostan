@@ -11,14 +11,14 @@
             <h2 class="font-weight-bold">{{ post.title }}</h2>
         </div>
         {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
-            {% if is_granted('ROLE_USER_ADMIN') %}
-                <button
-                    type="button" class="btn btn-warning mx-3 mb-3" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
-                    {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
-                    <i class="fas fa-minus-circle"></i>
-                    {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
-                </button>
-            {% endif %}
+        {% if is_granted('ROLE_USER_ADMIN') %}
+            <button
+                type="button" class="btn btn-warning mx-3 mb-3" onclick="handleStatusButton(this,{{post.id}},{{post.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                <i class="fas fa-minus-circle"></i>
+                {{post.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+            </button>
+        {% endif %}
         <div>
             <div>
                 <p
@@ -28,47 +28,47 @@
                 </p>
             </div>
         </div>
-        
-            <div class="card-body">
-                <div class="container1">
 
-                    <img src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+        <div class="card-body">
+            <div class="container1">
 
-                </div>
-                <div class="container1">
+                <img src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
 
-                    <img src="{{ asset(picture_upload_path ~ (post.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
-
-                </div>
-                <div class="container1">
-
-                    <img src="{{ asset(picture_upload_path ~ (post.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
-
-                </div>
             </div>
-            <div id="modal01" class="modal" onclick="this.style.display='none'">
-                <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <div class="modal-cont">
-                    <img id="img01" style="max-width:100%">
-                </div>
-            </div>
-            
+            <div class="container1">
 
-            <div class="metadata mx-3 mb-3 d-flex justify-content-between">
-                <div class="d-flex justify-content-start">
-                    {% for tag in post.tags %}
-                        <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill amber lighten-2 mr-1">{{ tag.name }}</a>
-                    {% endfor %}
-                </div>
+                <img src="{{ asset(picture_upload_path ~ (post.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
 
-                <span class="font-italic text-muted">
-                    Publié le
-                    {{ post.createdAt | date('d/m/Y à H:i') }}
-                    par
-                    <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user.username }}</a>
-                </span>
             </div>
-        
+            <div class="container1">
+
+                <img src="{{ asset(picture_upload_path ~ (post.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+
+            </div>
+        </div>
+        <div id="modal01" class="modal" onclick="this.style.display='none'">
+            <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="modal-cont">
+                <img id="img01" style="max-width:100%">
+            </div>
+        </div>
+
+
+        <div class="metadata mx-3 mb-3 d-flex justify-content-between">
+            <div class="d-flex justify-content-start">
+                {% for tag in post.tags %}
+                    <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill amber lighten-2 mr-1">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+
+            <span class="font-italic text-muted">
+                Publié le
+                {{ post.createdAt | date('d/m/Y à H:i') }}
+                par
+                <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user.username }}</a>
+            </span>
+        </div>
+
     </article>
 
     <div class="commentaire">
@@ -77,25 +77,27 @@
 
 
         <div class="card ml-5 my-3 pt-3 px-3 border border-dark">
-            {% for comment in post.comments if comment.status.code == "UNBLOCKED" %}
-                <div class="card-body ">
-                    {% if is_granted('ROLE_USER_ADMIN') %}
-                        <button
-                            type="button" class="btn btn-warning mb-3" onclick="handleStatusButtonComment(this,{{comment.id}},{{comment.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
-                            {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
-                            <i class="fas fa-minus-circle"></i>
-                            {{comment.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
-                        </button>
-                    {% endif %}
-                    <p class="card-text">{{comment.description}}</p>
-                    <p class="card-text font-italic text-muted">Posté par
-                        {{comment.user}}
-                        le
-                        {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
-                    <hr>
-                </div>
-            {% else %}
-                <p>Il n'y a pas de commentaires pour le moment....</p>
+            {% for comment in post.comments %}
+                {% if comment.status.code == "UNBLOCKED" %}
+                    <div class="card-body">
+                        {% if is_granted('ROLE_USER_ADMIN') %}
+                            <button
+                                type="button" class="btn btn-warning mb-3" onclick="handleStatusButtonComment(this,{{comment.id}},{{comment.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
+                                {# Si le code du status du post est == a BLOCKED alors on ecrit Débloquer dans le bouton #}
+                                <i class="fas fa-minus-circle"></i>
+                                {{comment.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
+                            </button>
+                        {% endif %}
+                        <p class="card-text">{{comment.description}}</p>
+                        <p class="card-text font-italic text-muted">Posté par
+                            {{comment.user}}
+                            le
+                            {{ comment.createdAt | date('d/m/Y à H:i') }}</p>
+                        <hr>
+                    </div>
+                {% else %}
+                    <p>Il n'y a pas de commentaires pour le moment....</p>
+                {% endif %}
             {% endfor %}
         </div>
 
@@ -109,20 +111,7 @@
     {{ form_end(formComment) }}
     <a class="text-dark text-center" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
-
-   {% else %}
-
-    <p>Page accessible uniquement aux utilisateurs authentifiés. Merci de 
-    <a href="{{ path ('app_login') }}">vous connecter</a>
-    ou  <a href="{{ path ('app_register') }}"> créer un compte.</a>
-    </p>
-
-    {% endif %}
-
-    
 {% endblock %}
-
-
 {% block javascripts %}
     <script>
         $(document).ready(function () {
