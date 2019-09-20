@@ -309,13 +309,13 @@ footer {
 
 .mask {
   width: 250px;
-  height: 250px;
-  
-  overflow: hidden;
-  border-radius: 50%;
-  position: relative;
-  top: 130px;
-  margin: 0 auto;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    top: 70px;
+    margin: 0 auto;
+    box-shadow: 0 0 4px black;
 }
 
 /* Pour la page Tag */
@@ -330,15 +330,16 @@ footer {
 
 .profil-card {
   text-align: center;
-    padding-top: 35px;
-    /* border: 1px solid black; */
-    margin: 41px;
-    box-shadow: 0 0 2px #00000078;
+  margin: 0px 40px;
 }
+
 .profil-presentation{
-  background: #ffff9782;
+  background: #fff097b0;
     box-shadow: 0 0 2px #0000002e;
     margin:20px;
+    width: 50%;
+    margin: 32px auto;
+    padding-top: 10px;
 }
 .card-gallery{
   box-shadow: 0 0 8px #00000030;
@@ -346,6 +347,13 @@ footer {
     padding:10px;
 }
 
+.profil-info{
+  padding-top: 50px;
+  box-shadow: 0 0 6px #00000030;
+}
+.profil-username{
+  font-family: 'Bangers', cursive;
+}
 
 
 

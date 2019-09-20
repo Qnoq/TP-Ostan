@@ -123,19 +123,16 @@ class RegistrationFormType extends AbstractType
                 'label_attr' => array('class' => 'pure-material-checkbox'),
 
             ])
-            
-
-
-            // ->add('siret', NumberType::class,[
-            //     'label' => false,
-            //     'attr' => [
-            //         'placeholder' => 'Siret'
-            //     ],])
-            //     ->add('companyname', TextType::class,[
-            //         'label' => false,
-            //         'attr' => [
-            //             'placeholder' => 'Nom de l\'entreprise'
-            //         ],])
+            ->add('siret', NumberType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Siret'
+                ],])
+                ->add('companyname', TextType::class,[
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Nom de l\'entreprise'
+                    ],])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'Accepter les conditions générales d\'utilisation',
