@@ -1,6 +1,7 @@
 <?php
 namespace App\Utils;
 
+// fonction : transformer le titre ou tag en slug
 
 class Slugger {
 

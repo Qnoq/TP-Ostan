@@ -37,7 +37,7 @@ class UserType extends AbstractType
             $form = $event->getForm(); //contient le formulaire concerné en cours de creation
 
 
-            if(is_null($user->getId())){ //si mon user id est null = creation de l'utilisateur
+            if (is_null($user->getId())) { //si mon user id est null = creation de l'utilisateur
 
                 $form->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
@@ -57,62 +57,60 @@ class UserType extends AbstractType
                             'placeholder' => 'Vérifier le mot de passe'
                         ]
                     ],
-                    'constraints'=> [
+                    'constraints' => [
                         new NotBlank()
                     ]
                 ]);
-
             } else { //sinon si je ne suis pas creation , c'est que mon user a un id donc que je suis en modification
 
                 //j'ajoute au formulaire pendant l'evenement de remplissage des données mon champs password
-                $form
-                ->add('password', RepeatedType::class, [
-                    'type' => PasswordType::class,
-                    'invalid_message' => 'The password fields must match.',
-                    'options' => ['attr' => ['class' => 'password-field']],
-                    'required' => true,
-                    'first_options'  => [
-                        'label' => 'Password',
-                        'attr' => [
-                            'placeholder' => 'Laissez vide si inchangé'
-                        ]
-                    ],
-                    'second_options' => [
-                        'label' => 'Repeat Password',
-                        'attr' => [
-                            'placeholder' => 'Laissez vide si inchangé'
-                        ]
-                    ],
-                ])
-                ->add('jobs', EntityType::class, [
-                    'class' => Job::class,
-                    'multiple' => true,
-                    'expanded' => true,
-                    
-                    
-                ]);
+                $form->add('password', RepeatedType::class, [
+                        'type' => PasswordType::class,
+                        'invalid_message' => 'The password fields must match.',
+                        'options' => ['attr' => ['class' => 'password-field']],
+                        'required' => true,
+                        'first_options'  => [
+                            'label' => 'Password',
+                            'attr' => [
+                                'placeholder' => 'Laissez vide si inchangé'
+                            ]
+                        ],
+                        'second_options' => [
+                            'label' => 'Repeat Password',
+                            'attr' => [
+                                'placeholder' => 'Laissez vide si inchangé'
+                            ]
+                        ],
+                    ])
+                    ->add('jobs', EntityType::class, [
+                        'class' => Job::class,
+                        'multiple' => true,
+                        'expanded' => true,
+
+
+                    ]);
             }
-            
         };
-        
-        $builder
+
+        $builder            
+            ->addEventListener(FormEvents::PRE_SET_DATA, $listener)
             ->add('avatar', FileType::class, [
                 'data_class' => null,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Image'
-                ],])
-            ->addEventListener(FormEvents::PRE_SET_DATA, $listener)
-            ->add('firstname', TextType::class,['label' => 'Prénom'])
-            ->add('lastname', TextType::class,['label' => 'Nom'])
-            ->add('username', TextType::class,['label' => 'Pseudo'])
-            ->add('companyname', TextType::class,['label' => 'Nom de l\'entreprise'])
-            ->add('description', TextType::class,['label' => 'description'])
+                ],
+            ])
+            ->add('firstname', TextType::class, ['label' => 'Prénom'])
+            ->add('lastname', TextType::class, ['label' => 'Nom'])
+            ->add('username', TextType::class, ['label' => 'Pseudo'])
+            ->add('companyname', TextType::class, ['label' => 'Nom de l\'entreprise'])
+            ->add('description', TextType::class, ['label' => 'description'])
             ->add('birthdate', BirthdayType::class, [
                 'widget' => 'choice',
             ])
             ->add('phonenumber')
-            ->add('email', EmailType::class,['label' => 'Adresse email'])
+            ->add('email', EmailType::class, ['label' => 'Adresse email'])
 
             ->add('jobs', EntityType::class, [
                 'class' => Job::class,
@@ -122,18 +120,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'material-checkbox'
                 ],
-            ])
-
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -142,7 +129,7 @@ class UserType extends AbstractType
             'data_class' => User::class,
             //cet attribut permet de desactiver la validation HTML5
             //malgres le fait qu'il soit pratique, il est souvent demandé quelle soient desactivée pour que  l'intégration des messages d'erreurs prenne le pas sur ce que le navigateur propose
-            'attr' => ['novalidate' => 'novalidate'] 
+            'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }
