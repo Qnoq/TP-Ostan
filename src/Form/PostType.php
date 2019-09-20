@@ -26,21 +26,21 @@ class PostType extends AbstractType
             
             ->add('picture1', FileType::class, [
                 'data_class' => null,
-                'label' => false,
+                'label' => 'Affiche (jpg,png,gif)',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture2', FileType::class, [
                 'data_class' => null,
-                'label' => false,
+                'label' => 'Affiche (jpg,png,gif)',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'
                 ],])
             ->add('picture3', FileType::class, [
                 'data_class' => null,
-                'label' => false,
+                'label' => 'Affiche (jpg,png,gif)',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Image'

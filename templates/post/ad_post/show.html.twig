@@ -37,28 +37,22 @@
 
         <div class="card-body">
             <div class="container1">
-
                 <img src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
-
             </div>
             <div class="container1">
-
                 <img src="{{ asset(picture_upload_path ~ (post.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
-
             </div>
             <div class="container1">
-
                 <img src="{{ asset(picture_upload_path ~ (post.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
-
             </div>
         </div>
+
         <div id="modal01" class="modal" onclick="this.style.display='none'">
             <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="modal-cont">
                 <img id="img01" style="max-width:100%">
             </div>
         </div>
-
 
         <div class="metadata mx-3 mb-3 d-flex justify-content-between">
             <div class="d-flex justify-content-start">
