@@ -18,6 +18,7 @@ use App\Repository\StatusRepository;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -261,4 +262,20 @@ class PostController extends AbstractController
            'adPosts' => $adPosts,
        ]);
     }
+
+    /**
+     * Suppression d'une annonce (pour qu'un user qui a posté une annonce puisse la supprimer)
+     *
+     * @Route("/annonces/delete/{slug}", name="adDelete", methods="DELETE")
+     */
+    public function adDelete(Request $request, Post $post)
+    {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($post);
+            $em->flush();
+        }
+        return $this->redirectToRoute('ad_post');
+    }
+
 }
