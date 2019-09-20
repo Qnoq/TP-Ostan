@@ -50,7 +50,7 @@ class TagController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre tag a bien été enregistré  !'
+                'Votre tag a bien été enregistré !'
             );
 
             return $this->redirectToRoute('backend_tagList');
