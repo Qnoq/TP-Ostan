@@ -17,10 +17,10 @@
             <div class="form-group-stan">
             {{ form_row(registrationForm.birthdate) }}
                 <img class='img-stan' src="{{asset('images/stanpool.png')}}" alt="logo du site">
-
                 {{ form_row(registrationForm.jobs) }}
             </div>
-            
+            {{ form_row(registrationForm.siret) }}
+            {{ form_row(registrationForm.companyname) }}
             {{ form_row(registrationForm.phonenumber) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.jobs) }}
@@ -32,6 +32,22 @@
             {{ form_end(registrationForm) }}
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+<script>
+function txtInput() {
+        // Get the checkbox
+        var checkBox = document.getElementById("registration_form_jobs");
+        // Get the output text
+        var siret = document.getElementById("registration_form_siret");
+ 
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) {
+            siret.style.display = "block";
+        } else {
+            siret.style.display = "none";
+        }
+    }
 
-
+</script>
 {% endblock %}
