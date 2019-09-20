@@ -23,7 +23,7 @@
                         <div class="talktest">
                             <p class="message-content">{{message.content}}</p>
                             <div class="message-author">envoyé le
-                                {{message.createdAt|date('d M Y à H:m')}}</div>
+                                {{message.createdAt|date('d/m/Y à G:i')}}</div>
                         </div>
                     </div>
                 {% elseif message.userReceiver == app.user %}
@@ -33,7 +33,7 @@
                             <p class="message-content">{{message.content}}</p>
                             <div class="message-author-response">écrit par
                                 {{message.user}}, le
-                                {{message.createdAt|date('d M Y à H:m')}}
+                                {{message.createdAt|date('d/m/Y G:i')}}
                             </div>
                         </div>
                     </div>
