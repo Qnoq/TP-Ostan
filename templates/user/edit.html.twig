@@ -12,6 +12,6 @@
     {{ form_end(form) }}
 
     <div class="my-2">
-        <a href="{{ path('user_show', {'id': app.user.id }) }}">Retour à mon profil</a>
+        <a href="{{ path('user_show', {'slug': app.user.slug }) }}">Retour à mon profil</a>
     </div>
 {% endblock %}

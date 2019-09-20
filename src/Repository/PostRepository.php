@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Job;
 use App\Entity\Post;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -49,32 +50,35 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @return Post[] Returns an array of Post objects
      */
-    public function searchAdList($criterias)
+    public function searchAdList($name)
     {
-            //return $this->createQueryBuilder('p')
-            // relier les tables job et user, dans lesquelles on va plonger
-            // ->innerJoin('p.jobs', 'j')
-            // ->innerJoin('p.users', 'u')
-
-            // ->andWhere('j IN (:jobs)')
-            // ->andWhere('u IN (:users)')
-            // ->setParameters(array(
-            //     'jobs' => $criterias['jobs'],
-            //     'users' => $criterias['users']
-            // ));
-            // ->getQuery()
-            // ->getResult();
-
-
-            $query = $this->getEntityManager()->createQuery("
-            SELECT * 
-            FROM post 
-            INNER JOIN job 
-            WHERE post.type = 'Annonce' AND job.name = 'Auteur'         
-        ");
-
-        return $query->getResult(); 
+        //     $query = $this->getEntityManager()
+        //     ->createQuery("
+        //     SELECT p 
+        //     FROM App\Entity\Post p
+        //     LEFT JOIN App\Entity\Job j 
+        //     WHERE j.name = :val
+        //     SET PARAMETER 'val'= $name
+        //     ORDER BY p.createdAt DESC   
+        // ");
+        // return $query->getResult(); 
             
+
+        // return $this->createQueryBuilder('p')
+        // ->innerJoin('j')
+        // ->andWhere('j.name = :val')
+        // ->setParameter('val', $name)
+        // ->orderBy('p.createdAt', 'DESC')
+        // ->getQuery()
+        // ->getResult();
+
+        $query = $this->getEntityManager()
+                      ->createQuery("
+                SELECT p
+                FROM App\Entity\Post p 
+                JOIN App\Entity\Job j 
+                ");
+        return $query->getResult(); 
     }
 
     
