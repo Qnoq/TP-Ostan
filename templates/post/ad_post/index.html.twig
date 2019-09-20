@@ -75,7 +75,7 @@
                             Publié le
                             {{ post.createdAt | date('d/m/Y à H:i') }}
                             par
-                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'id': post.user.id }) }}">{{ post.user }}</a>
+                            <a class="text-dark font-weight-bold" href="{{path('user_show', {'slug': post.user.slug }) }}">{{ post.user }}</a>
                         </span>
                     </div>
                 </article>

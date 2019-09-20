@@ -13,6 +13,7 @@ use App\Form\GalleryPostType;
 use App\Repository\JobRepository;
 use App\Repository\GalleryPostRepository;
 use App\Repository\UserRepository;
+use App\Utils\Slugger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -29,9 +30,9 @@ class UserController extends AbstractController
      *
      * Page de profil
      *
-     * @Route("/profil/{id}", name="user_show", methods ={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/profil/{slug}", name="user_show", methods ={"GET","POST"})
      */
-    public function show(GalleryPostRepository $galleryPost, UserRepository $userRepository, JobRepository $jobRepository, User $user, Request $request, $id)
+    public function show(GalleryPostRepository $galleryPost, UserRepository $userRepository, JobRepository $jobRepository, User $user, Request $request, Slugger $slugger)
     {
         $gallery = new GalleryPost();
         $formGallery = $this->createForm(GalleryPostType::class, $gallery);
@@ -95,6 +96,9 @@ class UserController extends AbstractController
 
             $gallery->setUser($user);
 
+            $slug = $slugger->slugify($user->getUsername());
+            $user->setSlug($slug);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($gallery);
             $entityManager->flush();
@@ -104,7 +108,7 @@ class UserController extends AbstractController
                 'Votre document a bien été enregistré !'
             );
 
-            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
         }
 
         return $this->render('user/show.html.twig', [
@@ -117,9 +121,9 @@ class UserController extends AbstractController
     /**
      * Modification d'un user :
      *
-     * @Route("/profil/edit/{id}", name="user_edit", methods={"GET","POST"})
+     * @Route("/profil/edit/{slug}", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder, UserRepository $userRepository, Slugger $slugger): Response
     {
 
         $job = new Job();
@@ -137,13 +141,16 @@ class UserController extends AbstractController
             $criterias = $request->request->get($formName);
 
             $users = $userRepository->findJob($criterias);
+
+            $slug = $slugger->slugify($user->getUsername());
+            $user->setSlug($slug);
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($job);
             $entityManager -> flush();
             
            
-            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
         }
 
         $oldAvatar = $user->getAvatar();
@@ -222,7 +229,7 @@ class UserController extends AbstractController
             );
 
             return $this->redirectToRoute('user_show', [
-                'id' => $user->getId()
+                'slug' => $user->getSlug()
             ]);
         }
 
@@ -247,9 +254,9 @@ class UserController extends AbstractController
     /**   
      * Suppression d'un user :
      *
-     * @Route("/profil/delete/{id}", name="user_delete", methods={"DELETE","POST"}, requirements={"id"="\d+"})
+     * @Route("/profil/delete/{slug}", name="user_delete", methods={"DELETE","POST"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user, Slugger $slugger): Response
     {
 
         // Je dois d'abord effacer la session pour supprimer le user avec lequel je suis connecté :
@@ -257,7 +264,11 @@ class UserController extends AbstractController
         $session = new Session();
         $session->invalidate();
 
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getSlug(), $request->request->get('_token'))) {
+
+            $slug = $slugger->slugify($user->getUsername());
+            $user->setSlug($slug);
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

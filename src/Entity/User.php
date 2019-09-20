@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Job;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use App\Utils\Slugger as Slugger;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -153,6 +154,12 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="users")
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=110)
+     */
+    private $slug;
+    
 
     public function __construct()
     {
@@ -647,4 +654,37 @@ class User implements UserInterface, \Serializable
     }
 
     
+    /**
+     * indique a doctrine d'appliquer cette fonction sur notre propriété slug lorsqu'il juste avant (pre) d'etre enregistré pour la premiere fois (persist) OU mis a jour (update)
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function applySlug(){
+        // slugger attend un parametre true ou false pour mettre la chaine passé en minuscule ou non
+        $slugger = new Slugger(true);
+        
+        $slug = $slugger->slugify($this->username);
+        $this->slug = $slug;
+     }
+
+    /**
+     * Get the value of slug
+     */ 
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set the value of slug
+     *
+     * @return  self
+     */ 
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 }
