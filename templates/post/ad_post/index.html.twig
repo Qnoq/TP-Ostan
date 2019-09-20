@@ -14,7 +14,7 @@
     <section
         class="section-post">
 
-    
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
         {% for post in listPosts %}
@@ -85,7 +85,14 @@
     </section>
 
 
-    
+     {% else %}
+
+    <p>Page accessible uniquement aux utilisateurs authentifiés. Merci de 
+    <a href="{{ path ('app_login') }}">vous connecter</a>
+    ou  <a href="{{ path ('app_register') }}"> créer un compte.</a>
+    </p>
+
+    {% endif %}
 
 
 {% endblock %}

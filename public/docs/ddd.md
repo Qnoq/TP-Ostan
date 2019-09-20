@@ -9,9 +9,9 @@
 |firstname|VARCHAR(100)|NOT NULL|Le prénom de l'utilisateur|
 |lastname|VARCHAR(100)|NOT NULL|Le nom de famille de l'utilisateur|
 |username|VARCHAR(100)|NOT NULL|Le nom de l'utilisateur|
-|companyname|VARCHAR(100)|NULL|Le nom de l'entreprise (editeur)|
-|description|LONGTEXT|NULL|La description de l'utilisateur|
-|siret|INT(11)|NULL|Le SIRET de l'entreprise (editeur)|
+|companyname|VARCHAR(100)|NOT NULL|Le nom de l'entreprise (editeur)|
+|description|TEXT|NULL|La description de l'utilisateur|
+|siret|INT(14)|NULL|Le SIRET de l'entreprise (editeur)|
 |password|VARCHAR(255)|NOT NULL|Le mot de passe de l'utilisateur|
 |birthdate|DATETIME|NOT NULL|La date de naissance de l'utilisateur|
 |email|VARCHAR(255)|NOT NULL|L'adresse mail de l'utilisateur|
@@ -40,8 +40,6 @@
 |description|LONGTEXT|NOT NULL|Paragraphe du post|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création du post|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour du coup|
-|type|VARCHAR(60)|NOT NULL|Distinguer les annonces des articles conseils|
-|slug|VARCHAR(110)|NOT NULL|Slugger|
 
 
 ## GALLERYPOST
@@ -53,7 +51,7 @@
 |picture_1|VARCHAR(255)|NULL|Dessin/image/storyboard (...) de l'utilisateur|
 |picture_2|VARCHAR(255)|NULL|Dessin/image/storyboard (...) de l'utilisateur|
 |picture_3|VARCHAR(255)|NULL|Dessin/image/storyboard (...) de l'utilisateur|
-|description|LONGTEXT|NOT NULL|Paragraphe de la galerie|
+|description|TEXT|NOT NULL|Paragraphe de la galerie|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de la galerie|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour de la galerie|
 
@@ -79,7 +77,6 @@
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED| L'identifiant du thème |
 |name|VARCHAR(20)|NOT NULL|Nom du thème|
-|slug|VARCHAR(110)|NOT NULL|Slugger|
 
 ## STATUS
 
@@ -94,7 +91,7 @@
 |Champ|Type|Spécificités|Description|
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, AUTO_INCREMENT, UNSIGNED|L'identifiant du message |
-|content|LONGTEXT|NOT NULL|Contenu du message|
+|content|TEXT|NOT NULL|Contenu du message|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création du message|
-|email|VARCHAR(255)|NULL|Texte du message inscrit dans le formulaire de contact|
+|email|VARCHAR(255)|NOT NULL|Texte du message inscrit dans le formulaire de contact|
 |title|CARCHAR(100)|NOT NULL|Titre du message inscrit dans le formulaire de contact|

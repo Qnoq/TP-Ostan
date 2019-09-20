@@ -31,19 +31,16 @@ class TagController extends AbstractController
     /**
      * @Route("tag/new", name="tag_new")
      */
-    public function new(Request $request, Slugger $slugger) : Response
+    public function new(Request $request, Slugger $slugger)
     {
         $tag = new Tag();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
+        $slug = $slugger->slugify($tag->getName());
+        $tag->setSlug($slug);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-            $slug = $slugger->slugify($tag->getName());
-            $tag->setSlug($slug);
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager -> persist($tag);
             $entityManager -> flush();
@@ -57,7 +54,6 @@ class TagController extends AbstractController
         }
        return $this->render('backend/tag/newTag.html.twig', [
            'form' => $form->createView(),
-           //'slug'=> $slug
        ]);
     }
 

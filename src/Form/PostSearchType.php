@@ -23,11 +23,11 @@ class PostSearchType extends AbstractType
                 'label_attr' => array('class' => 'pure-material-checkbox'),
                 
             ])
-            // ->add('users', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'username',
-            //     'multiple' => true,
-            // ])
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+                'multiple' => true,
+            ])
             ->add('Rechercher', SubmitType::class);;
     }
 
