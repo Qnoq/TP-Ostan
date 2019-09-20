@@ -15,14 +15,16 @@
                 <div
                     class="d-flex">
 
+                    <div class="container1">
                     {# Picture 1 de préférence #}
-                    <img class="mr-3 mb-3" src="https://via.placeholder.com/260x200" alt="">
+                    <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advice_post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+                    </div>
 
                     <div class="">
                         <div>
                             <p>
                                 {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                                {{ advice_post.description|truncate(200, true) }}
+                                {{ advice_post.description|truncate(200, true)|raw }}
                             </p>
                         </div>
 
@@ -44,4 +46,6 @@
         {% endif %}
     {% endfor %}
     {{ knp_pagination_render(advicelistPosts) }}
+{% endblock %}
+{% block javascripts %}
 {% endblock %}
