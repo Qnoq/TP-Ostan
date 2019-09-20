@@ -66,6 +66,7 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('birthdate', BirthdayType::class, [
+                'years' => range(1940,2019),
                 'widget' => 'choice',
                 'label' => 'Date anniversaire',
             ])
