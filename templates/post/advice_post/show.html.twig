@@ -14,7 +14,7 @@
             <div>
                 <p class="mt-5 px-3">
                         {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                        {{ advicePost.description }}
+                        {{ advicePost.description|raw }}
                 </p>
             </div>
         </div>
@@ -23,14 +23,25 @@
             {# Exemple emplacement des images #}
 
             {# Picture 1 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
+            <div class="container1">
+            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            </div>
 
             {# Picture 2 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
+            <div class="container1">
+            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            </div>
 
             {# Picture 3 #}
-            <img class="mr-3 mb-3" src="https://via.placeholder.com/360x280" alt="">
-            
+            <div class="container1">
+            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            </div> 
+        </div>
+        <div id="modal01" class="modal" onclick="this.style.display='none'">
+            <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="modal-cont">
+                <img id="img01" style="max-width:100%">
+            </div>
         </div>
         
         <div class="metadata mr-3 mb-3 font-italic text-muted d-flex justify-content-end">
@@ -41,4 +52,12 @@
 
     <a class="text-dark text-center" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
+{% endblock %}
+{% block javascripts %}
+<script>
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+        }
+</script>
 {% endblock %}
