@@ -15,12 +15,13 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'links', groups: [ 'links' ] },
 		{ name: 'insert', groups: [ 'insert' ] },
 		'/',
+		'/',
+		'/',
 		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'colors', groups: [ 'colors' ] },
 		{ name: 'tools', groups: [ 'tools' ] },
 		{ name: 'others', groups: [ 'others' ] },
 		{ name: 'about', groups: [ 'about' ] }
 	];
-
-	config.removeButtons = 'Source,Save,Templates,Cut,Undo,Find,SelectAll,Scayt,Form,NumberedList,CopyFormatting,Outdent,Blockquote,JustifyLeft,BidiLtr,Link,Image,FontSize,TextColor,Maximize,About,BGColor,ShowBlocks,RemoveFormat,BulletedList,Indent,CreateDiv,JustifyCenter,BidiRtl,Unlink,Flash,JustifyRight,Language,Anchor,Table,JustifyBlock,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Replace,Redo,Copy,Paste,PasteText,PasteFromWord,NewPage,Preview,Print';
+	config.removeButtons = 'Source,Save,Templates,NewPage,Preview,Print,Cut,Copy,PasteText,Paste,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,RemoveFormat,CopyFormatting,NumberedList,BulletedList,Outdent,Indent,Blockquote,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,FontSize,TextColor,BGColor,Maximize,ShowBlocks,About';
 };
