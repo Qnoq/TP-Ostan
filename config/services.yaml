@@ -38,7 +38,7 @@ services:
             
     #ici je definit explicitement mon service
     App\Utils\Slugger:
-        arguments: #je sepcifie les argument et la valeur qui va etre prise par ces meme arguments dans le constructeur de ce service
+        arguments: #je specifie les arguments et la valeur qui va etre prise par ces meme arguments dans le constructeur de ce service
             $toLower : true
     
     # pour declarer un service qui sera declenché par un event doctrine
