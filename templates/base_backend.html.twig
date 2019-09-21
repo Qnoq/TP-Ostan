@@ -60,7 +60,9 @@
                 </nav>
                 <div class="jumbotron">
                     <div>
+                        <a href="{{path('advice_post')}}">
                         <img class='logo' src="{{asset('images/logo.svg')}}" alt="">
+                        </a>
                     </div>
                     <div class='nav-connexion'>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
