@@ -5,38 +5,76 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class ModifyUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avatar')
-            ->add('firstname')
+            ->add('avatar', FileType::class, [
+                'data_class' => null,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Photo du profil'
+                ],
+                'required'=>false
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Vous devez renseigner un prénom',
+                    ]),
+                ]])
             ->add('lastname')
-            ->add('username')
             ->add('companyname')
             ->add('description')
             ->add('siret')
-            ->add('password')
-            ->add('birthdate')
+            ->add(
+                'password',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Les mots de passes ne correspondent pas.',
+                    'options' => ['attr' => ['class' => 'password-field']],
+                    'required' => true,
+                    'first_options'  => [
+                        'label' => 'Mot de passe',
+                        'attr' => [
+                            'placeholder' => '(Laissez vide si inchangé)'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => 'Vérifiez le mot de passe',
+                        'attr' => [
+                            'placeholder' => '(Laissez vide si inchangé)'
+                        ]
+                    ]
+                ]
+            )
+            ->add('birthdate', BirthdayType::class, [
+                'widget' => 'choice'])
+                
             ->add('email')
             ->add('address')
             ->add('phonenumber')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('role')
-            ->add('jobs')
-            ->add('tags')
-            ->add('status')
-        ;
+            ->add('jobs');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attr' => ['novalidate' => 'novalidate']
+
         ]);
     }
 }

@@ -7,13 +7,14 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\JobType;
 use App\Form\UserType;
+use App\Utils\Slugger;
 use App\Entity\GalleryPost;
+use App\Form\ModifyUserType;
 use App\Form\UserSearchType;
 use App\Form\GalleryPostType;
 use App\Repository\JobRepository;
-use App\Repository\GalleryPostRepository;
 use App\Repository\UserRepository;
-use App\Utils\Slugger;
+use App\Repository\GalleryPostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -126,45 +127,38 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder, UserRepository $userRepository, Slugger $slugger): Response
     {
 
-        $job = new Job();
+        
+        // $job = new Job();
 
-        $jobName = $job->getName();
-        $job->setName($jobName);
+        // $jobName = $job->getName();
+        // $job->setName($jobName);
 
-        $formJob = $this->createForm(JobType::class, $job);
-        $formJob->handleRequest($request);
+        // $formJob = $this->createForm(JobType::class, $job);
+        // $formJob->handleRequest($request);
 
 
-        if ($formJob->isSubmitted() && $formJob->isValid()) {
+        // if ($formJob->isSubmitted() && $formJob->isValid()) {
+        //     $formName = $user->getName();
+        //     $criterias = $request->request->get($formName); 
+        //     $users = $userRepository->findJob($criterias);
 
-            $formName = $$user->getName();
-            $criterias = $request->request->get($formName);
-
-            $users = $userRepository->findJob($criterias);
-
-            $slug = $slugger->slugify($user->getUsername());
-            $user->setSlug($slug);
+        //     $slug = $slugger->slugify($user->getUsername());
+        //     $user->setSlug($slug);
             
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager -> persist($job);
-            $entityManager -> flush();
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager -> persist($job);
+        //     $entityManager -> flush();
             
            
-            return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
-        }
+        //     return $this->redirectToRoute('user_show', ['slug' => $user->getSlug()]);
+        // }
 
+        //Je récupère l'ancien avatar
         $oldAvatar = $user->getAvatar();
-
-        if(!empty($oldAvatar)) {
-            $user->setAvatar(
-                new File($this->getParameter('image_directory').'/'.$oldAvatar)
-            );
-        }
-
         // Je récupère l'ancien mot de passe :
         $oldPassword = $user->getPassword();
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ModifyUserType::class, $user);
 
         // Met à jour l'objet User avec les nouvelles valeurs
         // Si l'objet User n'a pas eu de nouveau mot de passe alors le champ "mot de passe" est vide et conserve donc l'ancien mot de passe
@@ -172,12 +166,12 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            dump($user);
+            die;
+
             if(!is_null($user->getAvatar())){
-
                 $file = $user->getAvatar();
-            
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-
                 try {
                     $file->move(
                         $this->getParameter('image_directory'),
@@ -190,14 +184,12 @@ class UserController extends AbstractController
                 $user->setAvatar($fileName);
 
                 if(!empty($oldAvatar)){
-
                     unlink(
                         $this->getParameter('image_directory') .'/'.$oldAvatar
                     );
                 }
 
             } else {
-                
                 $user->setAvatar($oldAvatar);//ancien nom de fichier
             }
 
@@ -208,26 +200,20 @@ class UserController extends AbstractController
 
             // Si le mot de passe est nul
             if (is_null($user->getPassword())) {
-
                 // Le mot de passe encodé est l'ancien mot de passe
                 $encodedPassword = $oldPassword;
             } else {
-
                 // Comme dans la fonction new
                 $encodedPassword = $encoder->encodePassword($user, $user->getPassword());
-               
             }
 
             // Comme dans la fonction new
             $user->setPassword($encodedPassword);
-
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash(
                 'info',
                 'Modification effectuée !'
             );
-
             return $this->redirectToRoute('user_show', [
                 'slug' => $user->getSlug()
             ]);
@@ -235,9 +221,9 @@ class UserController extends AbstractController
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
-            'job' => $job,
+            // 'job' => $job,
             'form' => $form->createView(),
-            'formJob' => $formJob->createView(),
+            // 'formJob' => $formJob->createView(),
         ]);
     }
 

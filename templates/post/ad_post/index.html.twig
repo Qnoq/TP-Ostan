@@ -11,9 +11,7 @@
 
         }
     </style>
-    <section
-        class="section-post">
-
+    <section class="section-post">
     
 
         {# Boucle pour afficher la liste des ANNONCES qui sont en BDD #}
@@ -29,8 +27,8 @@
                     <div
                         class="d-flex">
                         {# Picture 1 de préférence #}
-                        <div class="container1">
-                        <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
+                        <div class="container1 mr-2">
+                        <img src="{{ asset(picture_upload_path ~ (post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)">
                         </div>
 
                         <div id="modal01" class="modal" onclick="this.style.display='none'">
