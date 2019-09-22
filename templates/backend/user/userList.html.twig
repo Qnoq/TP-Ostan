@@ -67,7 +67,7 @@
             </tbody>
         </table>
     </div>
-                {{ knp_pagination_render(listUser) }}
+    {{ knp_pagination_render(listUser) }}
 {% endblock %}
 {% block javascripts %}
     <script>
@@ -119,11 +119,9 @@
         }
 
         $(document).ready(function () {
-$('#horizontalScroll').dataTable({
-"scrollX": true
-});
-$('.dataTables_length').addClass('bs-select');
-});
+            $('#horizontalScroll').dataTable({"scrollX": true});
+            $('.dataTables_length').addClass('bs-select');
+        });
     </script>
 
 {% endblock %}
