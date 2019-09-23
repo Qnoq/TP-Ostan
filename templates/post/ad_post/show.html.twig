@@ -88,7 +88,7 @@
                                 {{comment.status.code == "BLOCKED" ? "Débloquer" : "Bloquer"}}
                             </button>
                         {% endif %}
-                        <p class="card-text">{{comment.description}}</p>
+                        <p class="card-text">{{comment.description|raw}}</p>
                         <p class="card-text font-italic text-muted">Posté par
                             {{comment.user}}
                             le
