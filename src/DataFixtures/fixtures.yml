@@ -19,6 +19,7 @@ App\Entity\User:
     status: "@status*"
     tags: "2x @tag*"
     jobs: "2x @job*"
+    slug: "<word()>"
 
 App\Entity\Role:
   role1:

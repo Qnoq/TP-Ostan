@@ -6,7 +6,7 @@
 
             {# Si je suis authentifié, j'accède au profil de l'utilisateur lorsque je clique sur un utilisateur de la sidebar #}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('user_show', {'id': user.id }) }}" class="d-flex flex-row pb-2">
+            <a href="{{ path('user_show', {'slug': user.slug }) }}" class="d-flex flex-row pb-2">
 
             {# Sinon je suis dirigé vers le formulaire de connexion #}
             {% else %}

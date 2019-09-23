@@ -273,14 +273,17 @@ footer {
 
 
 /* ******PROFIL **** */
+.mask div{
+  width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
 .image-gallery {
   width: 250px;
 }
-.gallery-form{
-  width:50%;
-  margin:auto;
-}
+
 
 .profil-avatar {
   position: relative;
@@ -310,13 +313,15 @@ footer {
 .mask {
   width: 250px;
   height: 250px;
-  
-  overflow: hidden;
-  border-radius: 50%;
+  /* overflow: hidden; */
+  /* border-radius: 50%; */
   position: relative;
-  top: 130px;
+  top: 70px;
   margin: 0 auto;
+  /* box-shadow: 0 0 4px black; */
 }
+
+
 
 /* Pour la page Tag */
 .mask-2 {
@@ -327,25 +332,61 @@ footer {
   border-radius: 50%;
   top: 90px;
 }
+.title-tag{
+  font-family: 'Bangers', cursive;
+}
+
+
+
 
 .profil-card {
   text-align: center;
-    padding-top: 35px;
-    /* border: 1px solid black; */
-    margin: 41px;
-    box-shadow: 0 0 2px #00000078;
+  margin: 0px 20%;
+  position: relative;
 }
-.profil-presentation{
-  background: #ffff9782;
-    box-shadow: 0 0 2px #0000002e;
-    margin:20px;
+
+.profil-presentation{  
+    margin:20px auto;
+    width: 50%;
+    margin: 32px auto;
+    padding-top: 10px;
 }
 .card-gallery{
   box-shadow: 0 0 8px #00000030;
-    margin: 20px;
+  margin: 10px 0;
     padding:10px;
 }
 
+.profil-info{
+  padding-top: 50px;
+  box-shadow: 0 0 6px #00000030;
+}
+.profil-username{
+  font-family: 'Bangers', cursive;
+}
+
+.btn-msg{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* z-index: 99; */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  display: flex !important;
+  align-items: center;
+  font-size: 1.5em;
+  justify-content: center;
+}
+
+.section-gallery{
+  display:flex;
+  flex-direction: column;
+  margin-top: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
 
 
 
@@ -495,8 +536,9 @@ ul {
   position: relative;
   top: -50px;
   padding: 5px;
-  background-color: white;
-  box-shadow: 0 0 2px #00000066;
+  background: #ffe970;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0px #a1a1a133;
 }
 
 /******** PAGE 404 *****************/
@@ -879,4 +921,34 @@ ul {
 }
 .toast-error{
   background-color: rgb(233, 77, 77);
+}
+
+.tri-right.user-card:after {
+  content: " ";
+  position: relative;
+  width: 0;
+  height: 0px;
+  left: auto;
+  right: 0px;
+  top: auto;
+  bottom: -46px;
+  border: 22px solid;
+  border-color: #ffffff #007bff00 transparent #dc354500;
+
+}
+.tri-right.user-card:before {
+  content: " ";
+  position: absolute;
+  
+  top: auto;
+  bottom: -46px;
+  border: 22px solid;
+  border-color: #4950570a #007bff00 transparent #dc354500;
+
+
+}
+
+
+.user-card{
+  position: relative;
 }

@@ -16,80 +16,73 @@
 
     <div class="profil-card">
         <div class="mask">
-            <a href="{{ path('user_show', { 'id': user.id }) }}">
-                <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
-            </a>
-        </div>
-        <div>
-
-
-            <div class="pt-5">
-                <h1 class="font-weight-bold">{{ user.username }}</h1>
+            <div>
+                <a href="{{ path('user_show', { 'slug': user.slug }) }}">
+                    <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar border border-dark">
+                </a>
             </div>
+            {% if app.user %}
+                {% if user.slug != app.user.slug %}
+                    <a class="btn btn-primary btn-msg animated rubberBand " href="{{path ('newmessage') }} ">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                {% endif %}
+            {% endif %}
 
-            <div class="profil-presentation">
-                <p>
-                    <span class="font-weight-bold">Adresse email :</span>
-                    {{ user.email }}
-                </p>
+        </div>
 
-                <div>
-                    <span class="font-weight-bold">Je suis :</span>
-                    <ul>
-                        {# Affichage du ou des job(s) de l'utilisateur #}
-                        {% for job in user.jobs %}
-                            <li>
-                                {{ job.name }}
-                            </li>
-                        {% endfor %}
-                    </ul>
+        <div>
+            <div class="profil-info">
+                <div class="pt-5">
+                    <h1 class="profil-username">{{ user.username }}</h1>
+                    <p>{{ user.email }}</p>
+                    {# Affichage du ou des job(s) de l'utilisateur #}
+                    {% for job in user.jobs %}
+                        <div class="badge badge-pill badge-default">
+                            {{ job.name }}
+                        </div>
+                    {% endfor %}
+                    <div class="blockquote-footer">
+                        <p>Membre depuis le
+                            {{ user.createdAt | date('d/m/Y à H:i') }}</p>
+                    </div>
                 </div>
 
-                <p>
-                    <span class="font-weight-bold">Présentation :</span>
-                </p>
 
-                <p class="mx-5">{{ user.description }}</p>
+                <div class="profil-presentation">
+                    <h4 class="profil-username mt-3 ">Présentation :</h4>
 
-                <div
-                    class="d-flex justify-content-start ml-5 pt-3">
-                    {# Affichage du ou des tag(s) de l'utilisateur #}
+                    <p class="mx-5">{{ user.description }}</p>
                     {% for tag in user.tags %}
-                        <p>
-                            <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill info-color lighten-2 mr-1">{{ tag.name }}</a>
-                        </p>
+                        <div class="badge badge-pill badge-primary mb-2">
+                            {{ tag.name }}
+                        </div>
                     {% endfor %}
                 </div>
 
-                <div class="blockquote-footer">
-                    <p>Membre depuis le
-                        {{ user.createdAt | date('d/m/Y à H:i') }}</p>
-                </div>
+
+                {% if app.user %}
+                    {% if user.slug == app.user.slug %}
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div>
+                                <a href="{{ path('user_edit', {'slug': app.user.slug }) }}" class="btn btn-success">
+                                    Modifier mon profil
+                                </a>
+                            </div>
+
+                            <form method="post" action="{{ path('user_delete', {'slug': app.user.slug}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer votre compte ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.slug) }}">
+                                <button class="btn btn-danger">Supprimer mon profil</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
-
-            <a class="btn btn-primary" href="{{path ('newmessage') }} ">
-                <i class="far fa-envelope"></i>
-                Envoyer un message</a>
-
-            {% if user.id == app.user.id %}
-
-                <div class="my-2 d-flex justify-content-center">
-                    <a href="{{ path('user_edit', {'id': app.user.id }) }}" class="btn btn-success">
-                        Modifier mon profil
-                    </a>
-                </div>
-
-                <form method="post" action="{{ path('user_delete', {'id': app.user.id}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet user ?');">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
-                    <button class="btn btn-danger mb-4">Supprimer mon profil</button>
-                </form>
-
-            {% endif %}
         </div>
     </div>
 
-    <section class="d-flex flex-column">
+    <section class="section-gallery">
 
         <h5 class="card-title font-weight-bold mb-0 text-center">Galerie</h5>
 
@@ -136,19 +129,21 @@
             {% endfor %}
         </div>
 
-        {% if user.id == app.user.id %}
-            <div class="gallery-form">
-                {{ form_start(formGallery) }}
-                {{ form_row(formGallery.title) }}
-                {{ form_row(formGallery.picture1) }}
-                {{ form_row(formGallery.picture2) }}
-                {{ form_row(formGallery.picture3) }}
-                {{ form_row(formGallery.description) }}
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+        {% if app.user %}
+            {% if user.slug == app.user.slug %}
+                <div class="gallery-form">
+                    {{ form_start(formGallery) }}
+                    {{ form_row(formGallery.title) }}
+                    {{ form_row(formGallery.picture1) }}
+                    {{ form_row(formGallery.picture2) }}
+                    {{ form_row(formGallery.picture3) }}
+                    {{ form_row(formGallery.description) }}
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-light border border-dark rounded-0 mb-3 font-weight-bold">Envoyer</button>
+                    </div>
+                    {{ form_end(formGallery) }}
                 </div>
-                {{ form_end(formGallery) }}
-            </div>
+            {% endif %}
         {% endif %}
 
         <a class="text-dark mt-5 text-center" href="{{ path('advice_post')}}">Revenir à l'accueil</a>

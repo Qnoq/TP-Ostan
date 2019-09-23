@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Job;
+use App\Entity\Tag;
+
 use App\Entity\User;
 use App\Form\JobType;
 use phpDocumentor\Reflection\DocBlock\Description;
@@ -38,6 +40,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Avatar'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Votre avatar ne doit pas être vide',
+                    ]),
+                ],                
             ])
 
             ->add('firstname', TextType::class, [
@@ -68,7 +75,7 @@ class RegistrationFormType extends AbstractType
             ->add('birthdate', BirthdayType::class, [
                 'years' => range(1940,2019),
                 'widget' => 'choice',
-                'label' => 'Date anniversaire',
+                'label' => 'Date de naissance:',
             ])
             ->add('phonenumber', TelType::class, [
                 'label' => false,
@@ -105,11 +112,11 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer un mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{limit}} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -123,25 +130,28 @@ class RegistrationFormType extends AbstractType
                 'label_attr' => array('class' => 'pure-material-checkbox'),
 
             ])
-            
-
-
-            // ->add('siret', NumberType::class,[
-            //     'label' => false,
-            //     'attr' => [
-            //         'placeholder' => 'Siret'
-            //     ],])
-            //     ->add('companyname', TextType::class,[
-            //         'label' => false,
-            //         'attr' => [
-            //             'placeholder' => 'Nom de l\'entreprise'
-            //         ],])
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'multiple' => true,
+                'attr' => ['class' => 'custom-control custom-checkbox'],
+                'label_attr' => array('class' => 'pure-material-checkbox'),
+            ])
+            ->add('siret', NumberType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Siret'
+                ],])
+                ->add('companyname', TextType::class,[
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Nom de l\'entreprise'
+                    ],])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'Accepter les conditions générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous devez accepter les conditions générales d\'utilisation',
+                        'message' => 'Vous devez accepter les conditions générales d\'utilisation pour continuer.',
                     ]),
                 ],
             ]);           
@@ -152,7 +162,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'validation_groups' => ['Default']
+            'validation_groups' => ['Default'],
         ]);
     }
 }

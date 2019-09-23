@@ -19,6 +19,7 @@
 |phonenumber|INT(10)|NULL|Le numéro de téléphone de l'entreprise (editeur)|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de l'utilisateur|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour de l'utilisateur|
+|slug|VARCHAR(110)|NOT NULL|Le slug du username|
 
 ## ROLE
 
@@ -97,4 +98,4 @@
 |content|LONGTEXT|NOT NULL|Contenu du message|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création du message|
 |email|VARCHAR(255)|NULL|Texte du message inscrit dans le formulaire de contact|
-|title|CARCHAR(100)|NOT NULL|Titre du message inscrit dans le formulaire de contact|
+|title|VARCHAR(100)|NOT NULL|Titre du message inscrit dans le formulaire de contact|

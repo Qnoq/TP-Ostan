@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Utils\Slugger;
 use App\Form\RegistrationFormType;
 use App\Repository\RoleRepository;
 use App\Repository\StatusRepository;
@@ -20,7 +21,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="app_register")
      */
-    public function register(StatusRepository $statusRepository, Request $request, GuardAuthenticatorHandler $guardHandler, UserPasswordEncoderInterface $passwordEncoder, LoginFormAuthenticator $authenticator, RoleRepository $roleRepository): Response
+    public function register(StatusRepository $statusRepository, Request $request, GuardAuthenticatorHandler $guardHandler, UserPasswordEncoderInterface $passwordEncoder, LoginFormAuthenticator $authenticator, RoleRepository $roleRepository, Slugger $slugger): Response
     {
         $code='ROLE_USER_USER';
         $defaultRole= $roleRepository->findOneByCode($code);
@@ -67,6 +68,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $slug = $slugger->slugify($user->getUsername());
+            $user->setSlug($slug);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

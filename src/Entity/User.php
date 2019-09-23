@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Job;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use App\Utils\Slugger as Slugger;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse mail.")
  */
 class User implements UserInterface, \Serializable
 {
@@ -33,7 +34,7 @@ class User implements UserInterface, \Serializable
      * mimeTypesMessage = "Please valid image format : gif, png, jpeg"
      * )
      * 
-     * @Assert\NotBlank()
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
@@ -131,6 +132,12 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="users")
+     * @Assert\Count(
+     *      min = 1,
+     *      max = 5,
+     *      minMessage = "Vous devez choisir au moins 1 tag",
+     *      maxMessage = "Vous ne pouvez pas choisir plus de {{ limit }} tags"
+     * )
      */
     private $tags;
 
@@ -153,6 +160,12 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="users")
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=110)
+     */
+    private $slug;
+
 
     public function __construct()
     {
@@ -624,8 +637,6 @@ class User implements UserInterface, \Serializable
         return serialize(array(
             $this->id,
             $this->username,
-            $this->firstname,
-            $this->email,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -638,13 +649,45 @@ class User implements UserInterface, \Serializable
         list(
             $this->id,
             $this->username,
-            $this->firstname,
-            $this->email,
             $this->password,
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
     }
 
-    
+
+    /**
+     * indique a doctrine d'appliquer cette fonction sur notre propriété slug lorsqu'il juste avant (pre) d'etre enregistré pour la premiere fois (persist) OU mis a jour (update)
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function applySlug()
+    {
+        // slugger attend un parametre true ou false pour mettre la chaine passé en minuscule ou non
+        $slugger = new Slugger(true);
+
+        $slug = $slugger->slugify($this->username);
+        $this->slug = $slug;
+    }
+
+    /**
+     * Get the value of slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set the value of slug
+     *
+     * @return  self
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 }
