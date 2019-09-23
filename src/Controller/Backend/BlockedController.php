@@ -20,16 +20,15 @@ class BlockedController extends AbstractController
      */
     public function index(PostRepository $postRepository, UserRepository $userRepository, CommentRepository $commentRepository, RoleRepository $roleRepository)
     {
-        $users = $userRepository->findAll();
-        $comments = $commentRepository->findAll();
-        $posts = $postRepository->findAll();
+        $users = $userRepository->findBy(array(), array('username' => 'ASC'));
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
         $roles = $roleRepository->findAll();
         return $this->render('backend/blocked/index.html.twig', [
             'posts' => $posts,
             'users' => $users,
             'comments' => $comments,
             'roles' => $roles
-            
         ]);
     }
 }
