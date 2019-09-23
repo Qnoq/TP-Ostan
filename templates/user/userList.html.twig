@@ -2,56 +2,62 @@
 
 {% block content %}
 
-<h1 class="font-weight-bold text-center">Utilisateurs</h1>
-                <img class='img-stan mx-auto' src="{{asset('images/stangoku.png')}}" alt="logo du site">
+<style>
+    .content {
+        margin: 1em auto;
+        width: 55%;
+
+    }
+</style>
+
+<h1 class="font-weight-bold text-center">La communauté</h1>
+<img class='img-stan mx-auto' src="{{asset('images/stangoku.png')}}" alt="logo du site">
 
 
 <section class="d-flex flex-wrap justify-content-center">
 
     {% for user in users %}
-                {# Si le status de l'utilisateur est UNBLOCKED, alors tu les affiches. #}
-                {% if user.status.code == "UNBLOCKED" %}
-                    <article class="p-4">
-                        <div class="d-flex flex-row">
+        {# Si le status de l'utilisateur est UNBLOCKED, alors tu les affiches. #}
+        {% if user.status.code == "UNBLOCKED" %}
+            <article class="pt-3 pb-1 tri-right user-card">
+                <div class="d-flex flex-row">
 
-                                <div class="mask-2 mr-3">
-                                    <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar-2 rounded-circle">
-                                </div>
+                    <div class="mask-2 mr-3">
+                        <img src="{{ asset(picture_upload_path ~ (user.avatar ?: 'marvel.jpg')) }}" class="profil-avatar-2 rounded-circle">
+                    </div>
 
-                                <div class="d-flex flex-column">
+                    <div class="d-flex flex-column">
 
-                                    <h5 class="font-weight-bold mr-3">
-                                        {{ user.username }}
-                                    </h5>
+                        <h5 class="font-weight-bold mr-3">
+                            {{ user.username }}
+                        </h5>
 
-                                    <p>
-                                        {% for job in user.jobs %}
-                                            {{ job.name }}
-                                        {% endfor %}
-                                    </p>
+                        <p>
+                            {% for job in user.jobs %}
+                                {{ job.name }}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
 
-                                </div>
+                <div>
 
-                        </div>
+                    <div class="d-flex justify-content-start mt-3">
+                        {% for tag in user.tags %}
+                            <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill badge-info mb-2 mr-1">
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
 
-                        <div class="">
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ path('user_show', {'slug': user.slug }) }}" class="btn btn-elegant">Voir le profil</a>
+                    </div>
+                </div>
 
-                            <div class="d-flex justify-content-start mt-3">
-                                {% for tag in user.tags %}
-                                    <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill badge-light border border-dark text-dark font-weight-bold p-2 mb-2 mr-2">
-                                        {{ tag.name }}
-                                    </a>
-                                {% endfor %}
-                            </div>
+            </article>
 
-                            <div class="d-flex justify-content-end">
-                                <a href="{{ path('user_show', {'slug': user.slug }) }}" class="btn btn-elegant">Voir le profil</a>
-                            </div>
-                        </div>
-
-                    </article>
-                    
-                {% endif %}
+        {% endif %}
 
     {% endfor %}
 </section>
@@ -75,7 +81,7 @@
             {{ render(controller(
             'App\\Controller\\UserController::userSearchForm'
         )) }}
-        <a href="{{path('user_list')}}">Voir tous les utilisateurs</a>
+            <a href="{{path('user_list')}}">Voir tous les utilisateurs</a>
         </div>
     </section>
 {% endblock %}

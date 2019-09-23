@@ -4,7 +4,16 @@
 {% endblock %}
 
 {% block content %}
+<style>
+        .content {
+            margin: 1em 10em;
+            width: 55%;
 
+        }
+</style>
+<section class="section-post">
+
+    <h1 class="text-center">Découvrez nos derniers articles !</h1>    
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicelistPosts %}
@@ -15,9 +24,9 @@
                 <div
                     class="d-flex">
 
-                    <div class="container1">
+                    <div class="container1 mr-2">
                     {# Picture 1 de préférence #}
-                    <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advice_post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+                    <img src="{{ asset(picture_upload_path ~ (advice_post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie" style="max-width:100%"  alt="image d'article">
                     </div>
 
                     <div class="">
@@ -45,7 +54,12 @@
 
         {% endif %}
     {% endfor %}
-    {{ knp_pagination_render(advicelistPosts) }}
+    <div class="d-flex justify-content-center">
+        {{ knp_pagination_render(advicelistPosts) }}
+    </div>
+</section>
+
 {% endblock %}
+
 {% block javascripts %}
 {% endblock %}

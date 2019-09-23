@@ -4,7 +4,17 @@
 
 {% block content %}
 
-<h1>Conditions générales d'utilisation</h1>
+<style>
+        .content {
+            margin: 1em 10em;
+            width: 55%;
+
+        }
+</style>
+
+<section class="section-post">
+
+    <h1 class="text-center font-weight-bold">Conditions générales d'utilisation</h1>
 
 
 
@@ -94,6 +104,9 @@
         <h2>Droit applicable</h2>
             <p>Tant le présent site que les modalités et conditions de son utilisation sont régis par le droit français, quel que soit le lieu d’utilisation. En cas de contestation éventuelle, et après l’échec de toute tentative de recherche d’une solution amiable, les tribunaux français seront seuls compétents pour connaître de ce litige.</p>
     </div>
+</section>
+
+    <a class="text-dark text-center" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
 
 
 {% endblock %}

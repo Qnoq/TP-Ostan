@@ -4,9 +4,19 @@
 
 {% block content %}
 
+<style>
+        .content {
+            margin: 1em 10em;
+            width: 55%;
+
+        }
+</style>
+
+<section class="section-post">
+
     <article class="ml-5 my-5 pt-3 px-3 border border-dark animated slideInUp">
 
-        <div class="title-card border border-dark text-center py-2 mx-5">
+        <div class="title-card border border-dark text-center py-2">
             <h2 class="font-weight-bold">{{ advicePost.title }}</h2>
         </div>
 
@@ -49,8 +59,10 @@
         </div>
 
     </article>
+</section>
 
     <a class="text-dark text-center" href="{{ path('advice_post')}}">Revenir à l'accueil</a>
+
 
 {% endblock %}
 {% block javascripts %}
