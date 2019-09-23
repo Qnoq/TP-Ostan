@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse mail.")
+ * @UniqueEntity(fields={"username"}, message="Ce pseudo existe déjà.") 
  */
 class User implements UserInterface, \Serializable, EquatableInterface
 {
