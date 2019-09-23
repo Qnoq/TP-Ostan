@@ -4,8 +4,16 @@
 {% endblock %}
 
 {% block content %}
+<style>
+        .content {
+            margin: 1em 10em;
+            width: 55%;
 
-<h1 class="text-center">Découvrez nos derniers articles !</h1>    
+        }
+</style>
+<section class="section-post">
+
+    <h1 class="text-center">Découvrez nos derniers articles !</h1>    
 
     {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
     {% for advice_post in advicelistPosts %}
@@ -47,6 +55,9 @@
         {% endif %}
     {% endfor %}
     {{ knp_pagination_render(advicelistPosts) }}
+</section>
+
 {% endblock %}
+
 {% block javascripts %}
 {% endblock %}
