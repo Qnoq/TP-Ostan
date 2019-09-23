@@ -122,7 +122,7 @@
 
             <h3 class="text-center font-weight-bold">Les utilisateurs bloqués</h3>
 
-            <div>
+            <div class="table-responsive">
                 <table class="table table-striped userTable">
 
                     <thead class="position-sticky text-uppercase">
@@ -165,7 +165,7 @@
                                         {{job.name}}
                                     {% endfor %}
                                 </td>
-                                <td>
+                                <td >
                                     <div class="form-group">
                                         {# onchange : premier paramètre 'this' renvoie l'élément html où il se trouve, donc Select dans notre cas #}
                                         {# le deuxième paramètre est généré par twig c'est l'id du user #}
@@ -177,7 +177,7 @@
                                         </select>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="d-flex">
                                     {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
                                     <button
                                         type="button" class="btn btn-warning" onclick="handleStatusButtonUser(this,{{user.id}},{{user.status.code == 'BLOCKED' ? " 'UNBLOCKED' " : " 'BLOCKED' "}})">
