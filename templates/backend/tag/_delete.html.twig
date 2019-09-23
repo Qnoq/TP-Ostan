@@ -1,6 +1,4 @@
 
-<hr>
-
 <form method="post" action="{{ path('backend_tag_delete', {'slug': tag.slug}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce tag ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">

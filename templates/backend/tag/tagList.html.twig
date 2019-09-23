@@ -6,16 +6,20 @@
 
 {% block content %}
 
-<style>
+<h1 class="text-center font-weight-bold">Les tags</h1>
+
+<div class="d-flex justify-content-center">
+    <a type="button" href="{{path ('backend_tag_new')}}" class="btn btn-success text-uppercase font-weight-bold mt-3" role="button"><i class="fas fa-plus"></i> Ajouter un tag</a>
+</div>
+
+<div class="content content_backend">
+
+    <style>
     .content {
         margin: 1em auto;
         width: 80%;
     }
-</style>
-
-<div class="content content_backend">
-
-    <h1 class="text-center font-weight-bold">Les tags</h1>
+    </style>
 
     <table class="table table-striped w-60 mx-auto">
         <thead class="text-uppercase">
@@ -44,6 +48,6 @@
     </table>
 </div>
 
-    <a href="{{path ('backend_tag_new')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter un tag</a>
+    
 
 {% endblock %}

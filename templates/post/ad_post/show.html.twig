@@ -6,8 +6,18 @@
 
 {% block content %}
 
-    <article class="ad_show_article">
-        <div class="title-card">
+<style>
+        .content {
+            margin: 1em 10em;
+            width: 55%;
+
+        }
+</style>
+
+<section class="section-post">
+
+    <article class="ml-5 my-5 pt-3 px-3 border border-dark animated slideInUp">
+        <div class="title-card border border-dark text-center py-2">
             <h2 class="font-weight-bold">{{ post.title }}</h2>
         </div>
         {# Pour les paramètres de onclick, si le status du post est == a BLOCKED alors le param = UNBLOCKED #}
@@ -109,7 +119,10 @@
         </div>
     </div>
     {{ form_end(formComment) }}
-    <a class="text-dark text-center" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
+    
+</section>
+
+<a class="text-dark text-center" href="{{ path('ad_post')}}">Revenir à la liste des annonces</a>
 
 {% endblock %}
 {% block javascripts %}
