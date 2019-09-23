@@ -166,9 +166,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($user);
-            die;
-
             if(!is_null($user->getAvatar())){
                 $file = $user->getAvatar();
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
