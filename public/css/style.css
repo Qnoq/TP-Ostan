@@ -351,7 +351,6 @@ footer {
 
 .profil-presentation {
   margin: 20px auto;
-  width: 50%;
   margin: 32px auto;
   padding-top: 10px;
 }
@@ -646,6 +645,17 @@ ul {
   display: inline-block;
   align-self: center;
 }
+.containerGallery{
+  width: 200px;
+  display: inline-block;
+  align-self: center;
+  
+}
+.gallery-img{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 
 .img-advicepost{
@@ -656,6 +666,7 @@ ul {
   height: 320px;
   box-shadow: 0 0 8px #00000087;
   margin-top:10px;
+  margin-right: 5px;
 }
 .modal-cont,
 #caption {
