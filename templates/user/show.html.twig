@@ -54,9 +54,9 @@
 
                     <p class="mx-5">{{ user.description }}</p>
                     {% for tag in user.tags %}
-                        <div class="badge badge-pill badge-primary mb-2">
+                        <a href="{{ path('tag_show', {'slug': tag.slug }) }}" class="badge badge-pill badge-primary mb-2">
                             {{ tag.name }}
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
 

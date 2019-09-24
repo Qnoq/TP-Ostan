@@ -666,6 +666,7 @@ ul {
   height: 320px;
   box-shadow: 0 0 8px #00000087;
   margin-top:10px;
+  margin-right: 5px;
 }
 .modal-cont,
 #caption {
