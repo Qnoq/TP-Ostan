@@ -89,7 +89,7 @@
                     <div class="card-body">
                         
                         <p class="card-text">
-                            {{comment.description}}
+                            {{comment.description|striptags|raw}}
                         </p>
 
                         <p class="d-flex justify-content-end mr-2 font-italic">

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Repository\TagRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -66,7 +67,21 @@ class ModifyUserType extends AbstractType
             ->add('email')
             ->add('address')
             ->add('phonenumber')
-            ->add('jobs');
+            ->add('jobs')
+
+            ->add('tags', null, [
+                'attr' => [
+                    'class'=>'select-tags'
+                ],
+                'label_attr'=>[
+                    'class'=>'label_select-tags'
+                ],
+                'query_builder' => function (TagRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

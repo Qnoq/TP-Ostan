@@ -159,10 +159,12 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Accepter les conditions générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous devez accepter les conditions générales d\'utilisation pour continuer.',
+                        'message' => 'Vous devez accepter les_conditions générales d\'utilisation pour continuer.',
                     ]),
                 ],
-            ]);           
+            ]);    
+            
+            
 
     }
 
