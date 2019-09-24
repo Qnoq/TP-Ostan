@@ -68,7 +68,11 @@ class UserType extends AbstractType
                 'class' => Job::class,
                 'multiple' => true,
                 'expanded' => true,
-            ]);
+            ])
+            
+            ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
