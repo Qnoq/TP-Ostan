@@ -4,62 +4,67 @@
 {% endblock %}
 
 {% block content %}
-<style>
-        .content {
-            margin: 1em 10em;
-            width: 55%;
-
+    <style>
+        .postGrid {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         }
-</style>
-<section class="section-post">
+        .imgWrapper {
+            width: 100%;
+            max-width: 100% !important;
+            height: 150px;
+            overflow: hidden;
+        }
+        .imgWrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    <h1 class="text-center">Découvrez nos derniers articles !</h1>    
+    </style>
+    <section class="section-post">
 
-    {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
-    {% for advice_post in advicelistPosts %}
-        {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
-        {% if advice_post.type == "Article" %}
-            <article class="animated slideInUp">
-                <h2 class="title-card">{{ advice_post.title }}</h2>
-                <div
-                    class="d-flex">
+        <h1 class="text-center">Découvrez nos derniers articles !</h1>
 
-                    <div class="container1 mr-2">
-                    {# Picture 1 de préférence #}
-                    <img src="{{ asset(picture_upload_path ~ (advice_post.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie" style="max-width:100%"  alt="image d'article">
-                    </div>
+        <div class="postGrid">
+            {# Boucle pour afficher la liste des articles de conseils qui sont en BDD #}
+            {% for advice_post in advicelistPosts %}
+                {# Le if vérifie qu'il s'agit bien d'article à afficher uniquement #}
+                {% if advice_post.type == "Article" %}
 
-                    <div class="">
-                        <div>
-                            <p>
-                                {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
-                                {{ advice_post.description|truncate(200, true)|raw }}
-                            </p>
+                    <div class="card">
+                        <!-- Card image -->
+                        <div class="imgWrapper">
+                            <img class="card-img-top" src="{{ asset(picture_upload_path ~ (advice_post.picture1 ?: 'marvel.jpg')) }}" alt="Card image cap">
                         </div>
 
-                        <div>
-                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-light">
-                                Lire la suite
-                            </a>
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h4 class="card-title">
+                                <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}">{{ advice_post.title }}</a>
+                            </h4>
+                            <!-- Text -->
+                            <p class="card-text">{{ advice_post.description|truncate(200, true)|preg_replace('/<.*>/', '') }}</p>
+                            <!-- Button -->
+                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-primary">Lire la suite</a>
+                        </div>
+
+                        <div class="card-footer text-muted text-center">
+                            Publié le
+                            {{ advice_post.createdAt | date('d/m/Y à H:i') }}
                         </div>
                     </div>
-                </div>
-
-                <div class="date_post">
-                    <span>Publié le
-                        {{ advice_post.createdAt | date('d/m/Y à H:i') }}</span>
-                </div>
-
-            </article>
-
-        {% endif %}
-    {% endfor %}
-    <div class="d-flex justify-content-center">
-        {{ knp_pagination_render(advicelistPosts) }}
-    </div>
-</section>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(advicelistPosts) }}
+        </div>
+    </section>
 
 {% endblock %}
 
-{% block javascripts %}
-{% endblock %}
+{% block javascripts %}{% endblock %}
