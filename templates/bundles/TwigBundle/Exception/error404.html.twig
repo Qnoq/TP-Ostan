@@ -1,15 +1,25 @@
-{% extends 'base.html.twig' %}
-
 {% block title %}Erreur 404{% endblock %}
 
 {% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Erreur 404</title>
+</head>
+<body class="page404 text-white d-flex flex-direction-column justify-content-center">
+    <div>
+        <h1 class="mb-5">Oups ...</h1>
 
-    <div class="page404">
-        <h1>Oups ...</h1>
+        <p>Il semblerait que la page demandée ne soit pas disponible ou qu'elle n'existe pas.</p>
 
-        <p>Il semblerait que la page demandée ne soit pas disponible.</p>
-
-        <p>Vous êtes perdu ? Venez, nous allons vous raccompagner à la <a href=" {{ path('advice_post')}}"> page d'accueil</a>
+        <p>Vous êtes perdu ? Venez, nous allons vous raccompagner à la <a class="text-primary font-weight-bold" href=" {{ path('advice_post')}}"> page d'accueil</a>
     </div>
+</body>
+</html>
+
+    
 
 {% endblock %}
