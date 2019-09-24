@@ -4,15 +4,16 @@ namespace App\Form;
 
 use App\Entity\Job;
 use App\Entity\Tag;
-
 use App\Entity\User;
 use App\Form\JobType;
-use phpDocumentor\Reflection\DocBlock\Description;
+
+use App\Repository\TagRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use phpDocumentor\Reflection\DocBlock\Description;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -138,6 +139,10 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 'attr' => ['class' => 'custom-control custom-checkbox'],
                 'label_attr' => array('class' => 'pure-material-checkbox'),
+                'query_builder' => function (TagRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
             ])
             ->add('siret', NumberType::class,[
                 'label' => false,

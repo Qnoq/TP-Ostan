@@ -63,6 +63,10 @@ class MessageType extends AbstractType
                     'class'=> User::class,
                     'expanded' =>false,
                     'multiple' =>false,
+                    'query_builder' => function (UserRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->orderBy('u.username', 'ASC');
+                    },
                     
                 ])
                 
