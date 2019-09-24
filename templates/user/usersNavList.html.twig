@@ -2,15 +2,15 @@
     {# Boucle pour afficher dans la sidebar les 5 derniers utilisateurs inscrits sur le site dans la side  #}
     {% for user in users|slice(0,5) %}
 
-        <article class="mx-3 my-2">
+        <div class="userCard ml-4 mr-4 pt-1 pb-1">
 
             {# Si je suis authentifié, j'accède au profil de l'utilisateur lorsque je clique sur un utilisateur de la sidebar #}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('user_show', {'slug': user.slug }) }}" class="d-flex flex-row pb-2">
+            <a href="{{ path('user_show', {'slug': user.slug }) }}" class="d-flex flex-row ">
 
             {# Sinon je suis dirigé vers le formulaire de connexion #}
             {% else %}
-            <a href="{{ path('app_login') }}" class="d-flex flex-row pb-2">
+            <a href="{{ path('app_login') }}" class="d-flex flex-row">
 
             {% endif %}
 
@@ -34,7 +34,7 @@
 
             </a>
 
-        </article>
+        </div>
 
     {% endfor %}
 </ul>

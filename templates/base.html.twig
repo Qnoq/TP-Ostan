@@ -33,22 +33,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a  href="{{path('advice_post')}}">Accueil</a>
+                            <a class="nav-link-jumbotron" href="{{path('advice_post')}}">Accueil</a>
                         </li>
                         <li class="nav-item">                
-                            <a href="{{path('concept')}}">Le concept</a>
+                            <a class="nav-link-jumbotron" href="{{path('concept')}}">Le concept</a>
                         </li>
                         {# Si je suis authentifié #}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="nav-item">
-                                <a href="{{path('ad_post')}}">Annonces</a>
+                                <a class="nav-link-jumbotron" href="{{path('ad_post')}}">Annonces</a>
                             </li>
                             <li class="nav-item">
-                                <a  href="{{path('user_list')}}">La communauté</a>
+                                <a class="nav-link-jumbotron" href="{{path('user_list')}}">La communauté</a>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a  href="{{path('contact')}}">Nous contacter</a>
+                            <a class="nav-link-jumbotron" href="{{path('contact')}}">Nous contacter</a>
                         </li>
                     </ul>
                 </div>
@@ -59,7 +59,7 @@
                     <img class='logo' src="{{asset('images/logo.svg')}}" alt="logo du site">
                 </a>
                 <h2 class="title_home">Bienvenue sur O'Stan !</h2>
-            <p class="presentation">Lorem ipsum ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur tempore atque quaerat ab? Ad aliquid minima laudantium sed! Velit eos suscipit earum iure provident, illum necessitatibus sequi quam vel modi eveniet libero ab sapiente eum at magni ratione ipsa perspiciatis.</p>
+            <p class="presentation">Le site de rencontre entre éditeurs, illustrateurs et auteurs passionnés qui souhaitent collaborer ensemble autour d'un nouveau projet ! </p>
                 <div
                     class='nav-connexion'>
                     {# Si je suis authentifié #}
@@ -84,6 +84,12 @@
             <div class="body">
                 {% block sidebar %}
                     <div class="d-none d-lg-block sidebar">
+
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-link btn-social"><i class="fab fa-twitter"></i></button>
+                            <button type="button" class="btn btn-link btn-social"><i class="fab fa-facebook"></i></button>
+                            <button type="button" class="btn btn-link btn-social"><i class="fab fa-instagram"></i></button>
+                        </div>
 
                         <div>
                             <h4 class="title-sidebar">Les dernières annonces</h4>
