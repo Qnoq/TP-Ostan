@@ -35,7 +35,7 @@
                         </div>
                         <div>
                             <div>
-                                <p>{{ post.description|truncate(200, true)|raw }}</p>
+                                <p>{{ post.description|striptags|truncate(300, true)|raw }}</p>
                             </div>
                             <div class="date_post">
 

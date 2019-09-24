@@ -31,7 +31,6 @@ class PostRepository extends ServiceEntityRepository
             ORDER BY p.createdAt DESC
         ");
         
-
         return $query->getResult(); 
     }
 
@@ -45,14 +44,13 @@ class PostRepository extends ServiceEntityRepository
         ");
 
         return $query->getResult(); 
-    }
+    }    
 
     /**
      * @return Post[] Returns an array of Post objects
      */
     public function searchAdList($jobs)
     {
-        
         return $this->createQueryBuilder('p')
         ->join('p.user', 'u')
         ->where(':jobs MEMBER OF u.jobs')
@@ -60,7 +58,6 @@ class PostRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult()
         ;
-
     }
 
     
