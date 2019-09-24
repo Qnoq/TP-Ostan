@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Tag;
+use App\Repository\TagRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,10 @@ class TagType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Titre du tag'
                 ],
+                'query_builder' => function (TagRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
             ])
             // ->add('ads')
             // ->add('users')

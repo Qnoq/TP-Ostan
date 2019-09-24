@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Job;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Repository\TagRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,6 +29,10 @@ class UserSearchType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'query_builder' => function (TagRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
             ])
             ->add('Rechercher', SubmitType::class);
     }

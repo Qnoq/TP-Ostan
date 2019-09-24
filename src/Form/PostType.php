@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Repository\TagRepository;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\HttpFoundation\File\File;
@@ -70,7 +71,11 @@ class PostType extends AbstractType
                 ],
                 'label_attr'=>[
                     'class'=>'label_select-tags'
-                ]
+                ],
+                'query_builder' => function (TagRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
             ])
            
         ;
