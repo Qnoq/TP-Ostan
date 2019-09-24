@@ -57,7 +57,7 @@ class PostController extends AbstractController
         $listPosts = $paginator->paginate(
             $posts, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
+            6 // Nombre de résultats par page
         );
     
         $tags = $tagRepository->findAll();
