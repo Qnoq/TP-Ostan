@@ -29,6 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -38,7 +39,7 @@ class RegistrationFormType extends AbstractType
             ->add('avatar', FileType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Avatar'
+                    'placeholder' => 'Avatar *'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -50,32 +51,34 @@ class RegistrationFormType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Prénom'
+                    'placeholder' => 'Prénom *'
                 ],
             ])
             ->add('lastname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nom'
+                    'placeholder' => 'Nom *'
                 ],
             ])
             ->add('username', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Pseudo'
+                    'placeholder' => 'Pseudo *'
                 ],
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Description'
+                    'placeholder' => 'Description *',
+                    'cols' => '50', 
+                    'rows' => '5'
                 ],
             ])
 
             ->add('birthdate', BirthdayType::class, [
                 'years' => range(1940,2019),
                 'widget' => 'choice',
-                'label' => 'Date de naissance:',
+                'label' => 'Date de naissance: *',
             ])
             ->add('phonenumber', TelType::class, [
                 'label' => false,
@@ -86,7 +89,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Email'
+                    'placeholder' => 'Email *'
                 ],
             ])
 
@@ -98,13 +101,13 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Mot de passe'
+                        'placeholder' => 'Mot de passe *'
                     ]
                 ],
                 'second_options' => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Vérifier le mot de passe'
+                        'placeholder' => 'Vérifier le mot de passe *'
                     ]
                 ],
                 'attr' => [
@@ -139,12 +142,12 @@ class RegistrationFormType extends AbstractType
             ->add('siret', NumberType::class,[
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Siret'
+                    'placeholder' => 'Siret *'
                 ],])
                 ->add('companyname', TextType::class,[
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Nom de l\'entreprise'
+                        'placeholder' => 'Nom de l\'entreprise *'
                     ],])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

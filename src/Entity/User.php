@@ -12,12 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse mail.")
+ * @UniqueEntity(fields={"username"}, message="Ce pseudo existe déjà.") 
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, EquatableInterface
 {
     /**
      * @ORM\Id()
@@ -113,7 +115,7 @@ class User implements UserInterface, \Serializable
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", cascade={"persist","remove"})
      */
     private $messages;
 
@@ -152,7 +154,7 @@ class User implements UserInterface, \Serializable
     private $galleryPosts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="userReceiver")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="userReceiver", cascade={"persist","remove"})
      */
     private $messagesReceived;
 
@@ -206,14 +208,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-        return null;
-    }
+
 
     /**
      * @see UserInterface
@@ -630,6 +625,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
+    }
 
     /** @see \Serializable::serialize() */
     public function serialize()
@@ -653,6 +656,19 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        if ($this->password !== $user->getPassword()) {
+            return false;
+        }
+
+        if ($this->username !== $user->getUsername()) {
+            return false;
+        }
+
+        return true;
     }
 
 

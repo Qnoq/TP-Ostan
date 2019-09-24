@@ -4,47 +4,40 @@
 
 {% block content %}
 
-<style>
-        .content {
-            margin: 1em 10em;
-            width: 55%;
-
-        }
-</style>
 
 <section class="section-post">
 
-    <article class="ml-5 my-5 pt-3 px-3 border border-dark animated slideInUp">
+    <article class="animated slideInUp">
 
         <div class="title-card border border-dark text-center py-2">
-            <h2 class="font-weight-bold">{{ advicePost.title }}</h2>
+            <h5>{{ advicePost.title }}</h5>
         </div>
 
-        <div class="">
-            <div>
-                <p class="mt-5 px-3">
+        
+            <div class="advicePost-content">
+                <p>
                         {# truncate permet de réduire la taille du contenu du contenu de l'article et ajouter "..." après #}
                         {{ advicePost.description|raw }}
                 </p>
             </div>
-        </div>
+        
 
         <div class ="my-5 d-flex flex-wrap justify-content-around">
             {# Exemple emplacement des images #}
 
             {# Picture 1 #}
             <div class="container1">
-            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            <img class="img-advicepost" src="{{ asset(picture_upload_path ~ (advicePost.picture1 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
             </div>
 
             {# Picture 2 #}
             <div class="container1">
-            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            <img class="img-advicepost" src="{{ asset(picture_upload_path ~ (advicePost.picture2 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
             </div>
 
             {# Picture 3 #}
             <div class="container1">
-            <img class="mr-3 mb-3" src="{{ asset(picture_upload_path ~ (advicePost.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
+            <img class="img-advicepost" src="{{ asset(picture_upload_path ~ (advicePost.picture3 ?: 'marvel.jpg')) }}" class="img-fluid image-galerie modal-hover-opacity" style="max-width:100%;cursor:pointer" onclick="onClick(this)" alt="">
             </div> 
         </div>
         <div id="modal01" class="modal" onclick="this.style.display='none'">
