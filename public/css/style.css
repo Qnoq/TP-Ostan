@@ -594,6 +594,10 @@ ul {
   text-align: center;
   height: 800px;
 }
+.page404-text{
+  position: absolute;
+    bottom: 200px;
+}
 
 /********* GALERIE *********************/
 
