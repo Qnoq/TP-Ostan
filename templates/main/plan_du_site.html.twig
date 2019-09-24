@@ -54,7 +54,7 @@
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                    <li><a href="{{path ('user_show', {'id': app.user.id }) }}">_ Mon profil</a></li>
+                    <li><a href="{{path ('user_show', {'slug': app.user.slug }) }}">_ Mon profil</a></li>
                     <li><a href="{{path ('ad_post') }}">_ Liste des annonces</a></li>
                     <li><a href="{{path ('user_list') }}">_ Liste des utilisateurs</a></li>
                         <ul>
