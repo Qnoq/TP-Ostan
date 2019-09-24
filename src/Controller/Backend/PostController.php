@@ -47,12 +47,8 @@ class PostController extends AbstractController
         }else {
             
             // Classés par date de création, du plus récent au plus ancien
-            $postsearch = $postRepository->findAllAdPost();
-            
-        }
-
-        dump($formSearchPost->getData());
-        
+            $postsearch = $postRepository->findAllAdPost();            
+        }        
 
         // PAGINATION //
         
@@ -203,18 +199,11 @@ class PostController extends AbstractController
                 'Votre article a bien été enregistré !'
             );
 
-            
-         
-
             return $this->redirectToRoute('backend_advicePostList');
         }
-
-         
         return $this->render('backend/post/advicePostNew.html.twig', [
             'form' => $form->createView(),
         ]);
-
-       
     }
 
 
