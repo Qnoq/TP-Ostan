@@ -38,10 +38,11 @@ class PostController extends AbstractController
         $formSearchPost->handleRequest($request);
         if ($formSearchPost->isSubmitted() && $formSearchPost->isValid()) {
             //dd($request);
-            $formName= $formSearchPost->getName();
-            $criterias = $request->request->get($formName);
+            // $formName= $formSearchPost->getName();
+            // $criterias = $request->request->get($formName);
+            $jobs = $formSearchPost->getData()['jobs'];
 
-            $postsearch = $postRepository->searchAdList($criterias);
+            $postsearch = $postRepository->searchAdList($jobs);
             //dd($criterias['users']);
         }else {
             
@@ -71,7 +72,6 @@ class PostController extends AbstractController
      
         ]);
     }
-
 
     public function postSearchForm(Request $request, PostRepository $postRepository){
 

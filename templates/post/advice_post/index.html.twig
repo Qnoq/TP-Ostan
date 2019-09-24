@@ -45,11 +45,9 @@
                             <!-- Title -->
                             <h4 class="card-title">
                                 <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}">{{ advice_post.title }}</a>
-                            </h4>
-                            <!-- Text -->
-                            <p class="card-text">{{ advice_post.description|truncate(200, true)|preg_replace('/<.*>/', '') }}</p>
+                            </h4>                            
                             <!-- Button -->
-                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-primary">Lire la suite</a>
+                            <a href="{{ path('advice_post_show', {'slug': advice_post.slug }) }}" class="btn btn-primary">Lire l'article</a>
                         </div>
 
                         <div class="card-footer text-muted text-center">

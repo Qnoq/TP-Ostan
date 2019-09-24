@@ -45,40 +45,21 @@ class PostRepository extends ServiceEntityRepository
         ");
 
         return $query->getResult(); 
-    }
+    }    
 
     /**
      * @return Post[] Returns an array of Post objects
      */
-    public function searchAdList($name)
+    public function searchAdList($jobs)
     {
-        //     $query = $this->getEntityManager()
-        //     ->createQuery("
-        //     SELECT p 
-        //     FROM App\Entity\Post p
-        //     LEFT JOIN App\Entity\Job j 
-        //     WHERE j.name = :val
-        //     SET PARAMETER 'val'= $name
-        //     ORDER BY p.createdAt DESC   
-        // ");
-        // return $query->getResult(); 
-            
-
-        // return $this->createQueryBuilder('p')
-        // ->innerJoin('j')
-        // ->andWhere('j.name = :val')
-        // ->setParameter('val', $name)
-        // ->orderBy('p.createdAt', 'DESC')
-        // ->getQuery()
-        // ->getResult();
-
-        $query = $this->getEntityManager()
-                      ->createQuery("
-                SELECT p
-                FROM App\Entity\Post p 
-                JOIN App\Entity\Job j 
-                ");
-        return $query->getResult(); 
+        
+        return $this->createQueryBuilder('p')
+        ->join('p.user', 'u')
+        ->where(':jobs MEMBER OF u.jobs')
+        ->setParameter('jobs', $jobs)
+        ->getQuery()
+        ->getResult()
+        ;
     }
 
     

@@ -7,24 +7,20 @@
 {% block content %}
 
 <style>
+.body_backend{
+    display:flex;
+}
     .content {
         margin: 1em auto;
         width: 80%;
     }
 </style>
-
 <div class="body_articles">
-
     <div class="content content_backend">
-
         <h1 class="text-center font-weight-bold">Les annonces</h1>
-
         {% for post in adListPost %}
-
             {% if post.status.code == "UNBLOCKED" %}
-
                 <article class="mb-3 p-3 border border-dark">
-
                     <h3 class="font-weight-bold">
                         {{post.title}}
                     </h3>
@@ -72,7 +68,7 @@
 {% endblock %}
 
 
-    {# {% block search %}
+    {% block search %}
 
         <div class="ml-3 mt-3 col-2">
         
@@ -82,7 +78,7 @@
         </div>
     </div>
 
-    {% endblock %} #}
+    {% endblock %}
 
 
 {% block javascripts %}
