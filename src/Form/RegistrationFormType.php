@@ -29,6 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -65,10 +66,12 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Pseudo *'
                 ],
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Description *'
+                    'placeholder' => 'Description *',
+                    'cols' => '50', 
+                    'rows' => '5'
                 ],
             ])
 
