@@ -19,10 +19,10 @@ class TagType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Titre du tag'
                 ],
-                'query_builder' => function (TagRepository $er) {
-                    return $er->createQueryBuilder('t')
-                        ->orderBy('t.name', 'ASC');
-                },
+                // 'query_builder' => function (TagRepository $er) {
+                //     return $er->createQueryBuilder('t')
+                //         ->orderBy('t.name', 'ASC');
+                // },
             ])
             // ->add('ads')
             // ->add('users')
