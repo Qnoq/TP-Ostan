@@ -75,7 +75,7 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Tag modifié.');
-            return $this->redirectToRoute('backend_tag_edit', ['slug' => $tag->getSlug()]);
+            return $this->redirectToRoute('backend_tagList');
         }
         
         return $this->render('backend/tag/edit.html.twig', [
