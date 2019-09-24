@@ -19,34 +19,25 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    // /**
-    //  * @return Message[] Returns an array of Message objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    //affichage des messages sur page accueil messagerie
+    public function findByTitleGroup($user)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('m');
+        // $qb->andWhere('m.user = :currentUser')
+        //     ->andWhere('m.userReceiver = :currentUser');
 
-    /*
-    public function findOneBySomeField($value): ?Message
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        $qb->where($qb->expr()->orX(
+                $qb->expr()->eq('m.user', ':currentUser'),
+                $qb->expr()->eq('m.userReceiver', ':currentUser')
+            ))
+            ->setParameter('currentUser', $user)
+            ->groupBy('m.title')
+            ->orderBy('m.createdAt', 'DESC')
         ;
+
+        return $qb->getQuery()->getResult();
     }
-    */
+
 
     public function findByTitle($title)
     {
