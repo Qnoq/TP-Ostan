@@ -15,12 +15,20 @@ class MessageController extends AbstractController
     /**
      * @Route("/message", name="message")
      */
-    public function index(MessageRepository $messageRepository)
+    public function index(MessageRepository $messageRepository, Request $request)
     {
-        $messages = $messageRepository->findAll();
+
+         // récupérer l'utilisateur actuel
+         $user = $this->getUser();
+        
+         // afficher les messages
+        $messages = $messageRepository->findByTitleGroup($user);
+        
 
         return $this->render('message/index.html.twig', [
-            'messages' => $messages
+            'messages' => $messages, 
+             
+            
         ]);
     }
 

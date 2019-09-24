@@ -17,6 +17,7 @@
         <div>
             <div class="msg">
 
+
                 {% for message in messages %}
 
                     {% if message.user == app.user %}
@@ -24,8 +25,14 @@
                             <div class="message-content">
                                 <a href="{{ path ('showmessage', {'title': message.title }) }}">
                                     <div>
+
+                                        
                                         <p class="title-message">{{message.title}}</p>
+                                        
                                         <p class="content-message">{{message.content|truncate(100, true)}}</p>
+                                        
+
+
                                     </div>
                                 </a>
                                 <p class="message-author">Message envoyé le
