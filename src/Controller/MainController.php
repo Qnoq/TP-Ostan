@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Message;
 use App\Entity\User;
+use App\Entity\Contact;
+use App\Entity\Message;
 use App\Form\ContactType;
+use App\Notification\ContactNotification;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 
 
 
@@ -28,19 +30,16 @@ class MainController extends AbstractController
       /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request)
+    public function contact(Request $request, ContactNotification $notification)
     {
-        $message = new Message();
+        $contact = new Contact();
 
-            $form = $this->createForm(ContactType::class, $message);
+            $form = $this->createForm(ContactType::class, $contact);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($message);
-                $entityManager->flush();
+                $notification->notify($contact);
                 return $this->redirectToRoute('advice_post');
             }
 

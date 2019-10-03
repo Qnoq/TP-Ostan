@@ -1,5 +1,28 @@
-{% extends 'base.html.twig' %}
+{% block content %}
+<table id="horizontalScroll" class="table table-striped userTable">
 
-{% block title %}{% endblock %}
+            <thead class="position-sticky text-uppercase">
 
+                <tr>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Message</th>
+                </tr>
 
+            </thead>
+
+            <tbody>
+                    <tr>
+                        <td>{{contact.firstname}}</td>
+                        <td>{{contact.lastname}}</td>
+                        <td>{{contact.phone}}</td>
+                        <td>{{contact.email}}</td>
+                        <td>{{contact.message}}</td>
+                        
+
+            </tbody>
+
+        </table>
+{% endblock %}
